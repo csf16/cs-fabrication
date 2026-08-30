@@ -38,6 +38,9 @@ export const App: React.FC = () => {
     setIsEnquiryOpen(true);
   };
 
+  // On localhost, default root directly to full HomePage for development; on production, show ComingSoonPage
+  const isDev = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+
   return (
     <BrowserRouter>
       <ScrollToTop />
@@ -46,8 +49,24 @@ export const App: React.FC = () => {
         {/* Multi-Page Routes */}
         <main className="flex-grow w-full">
           <Routes>
-            {/* Live Coming Soon Splash on Root */}
-            <Route path="/" element={<ComingSoonPage onEnquireClick={triggerEnquiry} />} />
+            {/* Root Route: Full HomePage on localhost, Coming Soon on live production */}
+            <Route
+              path="/"
+              element={
+                isDev ? (
+                  <>
+                    <Navbar onEnquireClick={triggerEnquiry} />
+                    <HomePage onEnquireClick={triggerEnquiry} />
+                    <Footer onEnquireClick={triggerEnquiry} />
+                  </>
+                ) : (
+                  <ComingSoonPage onEnquireClick={triggerEnquiry} />
+                )
+              }
+            />
+
+            {/* /coming-soon route for testing coming soon page on localhost */}
+            <Route path="/coming-soon" element={<ComingSoonPage onEnquireClick={triggerEnquiry} />} />
             
             {/* Full Website Routes with Header and Footer */}
             <Route
