@@ -396,6 +396,22 @@ export const Hero3D: React.FC = () => {
     const camEndPos = v3(6.8, 4.4, 14.8);
     const camEndLook = v3(0, 1.45, 0);
 
+    // Responsive camera position: on mobile portrait (aspect < 1), pull back so NO edges are cut off!
+    const adjustCamera = () => {
+      const w = canvas.clientWidth || window.innerWidth;
+      const h = canvas.clientHeight || window.innerHeight;
+      const aspect = w / h;
+      camera.aspect = aspect;
+
+      const mobileScale = aspect < 1 ? Math.max(1, 0.90 / Math.max(0.38, aspect)) : 1;
+      camStartPos.set(1.7 * (aspect < 1 ? 0.35 : 1), 1.35 * (aspect < 1 ? 1.1 : 1), 6.0 * mobileScale);
+      camEndPos.set(6.8 * (aspect < 1 ? 0.65 : 1), 4.4 * (aspect < 1 ? 1.15 : 1), 14.8 * mobileScale);
+
+      camera.updateProjectionMatrix();
+    };
+
+    adjustCamera();
+
     camera.position.copy(camStartPos);
     camera.lookAt(camStartLook);
 
@@ -412,10 +428,11 @@ export const Hero3D: React.FC = () => {
       const delta = Math.min(1, (now - lastRenderTime) / 16.666);
       lastRenderTime = now;
       
-      const spring = clamp(0.26 * delta, 0.1, 0.8);
+      // Fast, smooth spring physics on mobile and desktop
+      const spring = clamp(0.38 * delta, 0.18, 0.95);
       currentScroll += (targetScroll - currentScroll) * spring;
 
-      if (now - lastStateDispatch > 60) {
+      if (now - lastStateDispatch > 50) {
         setScrollProgress(currentScroll);
         lastStateDispatch = now;
       }
@@ -478,8 +495,7 @@ export const Hero3D: React.FC = () => {
       const h = canvas.clientHeight;
       if (w > 0 && h > 0) {
         renderer.setSize(w, h, false);
-        camera.aspect = w / h;
-        camera.updateProjectionMatrix();
+        adjustCamera();
       }
     });
     resizeObserver.observe(canvas);
@@ -521,13 +537,13 @@ export const Hero3D: React.FC = () => {
     <div
       ref={containerRef}
       className="relative w-full"
-      style={{ height: '300vh' }}
+      style={{ height: '240vh' }}
     >
       <div className="sticky top-0 w-full overflow-hidden bg-[#F5F4EF]" style={{ height: '100svh' }}>
         
         <canvas
           ref={canvasRef}
-          className="absolute inset-0 w-full h-full block cursor-grab active:cursor-grabbing touch-none"
+          className="absolute inset-0 w-full h-full block pointer-events-none"
         />
 
         <div
