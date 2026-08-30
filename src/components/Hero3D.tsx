@@ -73,9 +73,9 @@ function makeSlottedCChannelGeometry(len: number): THREE.BufferGeometry {
   // 1. Back Web with real oval punch slots
   const webShape = new THREE.Shape();
   webShape.moveTo(-halfW, -halfL);
-  webShape.lineTo( halfW, -halfL);
-  webShape.lineTo( halfW,  halfL);
-  webShape.lineTo(-halfW,  halfL);
+  webShape.lineTo(halfW, -halfL);
+  webShape.lineTo(halfW, halfL);
+  webShape.lineTo(-halfW, halfL);
   webShape.lineTo(-halfW, -halfL);
 
   const slotPitch = 0.16;
@@ -108,10 +108,10 @@ function makeSlottedCChannelGeometry(len: number): THREE.BufferGeometry {
   // 2. Left Flange with Return Lip
   const leftShape = new THREE.Shape();
   leftShape.moveTo(-halfW, -CH / 2);
-  leftShape.lineTo(-halfW,  CH / 2);
+  leftShape.lineTo(-halfW, CH / 2);
   leftShape.lineTo(-halfW + LIP, CH / 2);
   leftShape.lineTo(-halfW + LIP, CH / 2 - LIP_DOWN);
-  leftShape.lineTo(-halfW + CT,  CH / 2 - LIP_DOWN);
+  leftShape.lineTo(-halfW + CT, CH / 2 - LIP_DOWN);
   leftShape.lineTo(-halfW + CT, -CH / 2 + CT);
   leftShape.lineTo(-halfW + CT, -CH / 2);
   leftShape.lineTo(-halfW, -CH / 2);
@@ -122,10 +122,10 @@ function makeSlottedCChannelGeometry(len: number): THREE.BufferGeometry {
   // 3. Right Flange with Return Lip
   const rightShape = new THREE.Shape();
   rightShape.moveTo(halfW, -CH / 2);
-  rightShape.lineTo(halfW,  CH / 2);
+  rightShape.lineTo(halfW, CH / 2);
   rightShape.lineTo(halfW - LIP, CH / 2);
   rightShape.lineTo(halfW - LIP, CH / 2 - LIP_DOWN);
-  rightShape.lineTo(halfW - CT,  CH / 2 - LIP_DOWN);
+  rightShape.lineTo(halfW - CT, CH / 2 - LIP_DOWN);
   rightShape.lineTo(halfW - CT, -CH / 2 + CT);
   rightShape.lineTo(halfW - CT, -CH / 2);
   rightShape.lineTo(halfW, -CH / 2);
@@ -176,10 +176,33 @@ interface Piece {
   ae: number;
 }
 
-export const Hero3D: React.FC = () => {
+interface Hero3DProps {
+  fixedViewport?: boolean;
+}
+
+export const Hero3D: React.FC<Hero3DProps> = ({ fixedViewport = false }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [scrollProgress, setScrollProgress] = useState(0);
+  const targetScrollRef = useRef(0);
+
+  const animateProgressTo = useCallback((targetP: number, duration = 1600) => {
+    const startP = targetScrollRef.current;
+    const distance = targetP - startP;
+    if (Math.abs(distance) < 0.01) return;
+    const startTime = performance.now();
+
+    const step = (now: number) => {
+      const elapsed = now - startTime;
+      const progress = Math.min(1, elapsed / duration);
+      const ease = progress < 0.5 ? 4 * progress * progress * progress : 1 - Math.pow(-2 * progress + 2, 3) / 2;
+      targetScrollRef.current = clamp(startP + distance * ease, 0, 1);
+      if (progress < 1) {
+        requestAnimationFrame(step);
+      }
+    };
+    requestAnimationFrame(step);
+  }, []);
 
   const smoothScrollTo = useCallback((targetY: number, duration = 2200) => {
     const startY = window.scrollY;
@@ -206,10 +229,14 @@ export const Hero3D: React.FC = () => {
   }, []);
 
   const handleScrub = useCallback((targetPercent: number, duration = 2200) => {
-    if (!containerRef.current) return;
-    const total = containerRef.current.offsetHeight - window.innerHeight;
-    smoothScrollTo(targetPercent * total, duration);
-  }, [smoothScrollTo]);
+    if (fixedViewport) {
+      animateProgressTo(targetPercent, 1600);
+    } else {
+      if (!containerRef.current) return;
+      const total = containerRef.current.offsetHeight - window.innerHeight;
+      smoothScrollTo(targetPercent * total, duration);
+    }
+  }, [fixedViewport, animateProgressTo, smoothScrollTo]);
 
   useEffect(() => {
     if (!canvasRef.current || !containerRef.current) return;
@@ -221,7 +248,7 @@ export const Hero3D: React.FC = () => {
       antialias: true,
       powerPreference: 'high-performance',
     });
-    
+
     renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.5));
     const width = canvas.clientWidth || window.innerWidth;
     const height = canvas.clientHeight || window.innerHeight;
@@ -234,7 +261,7 @@ export const Hero3D: React.FC = () => {
     const camera = new THREE.PerspectiveCamera(38, width / height, 0.1, 200);
 
     const matCapTexture = createGalvanizedMatCapTexture();
-    
+
     const steelMaterial = new THREE.MeshMatcapMaterial({
       matcap: matCapTexture,
       transparent: true,
@@ -246,42 +273,42 @@ export const Hero3D: React.FC = () => {
        PRECISION STRUCTURAL GEOMETRY (Solar Ground Mount Racking)
     ══════════════════════════════════════════════════════════════ */
     const GFL = v3(-2.8, 0, 1.5);
-    const GFR = v3( 2.8, 0, 1.5);
+    const GFR = v3(2.8, 0, 1.5);
     const GRL = v3(-2.8, 0, -1.5);
-    const GRR = v3( 2.8, 0, -1.5);
+    const GRR = v3(2.8, 0, -1.5);
 
-    const TFL = v3(-2.8, 1.50,  1.5);
-    const TFR = v3( 2.8, 1.50,  1.5);
+    const TFL = v3(-2.8, 1.50, 1.5);
+    const TFR = v3(2.8, 1.50, 1.5);
     const TRL = v3(-2.8, 2.70, -1.5);
-    const TRR = v3( 2.8, 2.70, -1.5);
+    const TRR = v3(2.8, 2.70, -1.5);
 
-    const RAFTER_L_START = v3(-2.8, 1.30,  2.0);
-    const RAFTER_L_END   = v3(-2.8, 2.90, -2.0);
+    const RAFTER_L_START = v3(-2.8, 1.30, 2.0);
+    const RAFTER_L_END = v3(-2.8, 2.90, -2.0);
 
-    const RAFTER_R_START = v3( 2.8, 1.30,  2.0);
-    const RAFTER_R_END   = v3( 2.8, 2.90, -2.0);
+    const RAFTER_R_START = v3(2.8, 1.30, 2.0);
+    const RAFTER_R_END = v3(2.8, 2.90, -2.0);
 
     const BRACE_FL_A = v3(-2.8, 0.65, 1.5);
     const BRACE_FL_B = v3(-2.8, 1.35, 1.88);
 
-    const BRACE_FR_A = v3( 2.8, 0.65, 1.5);
-    const BRACE_FR_B = v3( 2.8, 1.35, 1.88);
+    const BRACE_FR_A = v3(2.8, 0.65, 1.5);
+    const BRACE_FR_B = v3(2.8, 1.35, 1.88);
 
     const BRACE_RL_A = v3(-2.8, 1.30, -1.5);
     const BRACE_RL_B = v3(-2.8, 2.35, -0.65);
 
-    const BRACE_RR_A = v3( 2.8, 1.30, -1.5);
-    const BRACE_RR_B = v3( 2.8, 2.35, -0.65);
+    const BRACE_RR_A = v3(2.8, 1.30, -1.5);
+    const BRACE_RR_B = v3(2.8, 2.35, -0.65);
 
     const PURLIN_SPAN = 3.3;
-    const PURLIN_1_L = v3(-PURLIN_SPAN, 1.45,  1.65);
-    const PURLIN_1_R = v3( PURLIN_SPAN, 1.45,  1.65);
+    const PURLIN_1_L = v3(-PURLIN_SPAN, 1.45, 1.65);
+    const PURLIN_1_R = v3(PURLIN_SPAN, 1.45, 1.65);
 
-    const PURLIN_2_L = v3(-PURLIN_SPAN, 2.10,  0.00);
-    const PURLIN_2_R = v3( PURLIN_SPAN, 2.10,  0.00);
+    const PURLIN_2_L = v3(-PURLIN_SPAN, 2.10, 0.00);
+    const PURLIN_2_R = v3(PURLIN_SPAN, 2.10, 0.00);
 
     const PURLIN_3_L = v3(-PURLIN_SPAN, 2.75, -1.65);
-    const PURLIN_3_R = v3( PURLIN_SPAN, 2.75, -1.65);
+    const PURLIN_3_R = v3(PURLIN_SPAN, 2.75, -1.65);
 
     type PieceDef = {
       a: THREE.Vector3;
@@ -319,11 +346,11 @@ export const Hero3D: React.FC = () => {
     ── */
     const initialPositions = [
       v3(-0.48, 0.28, 0.40),
-      v3( 0.48, 0.22, 0.15),
+      v3(0.48, 0.22, 0.15),
       v3(-0.25, 0.60, -0.20),
-      v3( 0.35, 0.50, -0.40),
-      v3(-0.10, 0.78,  0.20),
-      v3( 0.15, 0.12, -0.25),
+      v3(0.35, 0.50, -0.40),
+      v3(-0.10, 0.78, 0.20),
+      v3(0.15, 0.12, -0.25),
     ];
 
     const initialRotations = [
@@ -416,7 +443,6 @@ export const Hero3D: React.FC = () => {
     camera.lookAt(camStartLook);
 
     let currentScroll = 0;
-    let targetScroll = 0;
     let lastRenderTime = performance.now();
     let rafId = 0;
     let lastStateDispatch = 0;
@@ -427,10 +453,10 @@ export const Hero3D: React.FC = () => {
     const tick = (now: number) => {
       const delta = Math.min(1, (now - lastRenderTime) / 16.666);
       lastRenderTime = now;
-      
+
       // Fast, smooth spring physics on mobile and desktop
       const spring = clamp(0.38 * delta, 0.18, 0.95);
-      currentScroll += (targetScroll - currentScroll) * spring;
+      currentScroll += (targetScrollRef.current - currentScroll) * spring;
 
       if (now - lastStateDispatch > 50) {
         setScrollProgress(currentScroll);
@@ -483,11 +509,49 @@ export const Hero3D: React.FC = () => {
     const updateScrollTarget = () => {
       const rect = container.getBoundingClientRect();
       const totalScrollable = Math.max(1, rect.height - window.innerHeight);
-      targetScroll = clamp(-rect.top / totalScrollable, 0, 1);
+      targetScrollRef.current = clamp(-rect.top / totalScrollable, 0, 1);
     };
 
-    window.addEventListener('scroll', updateScrollTarget, { passive: true });
-    updateScrollTarget();
+    let cleanupFixedEvents = () => {};
+
+    if (fixedViewport) {
+      const onWheel = (e: WheelEvent) => {
+        e.preventDefault();
+        const delta = e.deltaY * 0.0016;
+        targetScrollRef.current = clamp(targetScrollRef.current + delta, 0, 1);
+      };
+
+      let lastTouchY = 0;
+      const onTouchStart = (e: TouchEvent) => {
+        if (e.touches.length === 1) {
+          lastTouchY = e.touches[0].clientY;
+        }
+      };
+
+      const onTouchMove = (e: TouchEvent) => {
+        if (e.touches.length === 1) {
+          e.preventDefault();
+          const currentY = e.touches[0].clientY;
+          const deltaY = lastTouchY - currentY;
+          lastTouchY = currentY;
+          targetScrollRef.current = clamp(targetScrollRef.current + deltaY * 0.0038, 0, 1);
+        }
+      };
+
+      window.addEventListener('wheel', onWheel, { passive: false });
+      window.addEventListener('touchstart', onTouchStart, { passive: true });
+      window.addEventListener('touchmove', onTouchMove, { passive: false });
+
+      cleanupFixedEvents = () => {
+        window.removeEventListener('wheel', onWheel);
+        window.removeEventListener('touchstart', onTouchStart);
+        window.removeEventListener('touchmove', onTouchMove);
+      };
+    } else {
+      window.addEventListener('scroll', updateScrollTarget, { passive: true });
+      updateScrollTarget();
+    }
+
     rafId = requestAnimationFrame(tick);
 
     const resizeObserver = new ResizeObserver(() => {
@@ -502,7 +566,10 @@ export const Hero3D: React.FC = () => {
 
     return () => {
       cancelAnimationFrame(rafId);
-      window.removeEventListener('scroll', updateScrollTarget);
+      cleanupFixedEvents();
+      if (!fixedViewport) {
+        window.removeEventListener('scroll', updateScrollTarget);
+      }
       resizeObserver.disconnect();
       pieces.forEach(p => {
         p.mesh.geometry.dispose();
@@ -516,7 +583,7 @@ export const Hero3D: React.FC = () => {
       matCapTexture.dispose();
       renderer.dispose();
     };
-  }, []);
+  }, [fixedViewport]);
 
   const STAGES = [
     { label: 'SLOTTED HDG C-CHANNELS', s: 0, e: 0.18 },
@@ -540,11 +607,11 @@ export const Hero3D: React.FC = () => {
   return (
     <div
       ref={containerRef}
-      className="relative w-full"
-      style={{ height: '240vh' }}
+      className={`relative w-full ${fixedViewport ? 'h-[100dvh] overflow-hidden select-none' : ''}`}
+      style={{ height: fixedViewport ? '100dvh' : '240vh' }}
     >
-      <div className="sticky top-0 w-full overflow-hidden bg-[#F5F4EF]" style={{ height: '100svh' }}>
-        
+      <div className={`w-full overflow-hidden bg-[#F5F4EF] ${fixedViewport ? 'h-full relative' : 'sticky top-0'}`} style={{ height: fixedViewport ? '100%' : '100svh' }}>
+
         <canvas
           ref={canvasRef}
           className="absolute inset-0 w-full h-full block pointer-events-none"
@@ -650,7 +717,7 @@ export const Hero3D: React.FC = () => {
         >
           <div className="flex flex-col items-center gap-3 text-center bg-[#F5F4EF]/90 backdrop-blur-md px-8 py-5 rounded-sm border border-[#34383B]/10 shadow-sm">
             <span className="text-[9px] font-mono tracking-[0.4em] text-[#B59A68] uppercase font-bold">
-              COMPLETED STRUCTURE
+              COMPLETED STRUCTURE · CS FABRICATION
             </span>
             <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-[#17191B] uppercase font-sans">
               ENGINEERED STEEL. BUILT TO LAST.
