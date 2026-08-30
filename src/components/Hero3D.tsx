@@ -563,14 +563,6 @@ export const Hero3D: React.FC = () => {
               transform: `scale(${1 - headerEase * 0.38})`,
             }}
           >
-            <div className="flex items-center gap-3">
-              <div className="w-8 h-[1px] bg-[#B59A68]" />
-              <span className="text-[10px] font-mono tracking-[0.42em] text-[#B59A68] uppercase font-bold">
-                CS FABRICATION
-              </span>
-              <div className="w-8 h-[1px] bg-[#B59A68]" />
-            </div>
-
             <h1 className="text-3xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-[#17191B] uppercase leading-[1.04] font-sans">
               PRECISION IN EVERY STRUCTURE
             </h1>
@@ -658,7 +650,7 @@ export const Hero3D: React.FC = () => {
         >
           <div className="flex flex-col items-center gap-3 text-center bg-[#F5F4EF]/90 backdrop-blur-md px-8 py-5 rounded-sm border border-[#34383B]/10 shadow-sm">
             <span className="text-[9px] font-mono tracking-[0.4em] text-[#B59A68] uppercase font-bold">
-              COMPLETED STRUCTURE · CS FABRICATION
+              COMPLETED STRUCTURE
             </span>
             <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-[#17191B] uppercase font-sans">
               ENGINEERED STEEL. BUILT TO LAST.
@@ -705,13 +697,6 @@ export const Hero3D: React.FC = () => {
           </span>
           <div className="w-[1px] h-7 bg-gradient-to-b from-[#B59A68] to-transparent animate-pulse" />
           <div className="w-1.5 h-1.5 rounded-full bg-[#B59A68]/60 animate-bounce" />
-        </div>
-
-        <div className="absolute top-6 left-6 md:left-14 pointer-events-none select-none">
-          <div className="flex flex-col gap-0.5">
-            <span className="text-[10px] font-mono text-[#34383B]/30 uppercase tracking-[0.4em] font-bold">CS</span>
-            <div className="w-4 h-[1.5px] bg-[#B59A68]/50" />
-          </div>
         </div>
 
       </div>
