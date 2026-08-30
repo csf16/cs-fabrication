@@ -11,7 +11,7 @@ export const ComingSoonPage: React.FC<ComingSoonPageProps> = () => {
   useSEO({
     title: 'Central Structure Fabrication | Solar Mounting Structures & C-Channels',
     description:
-      'Central Structure Fabrication — Precision solar mounting structures, cold-formed C-channels, and 41×41 strut channels. Amroha, Uttar Pradesh. Web portal launching soon. GSTIN: 09BDRPA4213J1ZJ.',
+      'Central Structure Fabrication — Precision solar mounting structures, cold-formed C-channels, and 41×41 strut channels. Amroha, Uttar Pradesh. GSTIN: 09BDRPA4213J1ZJ.',
     keywords:
       'Central Structure Fabrication, solar mounting structures, C channel steel, strut channel, Amroha UP',
     canonical: 'https://www.csfabrication.in/',
@@ -28,76 +28,66 @@ export const ComingSoonPage: React.FC<ComingSoonPageProps> = () => {
   };
 
   return (
-    <div className="h-[100dvh] w-full bg-[#F5F4EF] text-[#17191B] font-sans selection:bg-[#B59A68]/20 selection:text-[#17191B] relative overflow-hidden flex flex-col justify-between">
-      
-      {/* ── Fixed Floating Top Bar ───────────────────────────────── */}
-      <header className="fixed top-0 left-0 w-full z-50 bg-[#F5F4EF]/85 backdrop-blur-md border-b border-[#141516]/8 transition-all">
-        <div className="max-w-[1280px] mx-auto px-5 sm:px-10 h-14 sm:h-16 flex items-center justify-between gap-3">
+    <div className="h-[100dvh] w-full bg-[#F5F4EF] text-[#141516] font-sans relative overflow-hidden select-none">
+      <Hero3D fixedViewport={true} minimal={true}>
+        <div className="absolute inset-0 flex flex-col justify-between items-center py-10 sm:py-14 px-6 pointer-events-none z-20">
           
-          {/* Logo */}
-          <div className="flex items-center gap-2.5 shrink-0">
-            <div className="w-6 h-6 sm:w-7 sm:h-7 flex items-center justify-center">
-              <svg viewBox="0 0 28 28" fill="none" className="w-full h-full">
-                <rect x="4" y="4" width="10" height="20" rx="1" stroke="#141516" strokeWidth="1.5" fill="none" />
-                <rect x="4" y="4" width="6" height="2" rx="0.5" fill="#141516" />
-                <rect x="4" y="22" width="6" height="2" rx="0.5" fill="#141516" />
-                <rect x="16" y="8" width="8" height="12" rx="1" stroke="#A88A58" strokeWidth="1.5" fill="none" />
-              </svg>
-            </div>
-            <div className="flex flex-col leading-none">
-              <span className="text-[10px] sm:text-[11px] font-bold tracking-[0.2em] text-[#141516] uppercase">Central Structure</span>
-              <span className="text-[8px] sm:text-[9px] font-medium tracking-[0.16em] text-[#A88A58] uppercase">Fabrication</span>
-            </div>
+          {/* ── Top Title (Exact content from attached image) ── */}
+          <div className="flex flex-col items-center text-center select-none max-w-3xl mt-2 sm:mt-4">
+            <h1 className="text-3xl sm:text-5xl md:text-6xl font-black uppercase tracking-tight text-[#141516] leading-[1.08] font-sans">
+              SOLAR MOUNTING<br />
+              STRUCTURES &amp; <span className="text-[#A88A58]">C-CHANNELS.</span>
+            </h1>
+            <p className="text-[10px] sm:text-xs text-[#7A7D80] font-mono uppercase tracking-[0.24em] mt-3 sm:mt-4 font-semibold">
+              MANUFACTURING &amp; ENGINEERING // AMROHA, UTTAR PRADESH
+            </p>
           </div>
 
-          {/* Quick Phone Call Request in Header */}
-          <div className="flex items-center gap-2 sm:gap-3">
+          {/* ── Center is completely open for the 3D structure assembly interaction! ── */}
+
+          {/* ── Bottom Callback Form, Line & Footer (Exact content from attached image) ── */}
+          <div className="w-full max-w-xl flex flex-col items-center gap-5 sm:gap-6 mb-2 sm:mb-4 pointer-events-auto">
             {!submitted ? (
-              <form onSubmit={handleSubmit} className="flex items-center bg-white border border-[#141516]/12 rounded-[3px] p-1 focus-within:border-[#A88A58] transition-all shadow-2xs">
-                <Phone className="w-3.5 h-3.5 text-[#A88A58] ml-1.5 mr-1 shrink-0" />
+              <form
+                onSubmit={handleSubmit}
+                className="w-full flex items-center bg-white/95 border border-[#141516]/15 rounded-[4px] p-1.5 focus-within:border-[#A88A58] shadow-sm backdrop-blur-xs transition-all"
+              >
+                <div className="flex items-center pl-3 pr-2 text-[#A88A58]">
+                  <Phone className="w-4 h-4" />
+                </div>
                 <input
                   type="tel"
                   required
-                  placeholder="Enter phone..."
+                  placeholder="Enter your phone number..."
                   value={phone}
                   onChange={(e) => setPhone(e.target.value)}
-                  className="bg-transparent border-none text-[11px] sm:text-xs text-[#141516] placeholder-[#141516]/40 focus:outline-none font-mono py-0.5 px-1 w-28 sm:w-44 tracking-wide"
+                  className="bg-transparent border-none text-xs sm:text-sm text-[#141516] placeholder-[#141516]/45 focus:outline-none flex-1 font-mono tracking-wide py-2"
                 />
                 <button
                   type="submit"
-                  className="px-2.5 sm:px-3 py-1 bg-[#141516] hover:bg-[#2C2F32] text-[#F7F6F1] text-[9px] sm:text-[10px] font-mono uppercase tracking-wider rounded-[2px] transition-all whitespace-nowrap"
+                  className="px-5 py-2.5 bg-[#141516] hover:bg-[#2C2F32] text-[#F7F6F1] text-xs font-bold font-mono tracking-widest uppercase rounded-[3px] transition-all whitespace-nowrap"
                 >
-                  Request Call →
+                  REQUEST CALL →
                 </button>
               </form>
             ) : (
-              <div className="flex items-center gap-1.5 px-3 py-1 bg-emerald-50 border border-emerald-300 rounded-[3px] text-[10px] font-mono text-emerald-800 shadow-2xs">
-                <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
-                <span>Call requested!</span>
+              <div className="w-full flex items-center justify-center gap-2 p-3.5 bg-emerald-50 border border-emerald-300 rounded-[4px] text-xs font-mono text-emerald-800 shadow-sm">
+                <CheckCircle2 className="w-4 h-4 text-emerald-600" />
+                <span>Thank you! Our team will call you back shortly.</span>
               </div>
             )}
 
-            <div className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 bg-[#141516]/5 border border-[#141516]/8 rounded-full text-[9px] font-mono text-[#141516] font-medium">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-              <span>LAUNCHING SOON</span>
-            </div>
+            {/* Thin divider line from attached image */}
+            <div className="w-full h-[1px] bg-[#141516]/10" />
+
+            {/* Footer credentials line from attached image */}
+            <p className="text-[10px] sm:text-xs font-mono text-[#7A7D80] text-center select-none">
+              saifi.electricals2@gmail.com · Amroha, UP · GST: 09BDRPA4213J1ZJ
+            </p>
           </div>
 
         </div>
-      </header>
-
-      {/* ── The Pure 3D Structure Interaction Component (Fixed Viewport, Page Never Scrolls Down) ── */}
-      <main className="flex-1 w-full h-full relative overflow-hidden">
-        <Hero3D fixedViewport={true} />
-      </main>
-
-      {/* ── Ultra-Minimal Bottom Bar ── */}
-      <footer className="fixed bottom-0 left-0 w-full z-40 bg-[#F5F4EF]/75 backdrop-blur-xs py-2 px-6 border-t border-[#141516]/6 pointer-events-none text-center">
-        <span className="text-[9px] sm:text-[10px] font-mono text-[#7A7D80]">
-          saifi.electricals2@gmail.com · Amroha, UP · GST: 09BDRPA4213J1ZJ
-        </span>
-      </footer>
-
+      </Hero3D>
     </div>
   );
 };

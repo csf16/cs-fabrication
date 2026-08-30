@@ -178,9 +178,11 @@ interface Piece {
 
 interface Hero3DProps {
   fixedViewport?: boolean;
+  minimal?: boolean;
+  children?: React.ReactNode;
 }
 
-export const Hero3D: React.FC<Hero3DProps> = ({ fixedViewport = false }) => {
+export const Hero3D: React.FC<Hero3DProps> = ({ fixedViewport = false, minimal = false, children }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [scrollProgress, setScrollProgress] = useState(0);
@@ -617,7 +619,11 @@ export const Hero3D: React.FC<Hero3DProps> = ({ fixedViewport = false }) => {
           className="absolute inset-0 w-full h-full block pointer-events-none"
         />
 
-        {/* ── Pinned Top Header on Scroll ── */}
+        {minimal ? (
+          children
+        ) : (
+          <>
+            {/* ── Pinned Top Header on Scroll ── */}
         <div
           className="absolute inset-x-0 top-0 h-full flex flex-col items-center justify-center pointer-events-none px-6 transition-transform duration-75 ease-out"
           style={{
@@ -765,6 +771,8 @@ export const Hero3D: React.FC<Hero3DProps> = ({ fixedViewport = false }) => {
           <div className="w-[1px] h-7 bg-gradient-to-b from-[#B59A68] to-transparent animate-pulse" />
           <div className="w-1.5 h-1.5 rounded-full bg-[#B59A68]/60 animate-bounce" />
         </div>
+          </>
+        )}
 
       </div>
     </div>
