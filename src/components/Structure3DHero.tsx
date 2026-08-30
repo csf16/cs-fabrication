@@ -6,7 +6,7 @@ const easeInOutCubic = (t: number) => t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 
 const v3 = (x: number, y: number, z: number) => new THREE.Vector3(x, y, z);
 
 function createGalvanizedMatCapTexture(): THREE.CanvasTexture {
-  const size = 512;
+  const size = 256; // Optimized size for ultra-fast mobile GPU load
   const canvas = document.createElement('canvas');
   canvas.width = size;
   canvas.height = size;
@@ -15,32 +15,16 @@ function createGalvanizedMatCapTexture(): THREE.CanvasTexture {
   const cx = size / 2;
   const cy = size / 2;
 
-  const grad = ctx.createRadialGradient(cx - 50, cy - 70, 20, cx, cy, size / 2);
+  const grad = ctx.createRadialGradient(cx - 30, cy - 40, 10, cx, cy, size / 2);
   grad.addColorStop(0.00, '#FFFFFF');
-  grad.addColorStop(0.18, '#EFF4F9');
-  grad.addColorStop(0.42, '#CAD4DE');
-  grad.addColorStop(0.68, '#8E9AA7');
-  grad.addColorStop(0.92, '#58626E');
+  grad.addColorStop(0.20, '#F0F4F8');
+  grad.addColorStop(0.45, '#CAD3DC');
+  grad.addColorStop(0.70, '#8E99A6');
+  grad.addColorStop(0.95, '#56606C');
   grad.addColorStop(1.00, '#3A4048');
 
   ctx.fillStyle = grad;
   ctx.fillRect(0, 0, size, size);
-
-  const imgData = ctx.getImageData(0, 0, size, size);
-  const data = imgData.data;
-  for (let i = 0; i < data.length; i += 4) {
-    const x = (i / 4) % size;
-    const y = Math.floor((i / 4) / size);
-    const dist = Math.hypot(x - cx, y - cy);
-    if (dist <= size / 2) {
-      const noise = ((Math.sin(x * 12.3 + y * 34.7) * 43758.5453) % 1) * 16 - 8;
-      const brush = Math.sin((x + y * 0.5) * 0.4) * 6;
-      data[i] = clamp(data[i] + noise + brush, 0, 255);
-      data[i + 1] = clamp(data[i + 1] + noise + brush + 2, 0, 255);
-      data[i + 2] = clamp(data[i + 2] + noise + brush + 4, 0, 255);
-    }
-  }
-  ctx.putImageData(imgData, 0, 0);
 
   const texture = new THREE.CanvasTexture(canvas);
   texture.generateMipmaps = true;
@@ -48,9 +32,10 @@ function createGalvanizedMatCapTexture(): THREE.CanvasTexture {
   return texture;
 }
 
-const CW = 0.15;
-const CT = 0.012;
+const CW = 0.14;
+const CT = 0.014;
 
+// Optimized C-Channel geometry with clean profile & slots for 60fps mobile performance
 function makeSlottedCChannelGeometry(len: number): THREE.BufferGeometry {
   const halfW = CW / 2;
   const halfL = len / 2;
@@ -62,13 +47,13 @@ function makeSlottedCChannelGeometry(len: number): THREE.BufferGeometry {
   webShape.lineTo(-halfW,  halfL);
   webShape.lineTo(-halfW, -halfL);
 
-  const slotPitch = 0.16;
-  const slotLen = 0.095;
+  const slotPitch = 0.28;
+  const slotLen = 0.12;
   const slotW = 0.046;
   const radius = slotW / 2;
   const straightHalf = (slotLen - slotW) / 2;
 
-  const numSlots = Math.max(1, Math.floor((len - 0.06) / slotPitch));
+  const numSlots = Math.max(1, Math.floor((len - 0.1) / slotPitch));
   const startZ = -((numSlots - 1) * slotPitch) / 2;
 
   for (let i = 0; i < numSlots; i++) {
@@ -84,6 +69,7 @@ function makeSlottedCChannelGeometry(len: number): THREE.BufferGeometry {
   const webGeo = new THREE.ExtrudeGeometry(webShape, {
     depth: CT,
     bevelEnabled: false,
+    curveSegments: 6, // Low segments for high mobile FPS
   });
   webGeo.rotateX(Math.PI / 2);
 
@@ -107,21 +93,42 @@ export const Structure3DHero: React.FC = () => {
     if (!canvasRef.current) return;
     const canvas = canvasRef.current;
 
+    // Mobile performance: cap devicePixelRatio at 1.5 to prevent GPU thermal throttling on iOS
+    const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
     const renderer = new THREE.WebGLRenderer({
       canvas,
       antialias: true,
       alpha: true,
       powerPreference: 'high-performance',
     });
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+    renderer.setPixelRatio(dpr);
     renderer.setSize(canvas.clientWidth, canvas.clientHeight, false);
     renderer.outputColorSpace = THREE.SRGBColorSpace;
 
     const scene = new THREE.Scene();
 
     const camera = new THREE.PerspectiveCamera(38, canvas.clientWidth / canvas.clientHeight, 0.1, 100);
-    camera.position.set(4.5, 3.2, 8.5);
-    camera.lookAt(0, 1.4, 0);
+
+    // Responsive camera position: on mobile portrait, pull camera back so NO edges are clipped!
+    const adjustCamera = () => {
+      const w = canvas.clientWidth || window.innerWidth;
+      const h = canvas.clientHeight || window.innerHeight;
+      const aspect = w / h;
+      camera.aspect = aspect;
+
+      if (aspect < 1) {
+        // Mobile portrait: scale distance inversely to aspect ratio with safety padding
+        const dist = 8.5 * Math.max(1, 0.85 / Math.max(0.4, aspect));
+        camera.position.set(dist * 0.45, dist * 0.35, dist);
+      } else {
+        // Desktop / tablet landscape
+        camera.position.set(4.2, 3.0, 8.2);
+      }
+      camera.lookAt(0, 1.3, 0);
+      camera.updateProjectionMatrix();
+    };
+
+    adjustCamera();
 
     const matCapTexture = createGalvanizedMatCapTexture();
     const steelMaterial = new THREE.MeshMatcapMaterial({
@@ -131,44 +138,44 @@ export const Structure3DHero: React.FC = () => {
       side: THREE.DoubleSide,
     });
 
-    // Structure Definition
-    const GFL = v3(-2.4, 0, 1.3);
-    const GFR = v3( 2.4, 0, 1.3);
-    const GRL = v3(-2.4, 0, -1.3);
-    const GRR = v3( 2.4, 0, -1.3);
+    // ── Structure Dimensions ──────────────────────────────────────
+    const GFL = v3(-2.2, 0, 1.2);
+    const GFR = v3( 2.2, 0, 1.2);
+    const GRL = v3(-2.2, 0, -1.2);
+    const GRR = v3( 2.2, 0, -1.2);
 
-    const TFL = v3(-2.4, 1.30,  1.3);
-    const TFR = v3( 2.4, 1.30,  1.3);
-    const TRL = v3(-2.4, 2.30, -1.3);
-    const TRR = v3( 2.4, 2.30, -1.3);
+    const TFL = v3(-2.2, 1.25,  1.2);
+    const TFR = v3( 2.2, 1.25,  1.2);
+    const TRL = v3(-2.2, 2.20, -1.2);
+    const TRR = v3( 2.2, 2.20, -1.2);
 
-    const RAFTER_L_START = v3(-2.4, 1.15,  1.7);
-    const RAFTER_L_END   = v3(-2.4, 2.50, -1.7);
+    const RAFTER_L_START = v3(-2.2, 1.10,  1.6);
+    const RAFTER_L_END   = v3(-2.2, 2.38, -1.6);
 
-    const RAFTER_R_START = v3( 2.4, 1.15,  1.7);
-    const RAFTER_R_END   = v3( 2.4, 2.50, -1.7);
+    const RAFTER_R_START = v3( 2.2, 1.10,  1.6);
+    const RAFTER_R_END   = v3( 2.2, 2.38, -1.6);
 
-    const PURLIN_SPAN = 2.8;
-    const PURLIN_1_L = v3(-PURLIN_SPAN, 1.30,  1.4);
-    const PURLIN_1_R = v3( PURLIN_SPAN, 1.30,  1.4);
+    const PURLIN_SPAN = 2.6;
+    const PURLIN_1_L = v3(-PURLIN_SPAN, 1.25,  1.3);
+    const PURLIN_1_R = v3( PURLIN_SPAN, 1.25,  1.3);
 
-    const PURLIN_2_L = v3(-PURLIN_SPAN, 1.85,  0.0);
-    const PURLIN_2_R = v3( PURLIN_SPAN, 1.85,  0.0);
+    const PURLIN_2_L = v3(-PURLIN_SPAN, 1.76,  0.0);
+    const PURLIN_2_R = v3( PURLIN_SPAN, 1.76,  0.0);
 
-    const PURLIN_3_L = v3(-PURLIN_SPAN, 2.40, -1.4);
-    const PURLIN_3_R = v3( PURLIN_SPAN, 2.40, -1.4);
+    const PURLIN_3_L = v3(-PURLIN_SPAN, 2.27, -1.3);
+    const PURLIN_3_R = v3( PURLIN_SPAN, 2.27, -1.3);
 
-    const BRACE_FL_A = v3(-2.4, 0.55, 1.3);
-    const BRACE_FL_B = v3(-2.4, 1.20, 1.6);
+    const BRACE_FL_A = v3(-2.2, 0.50, 1.2);
+    const BRACE_FL_B = v3(-2.2, 1.15, 1.5);
 
-    const BRACE_FR_A = v3( 2.4, 0.55, 1.3);
-    const BRACE_FR_B = v3( 2.4, 1.20, 1.6);
+    const BRACE_FR_A = v3( 2.2, 0.50, 1.2);
+    const BRACE_FR_B = v3( 2.2, 1.15, 1.5);
 
-    const BRACE_RL_A = v3(-2.4, 1.10, -1.3);
-    const BRACE_RL_B = v3(-2.4, 2.05, -0.6);
+    const BRACE_RL_A = v3(-2.2, 1.05, -1.2);
+    const BRACE_RL_B = v3(-2.2, 1.95, -0.6);
 
-    const BRACE_RR_A = v3( 2.4, 1.10, -1.3);
-    const BRACE_RR_B = v3( 2.4, 2.05, -0.6);
+    const BRACE_RR_A = v3( 2.2, 1.05, -1.2);
+    const BRACE_RR_B = v3( 2.2, 1.95, -0.6);
 
     const definitions = [
       { a: GFL, b: TFL },
@@ -199,9 +206,9 @@ export const Structure3DHero: React.FC = () => {
       const finalPos = midpoint(def.a, def.b);
       const finalQuat = quatFromEndpoints(def.a, def.b);
 
-      const angle = idx * 2.1;
-      const dist = 6 + (idx % 3) * 1.5;
-      const initPos = v3(Math.cos(angle) * dist, 4 + (idx % 2) * 2, Math.sin(angle) * dist);
+      const angle = idx * 2.2;
+      const dist = 5.5 + (idx % 3) * 1.2;
+      const initPos = v3(Math.cos(angle) * dist, 3.5 + (idx % 2) * 1.5, Math.sin(angle) * dist);
       const initQuat = finalQuat.clone();
 
       mesh.position.copy(initPos);
@@ -211,7 +218,7 @@ export const Structure3DHero: React.FC = () => {
       pieces.push({ mesh, initPos, finalPos, initQuat, finalQuat });
     });
 
-    let startTime = performance.now();
+    const startTime = performance.now();
     let isDragging = false;
     let prevMouseX = 0;
     let rotationVelocity = 0;
@@ -230,15 +237,13 @@ export const Structure3DHero: React.FC = () => {
       currentRotationY += rotationVelocity;
     };
 
-    const onMouseUp = () => {
-      isDragging = false;
-    };
+    const onMouseUp = () => { isDragging = false; };
 
     canvas.addEventListener('mousedown', onMouseDown);
     window.addEventListener('mousemove', onMouseMove);
     window.addEventListener('mouseup', onMouseUp);
 
-    // Touch support
+    // Touch handlers for mobile
     const onTouchStart = (e: TouchEvent) => {
       if (e.touches.length === 1) {
         isDragging = true;
@@ -249,7 +254,7 @@ export const Structure3DHero: React.FC = () => {
       if (!isDragging || e.touches.length !== 1) return;
       const deltaX = e.touches[0].clientX - prevMouseX;
       prevMouseX = e.touches[0].clientX;
-      rotationVelocity = deltaX * 0.005;
+      rotationVelocity = deltaX * 0.006;
       currentRotationY += rotationVelocity;
     };
     const onTouchEnd = () => { isDragging = false; };
@@ -261,8 +266,7 @@ export const Structure3DHero: React.FC = () => {
     let rafId = 0;
     const animate = (now: number) => {
       const elapsed = (now - startTime) / 1000;
-      // Assembly progress from 0 to 1 over 2.5 seconds
-      const assembleProgress = clamp(elapsed / 2.5, 0, 1);
+      const assembleProgress = clamp(elapsed / 2.2, 0, 1);
       const ease = easeInOutCubic(assembleProgress);
 
       pieces.forEach((p) => {
@@ -270,9 +274,8 @@ export const Structure3DHero: React.FC = () => {
         p.mesh.quaternion.slerpQuaternions(p.initQuat, p.finalQuat, ease);
       });
 
-      // Smooth auto-rotation after assembly
       if (!isDragging) {
-        currentRotationY += 0.0035;
+        currentRotationY += 0.003;
       }
       group.rotation.y = currentRotationY;
 
@@ -288,8 +291,7 @@ export const Structure3DHero: React.FC = () => {
       const h = canvas.clientHeight;
       if (w > 0 && h > 0) {
         renderer.setSize(w, h, false);
-        camera.aspect = w / h;
-        camera.updateProjectionMatrix();
+        adjustCamera();
       }
     };
 
@@ -310,7 +312,7 @@ export const Structure3DHero: React.FC = () => {
 
   return (
     <div className="w-full h-full relative">
-      <canvas ref={canvasRef} className="w-full h-full block cursor-grab active:cursor-grabbing" />
+      <canvas ref={canvasRef} className="w-full h-full block cursor-grab active:cursor-grabbing touch-none" />
     </div>
   );
 };
