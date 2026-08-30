@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
-import { Structure3DHero } from '../components/Structure3DHero';
+import React, { useState, useEffect } from 'react';
+import { InteractiveStructure3D } from '../components/InteractiveStructure3D';
 import { useSEO } from '../hooks/useSEO';
-import { Phone, CheckCircle2 } from 'lucide-react';
+import { Phone, CheckCircle2, RotateCcw } from 'lucide-react';
 
 interface ComingSoonPageProps {
   onEnquireClick?: (service?: string) => void;
@@ -19,6 +19,23 @@ export const ComingSoonPage: React.FC<ComingSoonPageProps> = () => {
 
   const [phone, setPhone] = useState('');
   const [submitted, setSubmitted] = useState(false);
+  const [progress, setProgress] = useState(1); // Default to fully assembled
+  const [isPlaying, setIsPlaying] = useState(false);
+
+  // Auto-assembly animation toggle
+  useEffect(() => {
+    if (!isPlaying) return;
+    const interval = setInterval(() => {
+      setProgress((p) => {
+        if (p >= 1) {
+          setIsPlaying(false);
+          return 1;
+        }
+        return Math.min(1, p + 0.02);
+      });
+    }, 30);
+    return () => clearInterval(interval);
+  }, [isPlaying]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -27,11 +44,16 @@ export const ComingSoonPage: React.FC<ComingSoonPageProps> = () => {
     }
   };
 
+  const handleReset = () => {
+    setProgress(0);
+    setIsPlaying(true);
+  };
+
   return (
-    <div className="min-h-[100dvh] w-full bg-[#F7F6F1] text-[#141516] flex flex-col justify-between relative overflow-x-hidden font-sans select-none">
+    <div className="h-[100dvh] w-full bg-[#F7F6F1] text-[#141516] flex flex-col justify-between relative overflow-hidden font-sans select-none">
       
       {/* ── Top Header ─────────────────────────────────────────── */}
-      <header className="w-full max-w-[1280px] mx-auto px-6 sm:px-10 pt-6 pb-2 flex items-center justify-between z-10 shrink-0">
+      <header className="w-full max-w-[1280px] mx-auto px-6 sm:px-10 pt-5 pb-2 flex items-center justify-between z-20 shrink-0">
         <div className="flex items-center gap-3">
           <div className="w-7 h-7 flex items-center justify-center">
             <svg viewBox="0 0 28 28" fill="none" className="w-full h-full">
@@ -53,34 +75,66 @@ export const ComingSoonPage: React.FC<ComingSoonPageProps> = () => {
         </div>
       </header>
 
-      {/* ── Main Section: Heading + 3D Structure Animation + Phone Form ── */}
-      <main className="w-full max-w-[960px] mx-auto px-6 flex-1 flex flex-col items-center justify-center text-center py-4 z-10">
+      {/* ── Main Interactive Section ────────────────────────────── */}
+      <main className="w-full max-w-[960px] mx-auto px-6 flex-1 flex flex-col items-center justify-center text-center py-2 z-10 min-h-0">
         
-        {/* Badge */}
-        <div className="inline-flex items-center gap-2 px-3 py-1 bg-white border border-[#141516]/8 rounded-full text-[9px] font-mono text-[#A88A58] font-bold uppercase tracking-widest mb-3 shadow-xs">
-          <span>CENTRAL STRUCTURE FABRICATION</span>
+        {/* Single line text */}
+        <div className="flex flex-col items-center gap-1 shrink-0 mb-1">
+          <h1 className="text-2xl sm:text-4xl md:text-5xl font-extrabold uppercase tracking-tight text-[#141516] leading-tight">
+            Solar Mounting Structures &amp; <span className="text-[#A88A58]">C-Channels</span>.
+          </h1>
+          <p className="text-[10px] sm:text-xs text-[#7A7D80] font-mono uppercase tracking-[0.2em]">
+            Manufacturing &amp; Engineering // Amroha, Uttar Pradesh
+          </p>
         </div>
 
-        {/* Single line text */}
-        <h1 className="text-2xl sm:text-4xl md:text-5xl font-extrabold uppercase tracking-tight text-[#141516] leading-tight max-w-2xl">
-          Solar Mounting Structures &amp; <span className="text-[#A88A58]">C-Channels</span>.
-        </h1>
+        {/* ── 3D Interactive Canvas (Drag to rotate) ─────────────── */}
+        <div className="w-full flex-1 max-h-[46vh] sm:max-h-[50vh] min-h-[220px] relative my-1 flex items-center justify-center">
+          <InteractiveStructure3D progress={progress} onProgressChange={setProgress} />
 
-        <p className="text-[10px] sm:text-xs text-[#7A7D80] font-mono uppercase tracking-[0.2em] mt-2 mb-2">
-          Manufacturing &amp; Engineering // Amroha, Uttar Pradesh
-        </p>
+          <div className="absolute top-2 right-2 text-[8px] font-mono text-[#7A7D80]/60 uppercase tracking-wider pointer-events-none">
+            DRAG TO ROTATE 360°
+          </div>
+        </div>
 
-        {/* ── 3D Interactive Structure Viewer ──────────────────────── */}
-        <div className="w-full h-[38vh] sm:h-[46vh] max-h-[460px] relative my-1 flex items-center justify-center">
-          <Structure3DHero />
+        {/* ── Interactive Assembly Slider Controller ──────────────── */}
+        <div className="w-full max-w-sm flex items-center gap-3 px-4 py-1.5 bg-white border border-[#141516]/10 rounded-full shadow-xs mb-3">
+          <button
+            onClick={handleReset}
+            title="Replay Assembly Animation"
+            className="p-1 text-[#A88A58] hover:text-[#141516] transition-colors"
+          >
+            <RotateCcw className="w-3.5 h-3.5" />
+          </button>
+
+          <span className="text-[9px] font-mono text-[#7A7D80] uppercase tracking-wider font-bold">
+            ASSEMBLE
+          </span>
+
+          <input
+            type="range"
+            min="0"
+            max="1"
+            step="0.01"
+            value={progress}
+            onChange={(e) => {
+              setIsPlaying(false);
+              setProgress(parseFloat(e.target.value));
+            }}
+            className="flex-1 h-1 bg-[#141516]/10 rounded-lg appearance-none cursor-pointer accent-[#A88A58]"
+          />
+
+          <span className="text-[9px] font-mono text-[#141516] font-bold min-w-[32px] text-right">
+            {Math.round(progress * 100)}%
+          </span>
         </div>
 
         {/* ── Single Phone Input Form ─────────────────────────────── */}
-        <div className="w-full max-w-md mt-1 mb-2">
+        <div className="w-full max-w-md shrink-0">
           {!submitted ? (
             <form
               onSubmit={handleSubmit}
-              className="flex items-center bg-white border border-[#141516]/12 focus-within:border-[#A88A58] rounded-[4px] p-1.5 transition-all shadow-sm"
+              className="flex items-center bg-white border border-[#141516]/15 focus-within:border-[#A88A58] rounded-[4px] p-1.5 transition-all shadow-sm"
             >
               <div className="flex items-center pl-3 pr-2 text-[#A88A58]">
                 <Phone className="w-4 h-4" />
@@ -110,8 +164,8 @@ export const ComingSoonPage: React.FC<ComingSoonPageProps> = () => {
 
       </main>
 
-      {/* ── Simple Minimal Bottom Bar (Without Preview Link) ─────── */}
-      <footer className="w-full border-t border-[#141516]/8 py-4 px-6 text-center text-[10px] sm:text-xs font-mono text-[#7A7D80] shrink-0 z-10">
+      {/* ── Minimal Bottom Footer (No Preview Link) ─────────────── */}
+      <footer className="w-full border-t border-[#141516]/8 py-3.5 px-6 text-center text-[10px] sm:text-xs font-mono text-[#7A7D80] shrink-0 z-20">
         <span>saifi.electricals2@gmail.com · Amroha, UP · GST: 09BDRPA4213J1ZJ</span>
       </footer>
 
