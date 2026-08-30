@@ -528,7 +528,11 @@ export const Hero3D: React.FC = () => {
   const activeIdx = Math.max(0, STAGES.findIndex(st => scrollProgress >= st.s && scrollProgress < st.e));
   const currentStage = STAGES[activeIdx] || STAGES[0];
 
-  const heroOpacity = clamp(1 - scrollProgress / 0.12);
+  // Move headline up on scroll and keep pinned at the top of the viewport
+  const headerShift = clamp(scrollProgress / 0.18);
+  const headerEase = easeOutCubic(headerShift);
+  const heroSubOpacity = clamp(1 - scrollProgress / 0.08);
+
   const midStageOpacity = clamp(scrollProgress * 8 - 1.0) * clamp((0.92 - scrollProgress) * 12);
   const finalOpacity = clamp((scrollProgress - 0.88) * 10);
   const hintOpacity = clamp(1 - scrollProgress * 7);
@@ -546,11 +550,19 @@ export const Hero3D: React.FC = () => {
           className="absolute inset-0 w-full h-full block pointer-events-none"
         />
 
+        {/* ── Pinned Top Header on Scroll ── */}
         <div
-          className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none px-6"
-          style={{ opacity: heroOpacity }}
+          className="absolute inset-x-0 top-0 h-full flex flex-col items-center justify-center pointer-events-none px-6 transition-transform duration-75 ease-out"
+          style={{
+            transform: `translate3d(0, -${headerEase * 36}vh, 0)`,
+          }}
         >
-          <div className="flex flex-col items-center gap-6 text-center select-none max-w-2xl">
+          <div
+            className="flex flex-col items-center gap-3 sm:gap-5 text-center select-none max-w-2xl origin-top transition-transform duration-75"
+            style={{
+              transform: `scale(${1 - headerEase * 0.38})`,
+            }}
+          >
             <div className="flex items-center gap-3">
               <div className="w-8 h-[1px] bg-[#B59A68]" />
               <span className="text-[10px] font-mono tracking-[0.42em] text-[#B59A68] uppercase font-bold">
@@ -559,23 +571,32 @@ export const Hero3D: React.FC = () => {
               <div className="w-8 h-[1px] bg-[#B59A68]" />
             </div>
 
-            <h1 className="text-4xl sm:text-6xl md:text-7xl font-extrabold tracking-tight text-[#17191B] uppercase leading-[1.02] font-sans">
-              PRECISION<br />IN EVERY<br />STRUCTURE
+            <h1 className="text-3xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-[#17191B] uppercase leading-[1.04] font-sans">
+              PRECISION IN EVERY STRUCTURE
             </h1>
 
-            <div className="w-12 h-[2px] bg-[#B59A68]" />
-
-            <p className="text-[#34383B]/60 text-sm md:text-base font-light max-w-sm tracking-wide leading-relaxed">
-              Engineered steel. Built to last.
-            </p>
-
-            <button
-              onClick={() => handleScrub(0.95)}
-              className="mt-2 pointer-events-auto px-6 py-2.5 bg-[#17191B] hover:bg-[#34383B] text-[#F5F4EF] text-[10px] font-mono tracking-widest uppercase rounded-sm transition-all duration-300 shadow-sm flex items-center gap-2 group"
+            {/* Sub-elements fade away as user scrolls, keeping only the pinned title on top */}
+            <div
+              className="flex flex-col items-center gap-4 transition-opacity duration-200"
+              style={{
+                opacity: heroSubOpacity,
+                display: heroSubOpacity <= 0.01 ? 'none' : 'flex',
+              }}
             >
-              <span>EXPLORE ASSEMBLY</span>
-              <span className="transform transition-transform duration-300 group-hover:translate-y-0.5">↓</span>
-            </button>
+              <div className="w-12 h-[2px] bg-[#B59A68]" />
+
+              <p className="text-[#34383B]/60 text-xs sm:text-sm font-light max-w-sm tracking-wide leading-relaxed">
+                Engineered steel. Built to last.
+              </p>
+
+              <button
+                onClick={() => handleScrub(0.95)}
+                className="mt-1 pointer-events-auto px-5 py-2.5 bg-[#17191B] hover:bg-[#34383B] text-[#F5F4EF] text-[10px] font-mono tracking-widest uppercase rounded-sm transition-all duration-300 shadow-sm flex items-center gap-2 group"
+              >
+                <span>EXPLORE ASSEMBLY</span>
+                <span className="transform transition-transform duration-300 group-hover:translate-y-0.5">↓</span>
+              </button>
+            </div>
           </div>
         </div>
 
