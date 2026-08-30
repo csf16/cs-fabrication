@@ -20,7 +20,7 @@ export const Navbar: React.FC<NavbarProps> = (_props: NavbarProps) => {
   useEffect(() => { setMobileMenuOpen(false); }, [location.pathname]);
 
   const navLinks = [
-    { to: '/',            label: 'Home'        },
+    { to: '/home',        label: 'Home'        },
     { to: '/structures',  label: 'Structures'  },
     { to: '/gallery',     label: 'Gallery'     },
     { to: '/engineering', label: 'Engineering' },
@@ -39,7 +39,7 @@ export const Navbar: React.FC<NavbarProps> = (_props: NavbarProps) => {
         <div className="max-w-[1280px] mx-auto px-8 md:px-14 h-16 flex items-center justify-between">
 
           {/* Logo */}
-          <Link to="/" className="flex items-center gap-3 group">
+          <Link to="/home" className="flex items-center gap-3 group">
             <div className="w-7 h-7 flex items-center justify-center">
               <svg viewBox="0 0 28 28" fill="none" className="w-full h-full">
                 <rect x="4" y="4" width="10" height="20" rx="1" stroke="#141516" strokeWidth="1.5" fill="none"/>

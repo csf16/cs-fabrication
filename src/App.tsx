@@ -5,6 +5,8 @@ import { Footer } from './components/Footer';
 import { ScrollToTop } from './components/ScrollToTop';
 import { EnquiryForm } from './components/EnquiryForm';
 
+import { ComingSoonPage } from './pages/ComingSoonPage';
+
 // Dedicated Pages
 import { HomePage } from './pages/HomePage';
 import { StructuresPage } from './pages/StructuresPage';
@@ -41,34 +43,86 @@ export const App: React.FC = () => {
       <ScrollToTop />
       <div className="bg-[#F5F4EF] text-[#17191B] min-h-screen font-sans selection:bg-[#B59A68]/20 selection:text-[#17191B] flex flex-col justify-between">
         
-        {/* Navigation Sticky Dock */}
-        <Navbar onEnquireClick={triggerEnquiry} />
-
         {/* Multi-Page Routes */}
         <main className="flex-grow w-full">
           <Routes>
-            <Route path="/" element={<HomePage onEnquireClick={triggerEnquiry} />} />
+            {/* Live Coming Soon Splash on Root */}
+            <Route path="/" element={<ComingSoonPage onEnquireClick={triggerEnquiry} />} />
+            
+            {/* Full Website Routes with Header and Footer */}
+            <Route
+              path="/home"
+              element={
+                <>
+                  <Navbar onEnquireClick={triggerEnquiry} />
+                  <HomePage onEnquireClick={triggerEnquiry} />
+                  <Footer onEnquireClick={triggerEnquiry} />
+                </>
+              }
+            />
             
             {/* Dedicated Structures Page */}
-            <Route path="/structures" element={<StructuresPage onEnquireClick={triggerEnquiry} />} />
+            <Route
+              path="/structures"
+              element={
+                <>
+                  <Navbar onEnquireClick={triggerEnquiry} />
+                  <StructuresPage onEnquireClick={triggerEnquiry} />
+                  <Footer onEnquireClick={triggerEnquiry} />
+                </>
+              }
+            />
             <Route path="/hardware" element={<Navigate to="/structures" replace />} />
             
             {/* Dedicated Gallery Page */}
-            <Route path="/gallery" element={<GalleryPage />} />
+            <Route
+              path="/gallery"
+              element={
+                <>
+                  <Navbar onEnquireClick={triggerEnquiry} />
+                  <GalleryPage />
+                  <Footer onEnquireClick={triggerEnquiry} />
+                </>
+              }
+            />
             <Route path="/projects" element={<Navigate to="/gallery" replace />} />
             
             {/* Dedicated Engineering, About, Contact Pages */}
-            <Route path="/engineering" element={<EngineeringPage onEnquireClick={triggerEnquiry} />} />
-            <Route path="/about" element={<AboutPage onEnquireClick={triggerEnquiry} />} />
-            <Route path="/contact" element={<ContactPage />} />
+            <Route
+              path="/engineering"
+              element={
+                <>
+                  <Navbar onEnquireClick={triggerEnquiry} />
+                  <EngineeringPage onEnquireClick={triggerEnquiry} />
+                  <Footer onEnquireClick={triggerEnquiry} />
+                </>
+              }
+            />
+            <Route
+              path="/about"
+              element={
+                <>
+                  <Navbar onEnquireClick={triggerEnquiry} />
+                  <AboutPage onEnquireClick={triggerEnquiry} />
+                  <Footer onEnquireClick={triggerEnquiry} />
+                </>
+              }
+            />
+            <Route
+              path="/contact"
+              element={
+                <>
+                  <Navbar onEnquireClick={triggerEnquiry} />
+                  <ContactPage />
+                  <Footer onEnquireClick={triggerEnquiry} />
+                </>
+              }
+            />
             
             {/* Fallback route */}
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </main>
-
-        {/* Universal Footer */}
-        <Footer onEnquireClick={triggerEnquiry} />
 
         {/* Quick RFQ Drawer Form */}
         <EnquiryForm 

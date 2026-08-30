@@ -33,7 +33,7 @@ export const Footer: React.FC<FooterProps> = ({ onEnquireClick: _onEnquireClick 
         
         {/* Brand column */}
         <div className="flex flex-col gap-7 max-w-[280px]">
-          <Link to="/" className="flex items-center gap-3">
+          <Link to="/home" className="flex items-center gap-3">
             <div className="w-7 h-7">
               <svg viewBox="0 0 28 28" fill="none" className="w-full h-full">
                 <rect x="4" y="4" width="10" height="20" rx="1" stroke="#F7F6F1" strokeWidth="1.5" fill="none"/>
