@@ -3,8 +3,8 @@
  */
 
 // Deployment Web App URL placeholder as requested
-export const GOOGLE_SHEET_WEBHOOK_URL =
-  "https://script.google.com/macros/s/AKfycbw9Q90DiU72SKsq5Fl0U_QqF4nDESyIrO5eoOQaL6A2Ct89DJT8OUcL5ZOyPcWtVu1JuA/exec";
+export const GOOGLE_SHEET_WEBHOOK_URL: string =
+  "https://script.google.com/macros/s/AKfycbzlgb3BrbACNfb9nSGkwNLZP0wFHAp1KkpVtLTiPKgW-hQ1z3EiRfn6Kyaria84-95XDg/exec";
 
 export interface LeadPayload {
   phone: string;
