@@ -52,7 +52,19 @@ function doPost(e) {
     const timestamp = Utilities.formatDate(now, "Asia/Kolkata", "dd/MM/yyyy HH:mm");
 
     // 3. Open spreadsheet & retrieve/create 'Leads' sheet
-    const ss = SpreadsheetApp.openById(SPREADSHEET_ID);
+    let ss;
+    try {
+      ss = SpreadsheetApp.openById(SPREADSHEET_ID);
+    } catch (openErr) {
+      Logger.log("openById failed for ID " + SPREADSHEET_ID + ": " + openErr.toString());
+      try {
+        ss = SpreadsheetApp.getActiveSpreadsheet();
+      } catch (eActive) {}
+
+      if (!ss) {
+        ss = SpreadsheetApp.create("Central Structure Fabrication - Leads");
+      }
+    }
     let sheet = ss.getSheetByName(SHEET_NAME);
 
     if (!sheet) {
