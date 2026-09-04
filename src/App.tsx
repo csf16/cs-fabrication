@@ -6,6 +6,7 @@ import { ScrollToTop } from './components/ScrollToTop';
 import { EnquiryForm } from './components/EnquiryForm';
 
 import { ComingSoonPage } from './pages/ComingSoonPage';
+import { ComingSoonClonePage } from './pages/ComingSoonClonePage';
 
 // Dedicated Full Website Pages
 import { HomePage } from './pages/HomePage';
@@ -47,6 +48,25 @@ export const App: React.FC = () => {
   const hasPreviewParam =
     typeof window !== 'undefined' &&
     new URLSearchParams(window.location.search).get('preview') === 'true';
+
+  // If user is previewing clone page on production or local
+  const isCloneRoute =
+    typeof window !== 'undefined' &&
+    (window.location.pathname === '/coming-soon-clone' ||
+     window.location.pathname === '/clone');
+
+  if (isCloneRoute) {
+    return (
+      <BrowserRouter>
+        <ComingSoonClonePage onEnquireClick={triggerEnquiry} />
+        <EnquiryForm 
+          isOpen={isEnquiryOpen} 
+          onClose={() => setIsEnquiryOpen(false)} 
+          preSelectedService={selectedService}
+        />
+      </BrowserRouter>
+    );
+  }
 
   // If live on production (and no preview flag), strictly show the Launch / Coming Soon page
   if (!isLocal && !hasPreviewParam) {
@@ -91,6 +111,8 @@ export const App: React.FC = () => {
 
             {/* Launch / Coming Soon page preview route */}
             <Route path="/coming-soon" element={<ComingSoonPage onEnquireClick={triggerEnquiry} />} />
+            <Route path="/coming-soon-clone" element={<ComingSoonClonePage onEnquireClick={triggerEnquiry} />} />
+            <Route path="/clone" element={<ComingSoonClonePage onEnquireClick={triggerEnquiry} />} />
             
             {/* Fallback route */}
             <Route path="*" element={<Navigate to="/" replace />} />

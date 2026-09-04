@@ -5,18 +5,18 @@ import { Phone, CheckCircle2 } from 'lucide-react';
 
 import { submitLeadToGoogleSheet, validatePhoneNumber } from '../services/leadService';
 
-interface ComingSoonPageProps {
+interface ComingSoonClonePageProps {
   onEnquireClick?: (service?: string) => void;
 }
 
-export const ComingSoonPage: React.FC<ComingSoonPageProps> = () => {
+export const ComingSoonClonePage: React.FC<ComingSoonClonePageProps> = () => {
   useSEO({
-    title: 'Central Structure Fabrication | Solar Mounting Structures & C-Channels',
+    title: 'Coming Soon | Central Structure Fabrication — Solar Mounting Structures & C-Channels',
     description:
-      'Central Structure Fabrication — Precision solar mounting structures, cold-formed C-channels, and 41×41 strut channels. Amroha, Uttar Pradesh. GSTIN: 09BDRPA4213J1ZJ.',
+      'Central Structure Fabrication — Coming Soon. Built for what’s above. Solar mounting structures, cold-formed C-channels, and strut channels. Amroha, Uttar Pradesh. GSTIN: 09BDRPA4213J1ZJ.',
     keywords:
-      'Central Structure Fabrication, solar mounting structures, C channel steel, strut channel, Amroha UP',
-    canonical: 'https://www.csfabrication.in/',
+      'Central Structure Fabrication, coming soon, solar mounting structures, C channel steel, strut channel, Amroha UP',
+    canonical: 'https://www.csfabrication.in/clone',
   });
 
   const [phone, setPhone] = useState('');
@@ -54,7 +54,7 @@ export const ComingSoonPage: React.FC<ComingSoonPageProps> = () => {
       <Hero3D fixedViewport={true} minimal={true}>
         <div className="absolute inset-0 flex flex-col justify-between items-center py-10 sm:py-14 px-6 pointer-events-none z-20">
           
-          {/* ── Top Title (Live Updated Content) ── */}
+          {/* ── Top Title (Updated textual content on clone page) ── */}
           <div className="flex flex-col items-center text-center select-none max-w-3xl mt-2 sm:mt-4">
             <h1 className="text-3xl sm:text-5xl md:text-6xl font-black uppercase tracking-tight text-[#141516] leading-[1.08] font-sans">
               COMING SOON.<br /><br />
@@ -112,10 +112,10 @@ export const ComingSoonPage: React.FC<ComingSoonPageProps> = () => {
               </div>
             )}
 
-            {/* Thin divider line from attached image */}
+            {/* Thin divider line */}
             <div className="w-full h-[1px] bg-[#141516]/10" />
 
-            {/* Footer credentials line from attached image */}
+            {/* Footer credentials line */}
             <p className="text-[10px] sm:text-xs font-mono text-[#7A7D80] text-center select-none">
               saifi.electricals2@gmail.com · Amroha, UP · GST: 09BDRPA4213J1ZJ
             </p>
@@ -127,4 +127,4 @@ export const ComingSoonPage: React.FC<ComingSoonPageProps> = () => {
   );
 };
 
-export default ComingSoonPage;
+export default ComingSoonClonePage;
