@@ -4,7 +4,7 @@
 
 // Deployment Web App URL placeholder as requested
 export const GOOGLE_SHEET_WEBHOOK_URL =
-  "PASTE_YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL_HERE";
+  "https://script.google.com/macros/s/AKfycbw9Q90DiU72SKsq5Fl0U_QqF4nDESyIrO5eoOQaL6A2Ct89DJT8OUcL5ZOyPcWtVu1JuA/exec";
 
 export interface LeadPayload {
   phone: string;
