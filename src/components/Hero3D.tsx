@@ -24,11 +24,12 @@ function createGalvanizedMatCapTexture(): THREE.CanvasTexture {
 
   const grad = ctx.createRadialGradient(cx - 50, cy - 70, 20, cx, cy, size / 2);
   grad.addColorStop(0.00, '#FFFFFF');
-  grad.addColorStop(0.18, '#EFF4F9');
-  grad.addColorStop(0.42, '#CAD4DE');
-  grad.addColorStop(0.68, '#8E9AA7');
-  grad.addColorStop(0.92, '#58626E');
-  grad.addColorStop(1.00, '#3A4048');
+  grad.addColorStop(0.12, '#E5E7EB');
+  grad.addColorStop(0.32, '#D1D5DB');
+  grad.addColorStop(0.55, '#94A3B8');
+  grad.addColorStop(0.75, '#647488');
+  grad.addColorStop(0.90, '#475569');
+  grad.addColorStop(1.00, '#334155');
 
   ctx.fillStyle = grad;
   ctx.fillRect(0, 0, size, size);
