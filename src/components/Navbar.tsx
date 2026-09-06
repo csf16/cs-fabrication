@@ -7,7 +7,7 @@ interface NavbarProps {
   onEnquireClick: (service?: string) => void;
 }
 
-export const Navbar: React.FC<NavbarProps> = ({ onEnquireClick }) => {
+export const Navbar: React.FC<NavbarProps> = ({ onEnquireClick: _onEnquireClick }) => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const location = useLocation();
@@ -28,7 +28,6 @@ export const Navbar: React.FC<NavbarProps> = ({ onEnquireClick }) => {
     { to: '/capabilities', label: 'Capabilities' },
     { to: '/projects', label: 'Projects' },
     { to: '/about', label: 'About' },
-    { to: '/contact', label: 'Contact' },
   ];
 
   const isActive = (path: string) => {
@@ -75,15 +74,15 @@ export const Navbar: React.FC<NavbarProps> = ({ onEnquireClick }) => {
           })}
         </nav>
 
-        {/* Primary CTA Button */}
+        {/* Primary CTA Button — navigates directly to /contact */}
         <div className="hidden md:flex items-center gap-4">
-          <button
-            onClick={() => onEnquireClick('Direct RFQ / Callback Request')}
-            className="inline-flex items-center gap-2 px-5 py-2.5 bg-[#0049CA] hover:bg-[#003CAD] text-white text-[13px] font-semibold font-sans tracking-[0.02em] rounded-none shadow-xs hover:shadow-sm transition-all duration-200 cursor-pointer"
+          <Link
+            to="/contact"
+            className="inline-flex items-center gap-2 px-5 py-2.5 bg-[#0049CA] hover:bg-[#003CAD] text-white text-[13px] font-semibold font-sans tracking-[0.02em] rounded-none shadow-xs hover:shadow-sm transition-all duration-200"
           >
             <PhoneCall className="w-3.5 h-3.5" />
             <span>Request a Call</span>
-          </button>
+          </Link>
         </div>
 
         {/* Mobile Menu Trigger */}
@@ -117,16 +116,14 @@ export const Navbar: React.FC<NavbarProps> = ({ onEnquireClick }) => {
               </Link>
             );
           })}
-          <button
-            onClick={() => {
-              setMobileMenuOpen(false);
-              onEnquireClick('Mobile Request Call');
-            }}
-            className="w-full mt-3 py-3 bg-[#0049CA] hover:bg-[#003CAD] text-white text-sm font-semibold rounded-none flex items-center justify-center gap-2 shadow-sm font-sans cursor-pointer"
+          <Link
+            to="/contact"
+            onClick={() => setMobileMenuOpen(false)}
+            className="w-full mt-3 py-3 bg-[#0049CA] hover:bg-[#003CAD] text-white text-sm font-semibold rounded-none flex items-center justify-center gap-2 shadow-sm font-sans"
           >
             <PhoneCall className="w-4 h-4" />
             <span>Request a Call</span>
-          </button>
+          </Link>
         </div>
       )}
     </header>
