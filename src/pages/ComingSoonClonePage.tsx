@@ -95,7 +95,7 @@ export const ComingSoonClonePage: React.FC<ComingSoonClonePageProps> = () => {
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="px-5 py-2.5 bg-[#0049CA] hover:bg-[#003bb0] text-white text-xs font-semibold tracking-wider uppercase rounded-lg transition-all whitespace-nowrap disabled:opacity-60 disabled:cursor-not-allowed shadow-sm"
+                    className="px-5 py-2.5 bg-[#0049CA] hover:bg-[#003bb0] text-white text-xs font-semibold tracking-wider uppercase rounded-none transition-all whitespace-nowrap disabled:opacity-60 disabled:cursor-not-allowed shadow-sm cursor-pointer"
                   >
                     {isSubmitting ? 'SENDING...' : 'GET NOTIFIED →'}
                   </button>

@@ -237,7 +237,7 @@ export const EnquiryForm: React.FC<EnquiryFormProps> = ({ isOpen, onClose, preSe
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full py-4 mt-2 bg-[#0049CA] hover:bg-[#003bb0] disabled:bg-[#0049CA]/60 text-white text-xs font-semibold uppercase tracking-wider rounded-xl transition-all duration-200 shadow-md hover:shadow-lg flex items-center justify-center gap-2 group"
+                className="w-full py-4 mt-2 bg-[#0049CA] hover:bg-[#003bb0] disabled:bg-[#0049CA]/60 text-white text-xs font-semibold uppercase tracking-wider rounded-none transition-all duration-200 shadow-md hover:shadow-lg flex items-center justify-center gap-2 group cursor-pointer"
               >
                 {isSubmitting ? (
                   <span className="flex items-center gap-2">

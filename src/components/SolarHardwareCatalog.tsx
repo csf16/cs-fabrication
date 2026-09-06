@@ -249,7 +249,7 @@ export const SolarHardwareCatalog: React.FC = () => {
                 <button
                   key={cat.id}
                   onClick={() => setActiveCategory(cat.id)}
-                  className={`px-5 py-2 text-xs font-semibold tracking-wide uppercase rounded-xl transition-all duration-200 cursor-pointer ${
+                  className={`px-5 py-2 text-xs font-semibold tracking-wide uppercase rounded-none transition-all duration-200 cursor-pointer ${
                     isActive
                       ? 'bg-[#0049CA] text-white shadow-md shadow-[#0049CA]/25'
                       : 'bg-white/5 hover:bg-white/10 text-[#E5E7EB] border border-white/10'
@@ -317,7 +317,7 @@ export const SolarHardwareCatalog: React.FC = () => {
             onClick={() => {
               window.dispatchEvent(new CustomEvent('open-enquiry', { detail: 'Bulk Hardware Quote' }));
             }}
-            className="px-6 py-3.5 bg-[#0049CA] hover:bg-[#003bb0] text-white text-xs font-semibold tracking-wider uppercase rounded-xl transition-all duration-200 shadow-md whitespace-nowrap cursor-pointer"
+            className="px-6 py-3.5 bg-[#0049CA] hover:bg-[#003bb0] text-white text-xs font-semibold tracking-wider uppercase rounded-none transition-all duration-200 shadow-md whitespace-nowrap cursor-pointer"
           >
             Request Hardware Quote →
           </button>
@@ -405,13 +405,13 @@ export const SolarHardwareCatalog: React.FC = () => {
                       setSelectedItem(null);
                       window.dispatchEvent(new CustomEvent('open-enquiry', { detail: itemName }));
                     }}
-                    className="flex-1 py-3 bg-[#0049CA] hover:bg-[#003bb0] text-white text-xs font-semibold tracking-wider text-center uppercase rounded-xl transition-colors cursor-pointer shadow-md"
+                    className="flex-1 py-3 bg-[#0049CA] hover:bg-[#003bb0] text-white text-xs font-semibold tracking-wider text-center uppercase rounded-none transition-colors cursor-pointer shadow-md"
                   >
                     Inquire For This Item →
                   </button>
                   <button
                     onClick={() => setSelectedItem(null)}
-                    className="px-5 py-3 border border-white/15 hover:bg-white/10 text-white text-xs font-semibold tracking-wider uppercase rounded-xl transition-colors cursor-pointer"
+                    className="px-5 py-3 border border-white/15 hover:bg-white/10 text-white text-xs font-semibold tracking-wider uppercase rounded-none transition-colors cursor-pointer"
                   >
                     Close
                   </button>

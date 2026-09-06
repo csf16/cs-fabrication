@@ -94,7 +94,7 @@ html {
   font-weight: 600;
   font-size: 13px;
   letter-spacing: 0.04em;
-  border-radius: 3px;
+  border-radius: 0px;
   padding: 12px 24px;
   transition: all 0.2s ease-in-out;
   box-shadow: 0 1px 2px rgba(0, 73, 202, 0.12);
@@ -116,7 +116,7 @@ html {
   font-size: 13px;
   letter-spacing: 0.04em;
   border: 1px solid rgba(15, 33, 48, 0.25);
-  border-radius: 3px;
+  border-radius: 0px;
   padding: 12px 24px;
   transition: all 0.2s ease-in-out;
 }

@@ -159,7 +159,7 @@ export const StructuresPage: React.FC<StructuresPageProps> = ({ onEnquireClick }
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
-                className={`px-4 py-2.5 text-xs font-semibold uppercase tracking-wider rounded-xl transition-all duration-200 ${
+                className={`px-4 py-2.5 text-xs font-semibold uppercase tracking-wider rounded-none transition-all duration-200 cursor-pointer ${
                   activeTab === tab.id
                     ? 'bg-[#0049CA] text-white shadow-md shadow-[#0049CA]/20'
                     : 'bg-[#F8FAFC] text-[#647488] hover:bg-[#E5E7EB] hover:text-[#0F2130]'
@@ -256,7 +256,7 @@ export const StructuresPage: React.FC<StructuresPageProps> = ({ onEnquireClick }
                       const formEl = document.getElementById('request-a-call');
                       if (formEl) formEl.scrollIntoView({ behavior: 'smooth' });
                     }}
-                    className="px-6 py-3 bg-[#0049CA] hover:bg-[#003bb0] text-white text-xs font-semibold tracking-wider uppercase rounded-xl transition-all duration-200 shadow-md hover:shadow-lg flex items-center gap-2"
+                    className="px-6 py-3 bg-[#0049CA] hover:bg-[#003bb0] text-white text-xs font-semibold tracking-wider uppercase rounded-none transition-all duration-200 shadow-md hover:shadow-lg flex items-center gap-2 cursor-pointer"
                   >
                     <span>Request Quotation For This Structure</span>
                     <ArrowRight className="w-4 h-4" />

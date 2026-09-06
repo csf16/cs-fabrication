@@ -171,7 +171,7 @@ export const EngineeringPage: React.FC<EngineeringPageProps> = ({ onEnquireClick
                 <button
                   key={item.step}
                   onClick={() => setActiveStep(idx)}
-                  className={`py-3.5 px-5 text-left rounded-xl transition-all duration-200 border ${
+                  className={`py-3.5 px-5 text-left rounded-none transition-all duration-200 border cursor-pointer ${
                     activeStep === idx
                       ? 'border-[#0049CA] bg-[#0049CA]/10 text-[#0F2130] font-bold shadow-sm'
                       : 'border-transparent hover:bg-[#F8FAFC] text-[#647488]'
@@ -322,7 +322,7 @@ export const EngineeringPage: React.FC<EngineeringPageProps> = ({ onEnquireClick
               const formEl = document.getElementById('request-a-call');
               if (formEl) formEl.scrollIntoView({ behavior: 'smooth' });
             }}
-            className="px-8 py-4 bg-[#0049CA] hover:bg-[#003bb0] text-white text-xs font-semibold tracking-wider uppercase rounded-xl transition-all duration-200 whitespace-nowrap shadow-lg shadow-[#0049CA]/30 flex items-center gap-2"
+            className="px-8 py-4 bg-[#0049CA] hover:bg-[#003bb0] text-white text-xs font-semibold tracking-wider uppercase rounded-none transition-all duration-200 whitespace-nowrap shadow-lg shadow-[#0049CA]/30 flex items-center gap-2 cursor-pointer"
           >
             <span>Request Engineering Review</span>
             <ArrowRight className="w-4 h-4" />

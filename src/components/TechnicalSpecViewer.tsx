@@ -170,7 +170,7 @@ export const TechnicalSpecViewer: React.FC<TechnicalSpecViewerProps> = ({ onSele
             <button
               key={p.id}
               onClick={() => setSelectedProfileId(p.id)}
-              className={`px-4 py-2.5 rounded-lg text-xs font-semibold uppercase tracking-wider transition-all duration-200 ${
+              className={`px-4 py-2.5 rounded-none text-xs font-semibold uppercase tracking-wider transition-all duration-200 cursor-pointer ${
                 isActive
                   ? 'bg-[#0049CA] text-white shadow-md shadow-[#0049CA]/20'
                   : 'bg-[#F8FAFC] text-[#647488] hover:bg-[#E5E7EB] hover:text-[#0F2130]'
@@ -336,7 +336,7 @@ export const TechnicalSpecViewer: React.FC<TechnicalSpecViewerProps> = ({ onSele
                 formEl.scrollIntoView({ behavior: 'smooth' });
               }
             }}
-            className="w-full py-3.5 bg-[#0049CA] hover:bg-[#003bb0] text-white font-semibold text-xs uppercase tracking-wider rounded-xl transition-all duration-200 shadow-md hover:shadow-lg flex items-center justify-center gap-2 group"
+            className="w-full py-3.5 bg-[#0049CA] hover:bg-[#003bb0] text-white font-semibold text-xs uppercase tracking-wider rounded-none transition-all duration-200 shadow-md hover:shadow-lg flex items-center justify-center gap-2 group cursor-pointer"
           >
             <span>Request Quote For This Profile</span>
             <ArrowRight className="w-4 h-4 transform transition-transform duration-200 group-hover:translate-x-1" />

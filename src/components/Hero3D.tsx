@@ -662,7 +662,7 @@ export const Hero3D: React.FC<Hero3DProps> = ({ fixedViewport = false, minimal =
 
               <button
                 onClick={() => handleScrub(0.95)}
-                className="mt-1 pointer-events-auto px-6 py-3 bg-[#0049CA] hover:bg-[#003bb0] text-white text-xs font-semibold tracking-wider uppercase rounded-lg transition-all duration-200 shadow-md hover:shadow-lg flex items-center gap-2 group"
+                className="mt-1 pointer-events-auto px-6 py-3 bg-[#0049CA] hover:bg-[#003bb0] text-white text-xs font-semibold tracking-wider uppercase rounded-none transition-all duration-200 shadow-md hover:shadow-lg flex items-center gap-2 group cursor-pointer"
               >
                 <span>EXPLORE ASSEMBLY</span>
                 <span className="transform transition-transform duration-200 group-hover:translate-y-0.5">↓</span>

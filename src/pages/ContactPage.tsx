@@ -178,7 +178,7 @@ export const ContactPage: React.FC = () => {
                     setIsSubmitted(false);
                     setFormData({ name: '', company: '', phone: '', projectType: 'Ground Mounted Fixed Tilt', capacity: '', location: '', notes: '' });
                   }}
-                  className="mt-4 px-6 py-3 bg-[#0049CA] hover:bg-[#003bb0] text-white text-xs font-semibold uppercase tracking-wider rounded-xl transition-colors"
+                  className="mt-4 px-6 py-3 bg-[#0049CA] hover:bg-[#003bb0] text-white text-xs font-semibold uppercase tracking-wider rounded-none transition-colors cursor-pointer shadow-sm"
                 >
                   Submit Another Request
                 </button>
@@ -327,7 +327,7 @@ export const ContactPage: React.FC = () => {
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full py-4 bg-[#0049CA] hover:bg-[#003bb0] disabled:bg-[#0049CA]/60 text-white text-xs font-semibold uppercase tracking-wider rounded-xl transition-all duration-200 shadow-md hover:shadow-lg flex items-center justify-center gap-2 group mt-2"
+                  className="w-full py-4 bg-[#0049CA] hover:bg-[#003bb0] disabled:bg-[#0049CA]/60 text-white text-xs font-semibold uppercase tracking-wider rounded-none transition-all duration-200 shadow-md hover:shadow-lg flex items-center justify-center gap-2 group mt-2 cursor-pointer"
                 >
                   {isSubmitting ? (
                     <span className="flex items-center gap-2">

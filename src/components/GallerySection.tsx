@@ -199,7 +199,7 @@ export const GallerySection: React.FC = () => {
               <button
                 key={cat.id}
                 onClick={() => setActiveCategory(cat.id)}
-                className={`px-5 py-2.5 text-xs font-semibold tracking-wide uppercase rounded-xl transition-all duration-200 cursor-pointer ${
+                className={`px-5 py-2.5 text-xs font-semibold tracking-wide uppercase rounded-none transition-all duration-200 cursor-pointer ${
                   isActive
                     ? 'bg-[#0049CA] text-white shadow-md shadow-[#0049CA]/20'
                     : 'bg-[#F8FAFC] hover:bg-white text-[#647488] hover:text-[#0F2130] border border-[#E5E7EB]'
@@ -309,7 +309,7 @@ export const GallerySection: React.FC = () => {
                 window.dispatchEvent(new CustomEvent('open-enquiry', { detail: 'Project Gallery Samples' }));
               }
             }}
-            className="px-6 py-3.5 bg-[#0049CA] hover:bg-[#003bb0] text-white text-xs font-semibold tracking-wider uppercase rounded-xl transition-all duration-200 whitespace-nowrap shadow-md hover:shadow-lg flex items-center gap-2 cursor-pointer"
+            className="px-6 py-3.5 bg-[#0049CA] hover:bg-[#003bb0] text-white text-xs font-semibold tracking-wider uppercase rounded-none transition-all duration-200 whitespace-nowrap shadow-md hover:shadow-lg flex items-center gap-2 cursor-pointer"
           >
             <span>Request Samples &amp; Catalog</span>
             <ArrowRight className="w-4 h-4" />
@@ -418,7 +418,7 @@ export const GallerySection: React.FC = () => {
                     closeLightbox();
                     window.dispatchEvent(new CustomEvent('open-enquiry', { detail: currentItem.title }));
                   }}
-                  className="w-full py-3.5 bg-[#0049CA] hover:bg-[#003bb0] text-white text-xs font-semibold tracking-wider text-center uppercase rounded-xl transition-all shadow-md cursor-pointer"
+                  className="w-full py-3.5 bg-[#0049CA] hover:bg-[#003bb0] text-white text-xs font-semibold tracking-wider text-center uppercase rounded-none transition-all shadow-md cursor-pointer"
                 >
                   Enquire About This Spec →
                 </button>

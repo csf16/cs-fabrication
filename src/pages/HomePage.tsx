@@ -151,7 +151,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onEnquireClick }) => {
                 const formEl = document.getElementById('request-a-call');
                 if (formEl) formEl.scrollIntoView({ behavior: 'smooth' });
               }}
-              className="mt-8 w-full py-3 bg-[#0F2130] hover:bg-[#0049CA] text-white text-xs font-semibold uppercase tracking-wider rounded-xl transition-colors duration-200 flex items-center justify-center gap-2"
+              className="mt-8 w-full py-3.5 bg-[#0049CA] hover:bg-[#003bb0] text-white text-xs font-semibold uppercase tracking-wider rounded-none transition-colors duration-200 flex items-center justify-center gap-2 cursor-pointer shadow-sm"
             >
               <span>Enquire For Structures</span>
               <ArrowRight className="w-4 h-4" />
@@ -200,7 +200,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onEnquireClick }) => {
                 const formEl = document.getElementById('request-a-call');
                 if (formEl) formEl.scrollIntoView({ behavior: 'smooth' });
               }}
-              className="mt-8 w-full py-3 bg-[#0F2130] hover:bg-[#0049CA] text-white text-xs font-semibold uppercase tracking-wider rounded-xl transition-colors duration-200 flex items-center justify-center gap-2"
+              className="mt-8 w-full py-3.5 bg-[#0049CA] hover:bg-[#003bb0] text-white text-xs font-semibold uppercase tracking-wider rounded-none transition-colors duration-200 flex items-center justify-center gap-2 cursor-pointer shadow-sm"
             >
               <span>Enquire For C-Channels</span>
               <ArrowRight className="w-4 h-4" />
@@ -249,7 +249,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onEnquireClick }) => {
                 const formEl = document.getElementById('request-a-call');
                 if (formEl) formEl.scrollIntoView({ behavior: 'smooth' });
               }}
-              className="mt-8 w-full py-3 bg-[#0F2130] hover:bg-[#0049CA] text-white text-xs font-semibold uppercase tracking-wider rounded-xl transition-colors duration-200 flex items-center justify-center gap-2"
+              className="mt-8 w-full py-3.5 bg-[#0049CA] hover:bg-[#003bb0] text-white text-xs font-semibold uppercase tracking-wider rounded-none transition-colors duration-200 flex items-center justify-center gap-2 cursor-pointer shadow-sm"
             >
               <span>Enquire For Custom Parts</span>
               <ArrowRight className="w-4 h-4" />
@@ -799,7 +799,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onEnquireClick }) => {
                 </p>
                 <button
                   onClick={() => setSubmitSuccess(false)}
-                  className="mt-4 px-6 py-2.5 bg-[#0F2130] text-white text-xs font-semibold uppercase tracking-wider rounded-lg hover:bg-[#0049CA] transition-colors"
+                  className="mt-4 px-6 py-3 bg-[#0049CA] text-white text-xs font-semibold uppercase tracking-wider rounded-none hover:bg-[#003bb0] transition-colors cursor-pointer shadow-sm"
                 >
                   Submit Another Request
                 </button>
@@ -892,7 +892,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onEnquireClick }) => {
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full py-4 bg-[#0049CA] hover:bg-[#003bb0] disabled:bg-[#0049CA]/60 text-white text-xs font-semibold uppercase tracking-wider rounded-xl transition-all duration-200 shadow-md hover:shadow-lg flex items-center justify-center gap-2 group mt-2"
+                  className="w-full py-4 bg-[#0049CA] hover:bg-[#003bb0] disabled:bg-[#0049CA]/60 text-white text-xs font-semibold uppercase tracking-wider rounded-none transition-all duration-200 shadow-md hover:shadow-lg flex items-center justify-center gap-2 group mt-2 cursor-pointer"
                 >
                   {isSubmitting ? (
                     <span className="flex items-center gap-2">

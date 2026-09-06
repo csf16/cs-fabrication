@@ -239,7 +239,7 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onEnquireClick: _onEnquire
           </div>
           <a
             href="/#request-a-call"
-            className="px-8 py-4 bg-[#0049CA] hover:bg-[#003bb0] text-white text-xs font-semibold uppercase tracking-wider rounded-xl transition-all duration-200 whitespace-nowrap flex items-center gap-2 shadow-lg shadow-[#0049CA]/30"
+            className="px-8 py-4 bg-[#0049CA] hover:bg-[#003bb0] text-white text-xs font-semibold uppercase tracking-wider rounded-none transition-all duration-200 whitespace-nowrap flex items-center gap-2 shadow-lg shadow-[#0049CA]/30 cursor-pointer"
           >
             <span>Request A Call</span>
             <ArrowRight className="w-4 h-4" />

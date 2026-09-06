@@ -73,7 +73,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onEnquireClick }) => {
           <div className="hidden md:flex items-center gap-4">
             <button
               onClick={() => onEnquireClick('General Requirement')}
-              className="inline-flex items-center gap-2 px-5 py-2.5 bg-[#0049CA] hover:bg-[#003CAD] text-white text-[13px] font-semibold font-sans tracking-[0.02em] rounded-[3px] shadow-xs hover:shadow-sm transition-all duration-200"
+              className="inline-flex items-center gap-2 px-5 py-2.5 bg-[#0049CA] hover:bg-[#003CAD] text-white text-[13px] font-semibold font-sans tracking-[0.02em] rounded-none shadow-xs hover:shadow-sm transition-all duration-200 cursor-pointer"
             >
               <PhoneCall className="w-3.5 h-3.5" />
               <span>Request a Call</span>
@@ -112,7 +112,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onEnquireClick }) => {
                 setMobileMenuOpen(false);
                 onEnquireClick('General Requirement');
               }}
-              className="w-full mt-2 py-3 bg-[#0049CA] hover:bg-[#003CAD] text-white text-sm font-semibold rounded-[3px] flex items-center justify-center gap-2 shadow-sm font-sans"
+              className="w-full mt-2 py-3 bg-[#0049CA] hover:bg-[#003CAD] text-white text-sm font-semibold rounded-none flex items-center justify-center gap-2 shadow-sm font-sans cursor-pointer"
             >
               <PhoneCall className="w-4 h-4" />
               <span>Request a Call</span>
