@@ -75,7 +75,7 @@ export const ComingSoonPage: React.FC<ComingSoonPageProps> = () => {
               <div className="w-full flex flex-col gap-1.5">
                 <form
                   onSubmit={handleSubmit}
-                  className="w-full flex items-center bg-white/95 border border-[#141516]/15 rounded-[4px] p-1.5 focus-within:border-[#A88A58] shadow-sm backdrop-blur-xs transition-all"
+                  className="w-full flex items-center bg-white/95 border border-[#E5E7EB] rounded-xl p-1.5 focus-within:border-[#0049CA] shadow-sm backdrop-blur-xs transition-all"
                 >
                   <div className="flex items-center pl-3 pr-2 text-[#0049CA]">
                     <Phone className="w-4 h-4" />

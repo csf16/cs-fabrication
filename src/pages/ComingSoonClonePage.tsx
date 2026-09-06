@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Hero3D } from '../components/Hero3D';
 import { useSEO } from '../hooks/useSEO';
 import { Phone, CheckCircle2 } from 'lucide-react';
-
+import { CSFLogo } from '../components/CSFLogo';
 import { submitLeadToGoogleSheet, validatePhoneNumber } from '../services/leadService';
 
 interface ComingSoonClonePageProps {
@@ -11,11 +11,11 @@ interface ComingSoonClonePageProps {
 
 export const ComingSoonClonePage: React.FC<ComingSoonClonePageProps> = () => {
   useSEO({
-    title: 'Coming Soon | Central Structure Fabrication — Solar Mounting Structures & C-Channels',
+    title: 'Central Structure Fabrication (CSF) | Solar Mounting Structures & C-Channels',
     description:
-      'Central Structure Fabrication — Coming Soon. Built for what’s above. Solar mounting structures, cold-formed C-channels, and strut channels. Amroha, Uttar Pradesh. GSTIN: 09BDRPA4213J1ZJ.',
+      'Central Structure Fabrication (CSF) — Precision solar mounting structures, cold-formed C-channels, and 41×41 strut channels. Amroha, Uttar Pradesh. GSTIN: 09BDRPA4213J1ZJ.',
     keywords:
-      'Central Structure Fabrication, coming soon, solar mounting structures, C channel steel, strut channel, Amroha UP',
+      'Central Structure Fabrication, CSF, solar mounting structures, C channel steel, strut channel, Amroha UP',
     canonical: 'https://www.csfabrication.in/clone',
   });
 
@@ -39,7 +39,7 @@ export const ComingSoonClonePage: React.FC<ComingSoonClonePageProps> = () => {
     setIsSubmitting(true);
 
     try {
-      await submitLeadToGoogleSheet(phone, 'Landing Page');
+      await submitLeadToGoogleSheet(phone, 'Coming Soon Clone Page');
       setPhone('');
       setSubmitted(true);
     } catch (err: any) {
@@ -50,18 +50,19 @@ export const ComingSoonClonePage: React.FC<ComingSoonClonePageProps> = () => {
   };
 
   return (
-    <div className="h-[100dvh] w-full bg-[#F5F4EF] text-[#141516] font-sans relative overflow-hidden select-none">
+    <div className="h-[100dvh] w-full bg-[#F8FAFC] text-[#0F2130] font-sans relative overflow-hidden select-none">
       <Hero3D fixedViewport={true} minimal={true}>
-        <div className="absolute inset-0 flex flex-col justify-between items-center py-10 sm:py-14 px-6 pointer-events-none z-20">
+        <div className="absolute inset-0 flex flex-col justify-between items-center py-8 sm:py-12 px-6 pointer-events-none z-20">
           
-          {/* ── Top Title (Updated textual content on clone page) ── */}
+          {/* ── Top Brand Logo & Heading ── */}
           <div className="flex flex-col items-center text-center select-none max-w-3xl mt-2 sm:mt-4">
-            <h1 className="text-3xl sm:text-5xl md:text-6xl font-black uppercase tracking-tight text-[#141516] leading-[1.08] font-sans">
-              COMING SOON.<br /><br />
+            <CSFLogo className="h-10 sm:h-12 w-auto mb-4" variant="dark" showText={true} />
+            <h1 className="text-3xl sm:text-5xl md:text-6xl font-extrabold uppercase tracking-tight text-[#0F2130] leading-[1.08]">
+              COMING SOON.<br />
               BUILT FOR WHAT'S<br />
-              <span className="text-[#A88A58]">ABOVE.</span>
+              <span className="text-[#0049CA]">ABOVE.</span>
             </h1>
-            <p className="text-[10px] sm:text-xs text-[#7A7D80] font-mono uppercase tracking-[0.24em] mt-3 sm:mt-4 font-semibold">
+            <p className="text-[10px] sm:text-xs text-[#647488] uppercase tracking-[0.2em] mt-3 sm:mt-4 font-semibold">
               SOLAR MOUNTING STRUCTURES &amp; C-CHANNELS // AMROHA, UTTAR PRADESH
             </p>
           </div>
@@ -74,9 +75,9 @@ export const ComingSoonClonePage: React.FC<ComingSoonClonePageProps> = () => {
               <div className="w-full flex flex-col gap-1.5">
                 <form
                   onSubmit={handleSubmit}
-                  className="w-full flex items-center bg-white/95 border border-[#141516]/15 rounded-[4px] p-1.5 focus-within:border-[#A88A58] shadow-sm backdrop-blur-xs transition-all"
+                  className="w-full flex items-center bg-white/95 border border-[#E5E7EB] rounded-xl p-1.5 focus-within:border-[#0049CA] shadow-sm backdrop-blur-xs transition-all"
                 >
-                  <div className="flex items-center pl-3 pr-2 text-[#A88A58]">
+                  <div className="flex items-center pl-3 pr-2 text-[#0049CA]">
                     <Phone className="w-4 h-4" />
                   </div>
                   <input
@@ -89,35 +90,35 @@ export const ComingSoonClonePage: React.FC<ComingSoonClonePageProps> = () => {
                       setPhone(e.target.value);
                       if (errorMessage) setErrorMessage(null);
                     }}
-                    className="bg-transparent border-none text-xs sm:text-sm text-[#141516] placeholder-[#141516]/45 focus:outline-none flex-1 font-mono tracking-wide py-2 disabled:opacity-60"
+                    className="bg-transparent border-none text-xs sm:text-sm text-[#0F2130] placeholder-[#647488]/60 focus:outline-none flex-1 tracking-wide py-2 disabled:opacity-60"
                   />
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="px-5 py-2.5 bg-[#141516] hover:bg-[#2C2F32] text-[#F7F6F1] text-xs font-bold font-mono tracking-widest uppercase rounded-[3px] transition-all whitespace-nowrap disabled:opacity-60 disabled:cursor-not-allowed"
+                    className="px-5 py-2.5 bg-[#0049CA] hover:bg-[#003bb0] text-white text-xs font-semibold tracking-wider uppercase rounded-lg transition-all whitespace-nowrap disabled:opacity-60 disabled:cursor-not-allowed shadow-sm"
                   >
                     {isSubmitting ? 'SENDING...' : 'GET NOTIFIED →'}
                   </button>
                 </form>
                 {errorMessage && (
-                  <p className="text-[11px] font-mono text-rose-600 text-center tracking-wide">
+                  <p className="text-xs text-rose-600 text-center font-medium mt-1">
                     {errorMessage}
                   </p>
                 )}
               </div>
             ) : (
-              <div className="w-full flex items-center justify-center gap-2 p-3.5 bg-emerald-50 border border-emerald-300 rounded-[4px] text-xs font-mono text-emerald-800 shadow-sm">
-                <CheckCircle2 className="w-4 h-4 text-emerald-600" />
+              <div className="w-full flex items-center justify-center gap-2.5 p-3.5 bg-emerald-50 border border-emerald-200 rounded-xl text-xs font-semibold text-emerald-800 shadow-sm">
+                <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
                 <span>Thank you. We'll be in touch soon.</span>
               </div>
             )}
 
             {/* Thin divider line */}
-            <div className="w-full h-[1px] bg-[#141516]/10" />
+            <div className="w-full h-[1px] bg-[#E5E7EB]" />
 
             {/* Footer credentials line */}
-            <p className="text-[10px] sm:text-xs font-mono text-[#7A7D80] text-center select-none">
-              saifi.electricals2@gmail.com · Amroha, UP · GST: 09BDRPA4213J1ZJ
+            <p className="text-[11px] sm:text-xs text-[#647488] text-center select-none font-medium">
+              info.csf16@gmail.com · Amroha, UP · GST: 09BDRPA4213J1ZJ
             </p>
           </div>
 

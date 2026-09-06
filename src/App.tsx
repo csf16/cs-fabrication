@@ -86,7 +86,7 @@ export const App: React.FC = () => {
   return (
     <BrowserRouter>
       <ScrollToTop />
-      <div className="bg-[#F5F4EF] text-[#17191B] min-h-screen font-sans selection:bg-[#B59A68]/20 selection:text-[#17191B] flex flex-col justify-between">
+      <div className="bg-[#FFFFFF] text-[#0F2130] min-h-screen font-sans selection:bg-[#0049CA]/20 selection:text-[#0F2130] flex flex-col justify-between">
         
         {/* Navigation Sticky Dock */}
         <Navbar onEnquireClick={triggerEnquiry} />
