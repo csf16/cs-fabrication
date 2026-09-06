@@ -8,11 +8,11 @@ import { EnquiryForm } from './components/EnquiryForm';
 import { ComingSoonPage } from './pages/ComingSoonPage';
 import { ComingSoonClonePage } from './pages/ComingSoonClonePage';
 
-// Dedicated Full Website Pages
+// Dedicated CSF Full Website Pages
 import { HomePage } from './pages/HomePage';
-import { StructuresPage } from './pages/StructuresPage';
-import { GalleryPage } from './pages/GalleryPage';
-import { EngineeringPage } from './pages/EngineeringPage';
+import { ProductsPage } from './pages/ProductsPage';
+import { CapabilitiesPage } from './pages/CapabilitiesPage';
+import { ProjectsPage } from './pages/ProjectsPage';
 import { AboutPage } from './pages/AboutPage';
 import { ContactPage } from './pages/ContactPage';
 
@@ -96,16 +96,20 @@ export const App: React.FC = () => {
           <Routes>
             <Route path="/" element={<HomePage onEnquireClick={triggerEnquiry} />} />
             
-            {/* Dedicated Structures Page */}
-            <Route path="/structures" element={<StructuresPage onEnquireClick={triggerEnquiry} />} />
-            <Route path="/hardware" element={<Navigate to="/structures" replace />} />
+            {/* Dedicated Products Page */}
+            <Route path="/products" element={<ProductsPage onEnquireClick={triggerEnquiry} />} />
+            <Route path="/structures" element={<Navigate to="/products" replace />} />
+            <Route path="/hardware" element={<Navigate to="/products" replace />} />
             
-            {/* Dedicated Gallery Page */}
-            <Route path="/gallery" element={<GalleryPage />} />
-            <Route path="/projects" element={<Navigate to="/gallery" replace />} />
+            {/* Dedicated Capabilities & Engineering Page */}
+            <Route path="/capabilities" element={<CapabilitiesPage onEnquireClick={triggerEnquiry} />} />
+            <Route path="/engineering" element={<Navigate to="/capabilities" replace />} />
             
-            {/* Dedicated Engineering, About, Contact Pages */}
-            <Route path="/engineering" element={<EngineeringPage onEnquireClick={triggerEnquiry} />} />
+            {/* Dedicated Projects & Applications Page */}
+            <Route path="/projects" element={<ProjectsPage onEnquireClick={triggerEnquiry} />} />
+            <Route path="/gallery" element={<Navigate to="/projects" replace />} />
+            
+            {/* Dedicated About & Contact Pages */}
             <Route path="/about" element={<AboutPage onEnquireClick={triggerEnquiry} />} />
             <Route path="/contact" element={<ContactPage />} />
 

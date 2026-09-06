@@ -41,7 +41,7 @@ export const Footer: React.FC<FooterProps> = ({ onEnquireClick }) => {
             <div className="flex flex-col gap-2.5 text-xs text-white/60 pt-2">
               <div className="flex items-center gap-2.5">
                 <MapPin className="w-4 h-4 text-[#0049CA] flex-shrink-0" />
-                <span>Amroha, Uttar Pradesh, India</span>
+                <span>Mohanpur Shumali, Amroha, Uttar Pradesh — 244221</span>
               </div>
               <div className="flex items-center gap-2.5">
                 <Mail className="w-4 h-4 text-[#0049CA] flex-shrink-0" />
@@ -59,28 +59,26 @@ export const Footer: React.FC<FooterProps> = ({ onEnquireClick }) => {
           {/* Navigation Links (3 cols) */}
           <div className="lg:col-span-3 flex flex-col gap-4">
             <span className="text-xs font-bold text-[#0049CA] uppercase tracking-wider">
-              Navigation
+              Dedicated Pages
             </span>
             <ul className="flex flex-col gap-2.5 text-xs text-white/70">
               <li>
-                <a href="#products-services" className="hover:text-white transition-colors">Products</a>
+                <Link to="/" className="hover:text-white transition-colors">Home</Link>
               </li>
               <li>
-                <a href="#capabilities" className="hover:text-white transition-colors">Capabilities</a>
+                <Link to="/products" className="hover:text-white transition-colors">Products &amp; Channels</Link>
               </li>
               <li>
-                <a href="#projects" className="hover:text-white transition-colors">Projects</a>
+                <Link to="/capabilities" className="hover:text-white transition-colors">Capabilities &amp; Process</Link>
               </li>
               <li>
-                <a href="#about" className="hover:text-white transition-colors">About</a>
+                <Link to="/projects" className="hover:text-white transition-colors">Projects &amp; Applications</Link>
               </li>
               <li>
-                <a href="#contact" className="hover:text-white transition-colors">Contact</a>
+                <Link to="/about" className="hover:text-white transition-colors">About CSF</Link>
               </li>
-              <li className="pt-2 border-t border-white/10">
-                <Link to="/structures" className="hover:text-white text-white/50 transition-colors">
-                  Structural Catalogue →
-                </Link>
+              <li>
+                <Link to="/contact" className="hover:text-white transition-colors">Contact &amp; Proposals</Link>
               </li>
             </ul>
           </div>
@@ -106,7 +104,7 @@ export const Footer: React.FC<FooterProps> = ({ onEnquireClick }) => {
                 </li>
                 <li className="flex items-center gap-2">
                   <span className="w-1.5 h-1.5 rounded-full bg-[#0049CA]" />
-                  <span>41×41 Strut Channels &amp; Clamps (U, Mid, Z)</span>
+                  <span>41×41 Strut Channels &amp; Clamps (U, Mid, End)</span>
                 </li>
                 <li className="flex items-center gap-2">
                   <span className="w-1.5 h-1.5 rounded-full bg-[#0049CA]" />
@@ -117,9 +115,7 @@ export const Footer: React.FC<FooterProps> = ({ onEnquireClick }) => {
 
             <button
               onClick={() => {
-                if (onEnquireClick) onEnquireClick('General Requirement');
-                const el = document.getElementById('contact');
-                if (el) el.scrollIntoView({ behavior: 'smooth' });
+                if (onEnquireClick) onEnquireClick('Footer Callback Request');
               }}
               className="w-full py-3.5 bg-[#0049CA] hover:bg-[#003CAD] text-white text-xs font-semibold uppercase tracking-wider rounded-none transition-colors duration-200 shadow-sm flex items-center justify-center gap-2 cursor-pointer"
             >
