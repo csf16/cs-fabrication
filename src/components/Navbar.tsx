@@ -42,7 +42,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onEnquireClick }) => {
         <div className="max-w-[1320px] mx-auto px-6 md:px-10 h-20 flex items-center justify-between">
           
           {/* Official CSF Main Brand Logo */}
-          <Link to="/" className="flex items-center group select-none py-1">
+          <Link to="/" className="flex items-center group py-1">
             <CSFLogo
               className="h-9 sm:h-11 w-auto transition-transform duration-200 group-hover:scale-[1.02]"
               variant="dark"

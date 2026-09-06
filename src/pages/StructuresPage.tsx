@@ -221,7 +221,7 @@ export const StructuresPage: React.FC<StructuresPageProps> = ({ onEnquireClick }
               </div>
 
               {/* Right Column: Details & Engineering Highlights (7 cols) */}
-              <div className="w-full lg:w-[55%] flex flex-col justify-between gap-6 select-none">
+              <div className="w-full lg:w-[55%] flex flex-col justify-between gap-6">
                 <div className="flex flex-col gap-4">
                   <div className="flex items-center gap-2">
                     <span className="text-xs font-bold text-[#0049CA] uppercase tracking-wider">TYPE 0{idx + 1} //</span>

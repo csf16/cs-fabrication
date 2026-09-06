@@ -610,7 +610,7 @@ export const Hero3D: React.FC<Hero3DProps> = ({ fixedViewport = false, minimal =
   return (
     <div
       ref={containerRef}
-      className={`relative w-full ${fixedViewport ? 'h-[100dvh] overflow-hidden select-none' : ''}`}
+      className={`relative w-full ${fixedViewport ? 'h-[100dvh] overflow-hidden' : ''}`}
       style={{ height: fixedViewport ? '100dvh' : '240vh' }}
     >
       <div className={`w-full overflow-hidden bg-[#F8FAFC] ${fixedViewport ? 'h-full relative' : 'sticky top-0'}`} style={{ height: fixedViewport ? '100%' : '100svh' }}>
@@ -632,7 +632,7 @@ export const Hero3D: React.FC<Hero3DProps> = ({ fixedViewport = false, minimal =
           }}
         >
           <div
-            className="flex flex-col items-center gap-3 sm:gap-4 text-center select-none max-w-2xl origin-top transition-transform duration-75"
+            className="flex flex-col items-center gap-3 sm:gap-4 text-center pointer-events-auto max-w-2xl origin-top transition-transform duration-75"
             style={{
               transform: `scale(${1 - headerEase * 0.38})`,
             }}
@@ -672,10 +672,10 @@ export const Hero3D: React.FC<Hero3DProps> = ({ fixedViewport = false, minimal =
         </div>
 
         <div
-          className="absolute bottom-10 left-6 md:left-14 pointer-events-none select-none transition-opacity duration-300"
+          className="absolute bottom-10 left-6 md:left-14 pointer-events-none transition-opacity duration-300"
           style={{ opacity: midStageOpacity }}
         >
-          <div className="flex flex-col gap-2.5 bg-white/90 backdrop-blur-md p-4 rounded-xl border border-[#E5E7EB] shadow-lg">
+          <div className="flex flex-col gap-2.5 bg-white/90 backdrop-blur-md p-4 rounded-xl border border-[#E5E7EB] shadow-lg pointer-events-auto">
             <div className="flex items-center justify-between gap-6">
               <span className="text-[10px] text-[#647488] uppercase tracking-wider font-semibold">
                 STAGE {activeIdx + 1} OF {STAGES.length}
@@ -704,10 +704,10 @@ export const Hero3D: React.FC<Hero3DProps> = ({ fixedViewport = false, minimal =
         </div>
 
         <div
-          className="absolute top-1/2 right-6 md:right-14 -translate-y-1/2 pointer-events-none select-none transition-opacity duration-300 hidden sm:block"
+          className="absolute top-1/2 right-6 md:right-14 -translate-y-1/2 pointer-events-none transition-opacity duration-300 hidden sm:block"
           style={{ opacity: midStageOpacity * clamp((scrollProgress - 0.3) * 4) }}
         >
-          <div className="flex flex-col gap-3.5 text-right bg-white/90 backdrop-blur-md p-5 rounded-xl border border-[#E5E7EB] shadow-lg">
+          <div className="flex flex-col gap-3.5 text-right bg-white/90 backdrop-blur-md p-5 rounded-xl border border-[#E5E7EB] shadow-lg pointer-events-auto">
             {[
               { k: 'PROFILE', v: 'SLOTTED C-CHANNEL 41×41' },
               { k: 'MATERIAL', v: 'IS 2062 HDG STEEL' },
@@ -724,10 +724,10 @@ export const Hero3D: React.FC<Hero3DProps> = ({ fixedViewport = false, minimal =
         </div>
 
         <div
-          className="absolute bottom-12 inset-x-0 flex flex-col items-center pointer-events-none select-none px-6"
+          className="absolute bottom-12 inset-x-0 flex flex-col items-center pointer-events-none px-6"
           style={{ opacity: finalOpacity }}
         >
-          <div className="flex flex-col items-center gap-2.5 text-center bg-white/95 backdrop-blur-md px-8 py-5 rounded-xl border border-[#E5E7EB] shadow-xl max-w-lg">
+          <div className="flex flex-col items-center gap-2.5 text-center bg-white/95 backdrop-blur-md px-8 py-5 rounded-xl border border-[#E5E7EB] shadow-xl max-w-lg pointer-events-auto">
             <span className="text-[10px] tracking-wider text-[#0049CA] uppercase font-bold">
               COMPLETED STRUCTURE · CSF
             </span>
@@ -760,7 +760,7 @@ export const Hero3D: React.FC<Hero3DProps> = ({ fixedViewport = false, minimal =
             />
           </div>
           <span
-            className="text-[9px] text-[#647488] tracking-wider font-semibold select-none"
+            className="text-[9px] text-[#647488] tracking-wider font-semibold"
             style={{ writingMode: 'vertical-rl' }}
           >
             {Math.round(scrollProgress * 100)}%
@@ -768,7 +768,7 @@ export const Hero3D: React.FC<Hero3DProps> = ({ fixedViewport = false, minimal =
         </div>
 
         <div
-          className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 pointer-events-none select-none"
+          className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 pointer-events-none"
           style={{ opacity: hintOpacity }}
         >
           <span className="text-[10px] text-[#647488] uppercase tracking-widest font-semibold">

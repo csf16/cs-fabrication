@@ -50,12 +50,12 @@ export const ComingSoonClonePage: React.FC<ComingSoonClonePageProps> = () => {
   };
 
   return (
-    <div className="h-[100dvh] w-full bg-[#F8FAFC] text-[#0F2130] font-sans relative overflow-hidden select-none">
+    <div className="h-[100dvh] w-full bg-[#F8FAFC] text-[#0F2130] font-sans relative overflow-hidden">
       <Hero3D fixedViewport={true} minimal={true}>
         <div className="absolute inset-0 flex flex-col justify-between items-center py-8 sm:py-12 px-6 pointer-events-none z-20">
           
           {/* ── Top Brand Logo & Heading ── */}
-          <div className="flex flex-col items-center text-center select-none max-w-3xl mt-2 sm:mt-4">
+          <div className="flex flex-col items-center text-center max-w-3xl mt-2 sm:mt-4 pointer-events-auto">
             <CSFLogo className="h-10 sm:h-12 w-auto mb-4" variant="dark" showText={true} />
             <h1 className="text-3xl sm:text-5xl md:text-6xl font-extrabold uppercase tracking-tight text-[#0F2130] leading-[1.08]">
               COMING SOON.<br />
@@ -117,7 +117,7 @@ export const ComingSoonClonePage: React.FC<ComingSoonClonePageProps> = () => {
             <div className="w-full h-[1px] bg-[#E5E7EB]" />
 
             {/* Footer credentials line */}
-            <p className="text-[11px] sm:text-xs text-[#647488] text-center select-none font-medium">
+            <p className="text-[11px] sm:text-xs text-[#647488] text-center font-medium">
               info.csf16@gmail.com · Amroha, UP · GST: 09BDRPA4213J1ZJ
             </p>
           </div>

@@ -167,7 +167,7 @@ export const GallerySection: React.FC = () => {
   const currentItem = lightboxIndex !== null ? filteredItems[lightboxIndex] : null;
 
   return (
-    <section id="gallery" className="bg-[#FFFFFF] py-24 md:py-32 relative overflow-hidden select-none">
+    <section id="gallery" className="bg-[#FFFFFF] py-24 md:py-32 relative overflow-hidden">
       <div className="max-w-[1340px] mx-auto px-6 md:px-12 lg:px-20">
         
         {/* Header */}

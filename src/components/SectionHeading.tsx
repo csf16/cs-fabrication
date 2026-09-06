@@ -18,7 +18,7 @@ export const SectionHeading: React.FC<SectionHeadingProps> = ({
   const isCenter = align === 'center';
 
   return (
-    <div className={`flex flex-col gap-3.5 mb-14 select-none ${isCenter ? 'items-center text-center' : 'items-start'}`}>
+    <div className={`flex flex-col gap-3.5 mb-14 ${isCenter ? 'items-center text-center' : 'items-start'}`}>
       <div className={`inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wider ${
         light 
           ? 'bg-white/10 text-white/90 border border-white/20' 

@@ -17,7 +17,7 @@ export const Footer: React.FC<FooterProps> = ({ onEnquireClick: _onEnquireClick 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12">
           {/* Brand Col (5 cols) */}
           <div className="lg:col-span-5 flex flex-col gap-6">
-            <Link to="/" className="inline-block group select-none py-1">
+            <Link to="/" className="inline-block group py-1">
               <CSFLogo
                 className="h-10 sm:h-12 w-auto transition-transform duration-200 group-hover:scale-[1.02]"
                 variant="light"
