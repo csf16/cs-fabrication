@@ -1,80 +1,147 @@
 @import "tailwindcss";
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=DM+Mono:wght@400;500&display=swap');
 
-/* ─── Design Tokens ─────────────────────────────────────── */
+/* ─── CSF Brand Design Tokens ────────────────────────────── */
 :root {
-  --ivory:   #F7F6F1;
-  --stone:   #EEECE6;
-  --ink:     #141516;
-  --carbon:  #2C2F32;
-  --bronze:  #A88A58;
-  --bronze-light: #C4A96E;
-  --muted:   #7A7D80;
+  /* Primary Brand Colors */
+  --structure-blue:  #0049CA;
+  --structure-navy:  #0F2130;
+
+  /* Supporting Brand Colors */
+  --slate:           #647488;
+  --light:           #E5E7EB;
+
+  /* Clean Neutrals */
+  --pure-white:      #FFFFFF;
+  --surface-clean:   #F8FAFC;
+  --surface-subtle:  #F1F5F9;
+  --border-subtle:   rgba(15, 33, 48, 0.08);
+  --border-medium:   rgba(15, 33, 48, 0.16);
+
+  /* Legacy aliases for safe backward compatibility */
+  --ivory:           #F8FAFC;
+  --stone:           #E5E7EB;
+  --ink:             #0F2130;
+  --carbon:          #0F2130;
+  --bronze:          #0049CA;
+  --bronze-light:    #2563EB;
+  --muted:           #647488;
 }
 
 /* ─── Base ───────────────────────────────────────────────── */
 html {
   scroll-behavior: smooth;
-  background-color: var(--ivory);
-  color: var(--ink);
+  background-color: var(--surface-clean);
+  color: var(--structure-navy);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 body {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-family: 'Poppins', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   overflow-x: hidden;
   letter-spacing: -0.01em;
+  color: var(--structure-navy);
+  background-color: var(--surface-clean);
 }
 
 /* ─── Scrollbar ──────────────────────────────────────────── */
 html {
-  scrollbar-color: var(--bronze) var(--ivory);
+  scrollbar-color: var(--structure-blue) var(--surface-clean);
   scrollbar-width: thin;
 }
-::-webkit-scrollbar        { width: 4px; height: 4px; }
-::-webkit-scrollbar-track  { background: var(--ivory); }
-::-webkit-scrollbar-thumb  { background: var(--bronze); border-radius: 2px; }
-::-webkit-scrollbar-thumb:hover { background: var(--bronze-light); }
+::-webkit-scrollbar        { width: 5px; height: 5px; }
+::-webkit-scrollbar-track  { background: var(--surface-clean); }
+::-webkit-scrollbar-thumb  { background: var(--structure-blue); border-radius: 2px; }
+::-webkit-scrollbar-thumb:hover { background: #003799; }
 
-/* ─── Typography ─────────────────────────────────────────── */
+/* ─── Typography Hierarchy (Poppins Exclusively) ────────── */
 h1, h2, h3, h4, h5, h6 {
   text-wrap: balance;
-  font-family: 'Inter', sans-serif;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 700;
+  color: var(--structure-navy);
 }
-p, li, blockquote { text-wrap: pretty; }
+
+p, li, blockquote {
+  text-wrap: pretty;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 400;
+}
 
 /* ─── Selection ──────────────────────────────────────────── */
 ::selection {
-  background: rgba(168, 138, 88, 0.18);
-  color: var(--ink);
+  background: rgba(0, 73, 202, 0.15);
+  color: var(--structure-navy);
 }
 
-/* ─── Mono utility ───────────────────────────────────────── */
-.font-mono {
-  font-family: 'DM Mono', 'Courier New', monospace;
+/* ─── Technical Specification Grid Lines ─────────────────── */
+.technical-grid {
+  background-size: 24px 24px;
+  background-image: 
+    linear-gradient(to right, rgba(100, 116, 136, 0.07) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(100, 116, 136, 0.07) 1px, transparent 1px);
 }
 
-/* ─── Premium hover underline link ──────────────────────── */
-.link-underline {
+/* ─── Solid Engineered Buttons ───────────────────────────── */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #0049CA;
+  color: #FFFFFF;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  font-size: 13px;
+  letter-spacing: 0.04em;
+  border-radius: 3px;
+  padding: 12px 24px;
+  transition: all 0.2s ease-in-out;
+  box-shadow: 0 1px 2px rgba(0, 73, 202, 0.12);
+}
+.btn-primary:hover {
+  background-color: #003CAD;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 73, 202, 0.20);
+}
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: transparent;
+  color: #0F2130;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  font-size: 13px;
+  letter-spacing: 0.04em;
+  border: 1px solid rgba(15, 33, 48, 0.25);
+  border-radius: 3px;
+  padding: 12px 24px;
+  transition: all 0.2s ease-in-out;
+}
+.btn-secondary:hover {
+  border-color: #0049CA;
+  color: #0049CA;
+  background-color: rgba(0, 73, 202, 0.03);
+}
+
+/* ─── Subtle hover link ──────────────────────────────────── */
+.link-hover {
   position: relative;
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  transition: color 0.2s ease;
 }
-.link-underline::after {
+.link-hover::after {
   content: '';
   position: absolute;
-  bottom: -1px;
+  bottom: -2px;
   left: 0;
   width: 0;
-  height: 1px;
-  background: var(--bronze);
-  transition: width 0.3s ease;
+  height: 1.5px;
+  background: #0049CA;
+  transition: width 0.25s ease;
 }
-.link-underline:hover::after { width: 100%; }
-
-/* ─── Section fade-in ────────────────────────────────────── */
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(16px); }
-  to   { opacity: 1; transform: translateY(0); }
+.link-hover:hover::after {
+  width: 100%;
 }
-.fade-up { animation: fadeUp 0.6s ease both; }

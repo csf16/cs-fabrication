@@ -613,7 +613,7 @@ export const Hero3D: React.FC<Hero3DProps> = ({ fixedViewport = false, minimal =
       className={`relative w-full ${fixedViewport ? 'h-[100dvh] overflow-hidden select-none' : ''}`}
       style={{ height: fixedViewport ? '100dvh' : '240vh' }}
     >
-      <div className={`w-full overflow-hidden bg-[#F5F4EF] ${fixedViewport ? 'h-full relative' : 'sticky top-0'}`} style={{ height: fixedViewport ? '100%' : '100svh' }}>
+      <div className={`w-full overflow-hidden bg-[#F8FAFC] ${fixedViewport ? 'h-full relative' : 'sticky top-0'}`} style={{ height: fixedViewport ? '100%' : '100svh' }}>
 
         <canvas
           ref={canvasRef}
@@ -632,12 +632,17 @@ export const Hero3D: React.FC<Hero3DProps> = ({ fixedViewport = false, minimal =
           }}
         >
           <div
-            className="flex flex-col items-center gap-3 sm:gap-5 text-center select-none max-w-2xl origin-top transition-transform duration-75"
+            className="flex flex-col items-center gap-3 sm:gap-4 text-center select-none max-w-2xl origin-top transition-transform duration-75"
             style={{
               transform: `scale(${1 - headerEase * 0.38})`,
             }}
           >
-            <h1 className="text-3xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-[#17191B] uppercase leading-[1.04] font-sans">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#0049CA]/10 border border-[#0049CA]/20 text-[#0049CA] text-xs font-semibold uppercase tracking-wider mb-1">
+              <span className="w-2 h-2 rounded-full bg-[#0049CA] animate-pulse" />
+              <span>Solar Mounting Structures & C-Channels</span>
+            </div>
+
+            <h1 className="text-3xl sm:text-5xl md:text-6xl font-bold tracking-tight text-[#0F2130] uppercase leading-[1.08]">
               PRECISION IN EVERY STRUCTURE
             </h1>
 
@@ -649,18 +654,18 @@ export const Hero3D: React.FC<Hero3DProps> = ({ fixedViewport = false, minimal =
                 display: heroSubOpacity <= 0.01 ? 'none' : 'flex',
               }}
             >
-              <div className="w-12 h-[2px] bg-[#B59A68]" />
+              <div className="w-14 h-[3px] bg-[#0049CA] rounded-full" />
 
-              <p className="text-[#34383B]/60 text-xs sm:text-sm font-light max-w-sm tracking-wide leading-relaxed">
-                Engineered steel. Built to last.
+              <p className="text-[#647488] text-sm sm:text-base font-normal max-w-md tracking-normal leading-relaxed">
+                Precision-fabricated structural components built to support demanding solar installations.
               </p>
 
               <button
                 onClick={() => handleScrub(0.95)}
-                className="mt-1 pointer-events-auto px-5 py-2.5 bg-[#17191B] hover:bg-[#34383B] text-[#F5F4EF] text-[10px] font-mono tracking-widest uppercase rounded-sm transition-all duration-300 shadow-sm flex items-center gap-2 group"
+                className="mt-1 pointer-events-auto px-6 py-3 bg-[#0049CA] hover:bg-[#003bb0] text-white text-xs font-semibold tracking-wider uppercase rounded-lg transition-all duration-200 shadow-md hover:shadow-lg flex items-center gap-2 group"
               >
                 <span>EXPLORE ASSEMBLY</span>
-                <span className="transform transition-transform duration-300 group-hover:translate-y-0.5">↓</span>
+                <span className="transform transition-transform duration-200 group-hover:translate-y-0.5">↓</span>
               </button>
             </div>
           </div>
@@ -670,12 +675,12 @@ export const Hero3D: React.FC<Hero3DProps> = ({ fixedViewport = false, minimal =
           className="absolute bottom-10 left-6 md:left-14 pointer-events-none select-none transition-opacity duration-300"
           style={{ opacity: midStageOpacity }}
         >
-          <div className="flex flex-col gap-2.5 bg-[#F5F4EF]/80 backdrop-blur-md p-4 rounded-sm border border-[#34383B]/10">
+          <div className="flex flex-col gap-2.5 bg-white/90 backdrop-blur-md p-4 rounded-xl border border-[#E5E7EB] shadow-lg">
             <div className="flex items-center justify-between gap-6">
-              <span className="text-[9px] font-mono text-[#34383B]/40 uppercase tracking-[0.25em] font-bold">
+              <span className="text-[10px] text-[#647488] uppercase tracking-wider font-semibold">
                 STAGE {activeIdx + 1} OF {STAGES.length}
               </span>
-              <span className="text-[9px] font-mono text-[#B59A68] font-bold">
+              <span className="text-xs text-[#0049CA] font-bold">
                 {Math.round(scrollProgress * 100)}%
               </span>
             </div>
@@ -686,13 +691,13 @@ export const Hero3D: React.FC<Hero3DProps> = ({ fixedViewport = false, minimal =
                   key={i}
                   className="h-[3px] w-8 md:w-12 rounded-full transition-colors duration-300"
                   style={{
-                    backgroundColor: i <= activeIdx ? '#B59A68' : 'rgba(52, 56, 59, 0.15)',
+                    backgroundColor: i <= activeIdx ? '#0049CA' : '#E5E7EB',
                   }}
                 />
               ))}
             </div>
 
-            <span className="text-[11px] font-mono text-[#17191B] uppercase tracking-wider font-bold">
+            <span className="text-xs text-[#0F2130] uppercase tracking-wider font-bold">
               {currentStage.label}
             </span>
           </div>
@@ -702,7 +707,7 @@ export const Hero3D: React.FC<Hero3DProps> = ({ fixedViewport = false, minimal =
           className="absolute top-1/2 right-6 md:right-14 -translate-y-1/2 pointer-events-none select-none transition-opacity duration-300 hidden sm:block"
           style={{ opacity: midStageOpacity * clamp((scrollProgress - 0.3) * 4) }}
         >
-          <div className="flex flex-col gap-4 text-right bg-[#F5F4EF]/80 backdrop-blur-md p-4 rounded-sm border border-[#34383B]/10">
+          <div className="flex flex-col gap-3.5 text-right bg-white/90 backdrop-blur-md p-5 rounded-xl border border-[#E5E7EB] shadow-lg">
             {[
               { k: 'PROFILE', v: 'SLOTTED C-CHANNEL 41×41' },
               { k: 'MATERIAL', v: 'IS 2062 HDG STEEL' },
@@ -711,8 +716,8 @@ export const Hero3D: React.FC<Hero3DProps> = ({ fixedViewport = false, minimal =
               { k: 'CNC SLOTS', v: '28×14MM OVAL PUNCH' },
             ].map(({ k, v }) => (
               <div key={k} className="flex flex-col gap-0.5">
-                <span className="text-[7px] font-mono text-[#34383B]/30 uppercase tracking-[0.25em]">{k}</span>
-                <span className="text-[10px] font-mono text-[#B59A68] font-bold tracking-wider">{v}</span>
+                <span className="text-[9px] text-[#647488] uppercase tracking-wider font-medium">{k}</span>
+                <span className="text-xs text-[#0049CA] font-bold tracking-wide">{v}</span>
               </div>
             ))}
           </div>
@@ -722,16 +727,16 @@ export const Hero3D: React.FC<Hero3DProps> = ({ fixedViewport = false, minimal =
           className="absolute bottom-12 inset-x-0 flex flex-col items-center pointer-events-none select-none px-6"
           style={{ opacity: finalOpacity }}
         >
-          <div className="flex flex-col items-center gap-3 text-center bg-[#F5F4EF]/90 backdrop-blur-md px-8 py-5 rounded-sm border border-[#34383B]/10 shadow-sm">
-            <span className="text-[9px] font-mono tracking-[0.4em] text-[#B59A68] uppercase font-bold">
-              COMPLETED STRUCTURE · CS FABRICATION
+          <div className="flex flex-col items-center gap-2.5 text-center bg-white/95 backdrop-blur-md px-8 py-5 rounded-xl border border-[#E5E7EB] shadow-xl max-w-lg">
+            <span className="text-[10px] tracking-wider text-[#0049CA] uppercase font-bold">
+              COMPLETED STRUCTURE · CSF
             </span>
-            <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-[#17191B] uppercase font-sans">
-              ENGINEERED STEEL. BUILT TO LAST.
+            <h2 className="text-xl sm:text-2xl font-bold tracking-tight text-[#0F2130] uppercase">
+              ENGINEERED FOR DEPENDABLE SUPPORT
             </h2>
-            <div className="w-10 h-[1px] bg-[#B59A68]/60 my-0.5" />
-            <p className="text-[10px] font-mono text-[#34383B]/60 tracking-widest uppercase">
-              HIGH-TENSILE GALVANIZED FRAMEWORK // FULL SYSTEM STABILITY
+            <div className="w-10 h-[2px] bg-[#0049CA] my-0.5 rounded-full" />
+            <p className="text-xs text-[#647488] font-medium tracking-normal">
+              High-tensile galvanized framework built for complete system stability.
             </p>
           </div>
         </div>
@@ -746,16 +751,16 @@ export const Hero3D: React.FC<Hero3DProps> = ({ fixedViewport = false, minimal =
               const clickPos = clamp((e.clientY - rect.top) / rect.height, 0, 1);
               handleScrub(clickPos);
             }}
-            className="w-2 md:w-3 h-32 bg-[#34383B]/10 hover:bg-[#34383B]/20 rounded-full relative cursor-pointer transition-colors p-0.5 flex flex-col items-center"
+            className="w-2.5 md:w-3.5 h-36 bg-[#E5E7EB] hover:bg-[#D1D5DB] rounded-full relative cursor-pointer transition-colors p-0.5 flex flex-col items-center shadow-inner"
             title="Click or drag to scrub assembly"
           >
             <div
-              className="w-full bg-[#B59A68] rounded-full transition-none"
+              className="w-full bg-[#0049CA] rounded-full transition-none shadow-sm"
               style={{ height: `${Math.max(8, scrollProgress * 100)}%` }}
             />
           </div>
           <span
-            className="text-[8px] font-mono text-[#34383B]/40 tracking-widest font-bold select-none"
+            className="text-[9px] text-[#647488] tracking-wider font-semibold select-none"
             style={{ writingMode: 'vertical-rl' }}
           >
             {Math.round(scrollProgress * 100)}%
@@ -766,11 +771,11 @@ export const Hero3D: React.FC<Hero3DProps> = ({ fixedViewport = false, minimal =
           className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 pointer-events-none select-none"
           style={{ opacity: hintOpacity }}
         >
-          <span className="text-[8px] font-mono text-[#34383B]/40 uppercase tracking-[0.32em]">
+          <span className="text-[10px] text-[#647488] uppercase tracking-widest font-semibold">
             SCROLL TO ASSEMBLE
           </span>
-          <div className="w-[1px] h-7 bg-gradient-to-b from-[#B59A68] to-transparent animate-pulse" />
-          <div className="w-1.5 h-1.5 rounded-full bg-[#B59A68]/60 animate-bounce" />
+          <div className="w-[2px] h-7 bg-gradient-to-b from-[#0049CA] to-transparent animate-pulse rounded-full" />
+          <div className="w-1.5 h-1.5 rounded-full bg-[#0049CA] animate-bounce" />
         </div>
           </>
         )}

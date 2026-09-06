@@ -9,6 +9,9 @@ export const GOOGLE_SHEET_WEBHOOK_URL: string =
 export interface LeadPayload {
   phone: string;
   source: string;
+  name?: string;
+  company?: string;
+  requirement?: string;
 }
 
 export interface ValidationResult {
@@ -96,7 +99,8 @@ export function validatePhoneNumber(input: string): ValidationResult {
  */
 export async function submitLeadToGoogleSheet(
   phone: string,
-  source: string = 'Landing Page'
+  source: string = 'Landing Page',
+  additionalData?: { name?: string; company?: string; requirement?: string }
 ): Promise<{ success: boolean; message: string }> {
   // Validate first
   const validation = validatePhoneNumber(phone);
@@ -107,6 +111,9 @@ export async function submitLeadToGoogleSheet(
   const payload: LeadPayload = {
     phone: validation.normalized,
     source,
+    name: additionalData?.name?.trim(),
+    company: additionalData?.company?.trim(),
+    requirement: additionalData?.requirement?.trim(),
   };
 
   if (

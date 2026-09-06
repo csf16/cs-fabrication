@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { NavLink, Link, useLocation } from 'react-router-dom';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, PhoneCall } from 'lucide-react';
 
 interface NavbarProps {
   onEnquireClick: (service?: string) => void;
 }
 
-export const Navbar: React.FC<NavbarProps> = (_props: NavbarProps) => {
+export const Navbar: React.FC<NavbarProps> = ({ onEnquireClick }) => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const location = useLocation();
@@ -17,52 +17,61 @@ export const Navbar: React.FC<NavbarProps> = (_props: NavbarProps) => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  useEffect(() => { setMobileMenuOpen(false); }, [location.pathname]);
+  useEffect(() => {
+    setMobileMenuOpen(false);
+  }, [location.pathname]);
 
   const navLinks = [
-    { to: '/',            label: 'Home'        },
-    { to: '/structures',  label: 'Structures'  },
-    { to: '/gallery',     label: 'Gallery'     },
-    { to: '/engineering', label: 'Engineering' },
-    { to: '/about',       label: 'About'       },
+    { to: '/structures', label: 'Products' },
+    { to: '/engineering', label: 'Capabilities' },
+    { to: '/gallery', label: 'Projects' },
+    { to: '/about', label: 'About' },
+    { to: '/contact', label: 'Contact' },
   ];
 
   return (
     <>
       <header
-        className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 ${
+        className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
           scrolled
-            ? 'bg-[#F7F6F1]/95 backdrop-blur-xl border-b border-[#141516]/8 shadow-[0_1px_0_0_rgba(20,21,22,0.06)]'
-            : 'bg-transparent border-b border-transparent'
+            ? 'bg-[#FFFFFF]/95 backdrop-blur-md border-b border-[#E5E7EB] shadow-xs'
+            : 'bg-[#FFFFFF]/80 backdrop-blur-xs border-b border-[#E5E7EB]/60'
         }`}
       >
-        <div className="max-w-[1280px] mx-auto px-8 md:px-14 h-16 flex items-center justify-between">
-
-          {/* Logo */}
-          <Link to="/" className="flex items-center gap-3 group">
-            <div className="w-7 h-7 flex items-center justify-center">
-              <svg viewBox="0 0 28 28" fill="none" className="w-full h-full">
-                <rect x="4" y="4" width="10" height="20" rx="1" stroke="#141516" strokeWidth="1.5" fill="none"/>
-                <rect x="4" y="4" width="6" height="2" rx="0.5" fill="#141516"/>
-                <rect x="4" y="22" width="6" height="2" rx="0.5" fill="#141516"/>
-                <rect x="16" y="8" width="8" height="12" rx="1" stroke="#A88A58" strokeWidth="1.5" fill="none"/>
+        <div className="max-w-[1320px] mx-auto px-6 md:px-10 h-20 flex items-center justify-between">
+          
+          {/* CSF Precision Logo */}
+          <Link to="/" className="flex items-center gap-3 group select-none">
+            <div className="w-9 h-9 flex items-center justify-center shrink-0 transition-transform duration-200 group-hover:scale-105">
+              <svg viewBox="20 15 315 460" fill="none" className="w-full h-full">
+                <path d="M163.34 339.98L83.93 306.45V104.85L322.15 206.31V148.52L31 25V341.39L163.34 397.42V339.97V339.98Z" fill="#0049CA"/>
+                <path d="M322.15 292.33L163.34 224.84V253.68L322.15 321.01V465L189.81 408.79V351.44L269.22 384.97V356.3L110.41 288.81V144.99L322.16 234.98V292.33H322.15Z" fill="#0F2130"/>
               </svg>
             </div>
-            <div className="flex flex-col leading-none">
-              <span className="text-[11px] font-bold tracking-[0.2em] text-[#141516] uppercase">CS</span>
-              <span className="text-[9px] font-medium tracking-[0.15em] text-[#A88A58] uppercase">Fabrication</span>
+            <div className="flex flex-col leading-tight">
+              <div className="flex items-center gap-1.5">
+                <span className="text-base font-bold tracking-[0.04em] text-[#0F2130]">
+                  CSF
+                </span>
+                <span className="w-1.5 h-1.5 rounded-full bg-[#0049CA]" />
+              </div>
+              <span className="text-[10px] font-semibold tracking-[0.02em] text-[#647488] uppercase">
+                Central Structure Fabrication
+              </span>
             </div>
           </Link>
 
-          {/* Desktop Nav */}
+          {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center gap-8">
-            {navLinks.map(link => (
+            {navLinks.map((link) => (
               <NavLink
                 key={link.to}
                 to={link.to}
                 className={({ isActive }) =>
-                  `text-[11px] font-medium tracking-[0.08em] uppercase transition-colors duration-200 ${
-                    isActive ? 'text-[#141516] font-semibold' : 'text-[#7A7D80] hover:text-[#141516]'
+                  `text-[13px] font-medium tracking-[0.02em] font-sans transition-colors duration-200 ${
+                    isActive
+                      ? 'text-[#0049CA] font-semibold'
+                      : 'text-[#0F2130] hover:text-[#0049CA]'
                   }`
                 }
               >
@@ -71,69 +80,57 @@ export const Navbar: React.FC<NavbarProps> = (_props: NavbarProps) => {
             ))}
           </nav>
 
-          {/* CTA */}
+          {/* Primary CTA Button */}
           <div className="hidden md:flex items-center gap-4">
-            <Link
-              to="/contact"
-              className="h-8 px-5 bg-[#141516] hover:bg-[#2C2F32] text-[#F7F6F1] text-[10px] font-semibold tracking-[0.12em] uppercase rounded-[3px] transition-all duration-300 flex items-center gap-2 group"
+            <button
+              onClick={() => onEnquireClick('General Requirement')}
+              className="inline-flex items-center gap-2 px-5 py-2.5 bg-[#0049CA] hover:bg-[#003CAD] text-white text-[13px] font-semibold font-sans tracking-[0.02em] rounded-[3px] shadow-xs hover:shadow-sm transition-all duration-200"
             >
-              Request Proposal
-              <span className="text-[#A88A58] transition-transform duration-300 group-hover:translate-x-0.5">→</span>
-            </Link>
+              <PhoneCall className="w-3.5 h-3.5" />
+              <span>Request a Call</span>
+            </button>
           </div>
 
-          {/* Mobile toggle */}
+          {/* Mobile Menu Trigger */}
           <button
-            onClick={() => setMobileMenuOpen(true)}
-            className="md:hidden text-[#141516] p-1"
-            aria-label="Open menu"
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            className="md:hidden p-2 text-[#0F2130] hover:text-[#0049CA] focus:outline-none"
+            aria-label="Toggle Navigation"
           >
-            <Menu className="w-5 h-5" strokeWidth={1.5} />
+            {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </button>
         </div>
-      </header>
 
-      {/* Mobile Drawer */}
-      <div className={`fixed inset-y-0 right-0 w-72 bg-[#F7F6F1] border-l border-[#141516]/8 z-50 flex flex-col transform transition-transform duration-400 ease-in-out ${mobileMenuOpen ? 'translate-x-0' : 'translate-x-full'}`}>
-        <div className="flex items-center justify-between px-7 h-16 border-b border-[#141516]/6">
-          <span className="text-[11px] font-semibold tracking-widest text-[#141516] uppercase">Menu</span>
-          <button onClick={() => setMobileMenuOpen(false)} aria-label="Close menu">
-            <X className="w-5 h-5" strokeWidth={1.5} />
-          </button>
-        </div>
-        <nav className="flex flex-col px-7 py-8 gap-6">
-          {navLinks.map(link => (
-            <NavLink
-              key={link.to}
-              to={link.to}
-              onClick={() => setMobileMenuOpen(false)}
-              className={({ isActive }) =>
-                `text-[13px] font-medium tracking-wide transition-colors duration-200 ${
-                  isActive ? 'text-[#141516] font-semibold' : 'text-[#7A7D80] hover:text-[#141516]'
-                }`
-              }
+        {/* Mobile Navigation Drawer */}
+        {mobileMenuOpen && (
+          <div className="md:hidden bg-white border-b border-[#E5E7EB] px-6 py-6 flex flex-col gap-4 shadow-lg animate-in fade-in slide-in-from-top-2 duration-200">
+            {navLinks.map((link) => (
+              <NavLink
+                key={link.to}
+                to={link.to}
+                onClick={() => setMobileMenuOpen(false)}
+                className={({ isActive }) =>
+                  `text-sm font-medium py-2 border-b border-[#E5E7EB]/60 font-sans ${
+                    isActive ? 'text-[#0049CA] font-bold' : 'text-[#0F2130]'
+                  }`
+                }
+              >
+                {link.label}
+              </NavLink>
+            ))}
+            <button
+              onClick={() => {
+                setMobileMenuOpen(false);
+                onEnquireClick('General Requirement');
+              }}
+              className="w-full mt-2 py-3 bg-[#0049CA] hover:bg-[#003CAD] text-white text-sm font-semibold rounded-[3px] flex items-center justify-center gap-2 shadow-sm font-sans"
             >
-              {link.label}
-            </NavLink>
-          ))}
-        </nav>
-        <div className="px-7 pb-8 mt-auto">
-          <Link
-            to="/contact"
-            onClick={() => setMobileMenuOpen(false)}
-            className="w-full h-10 bg-[#141516] text-[#F7F6F1] text-[10px] font-semibold tracking-[0.12em] uppercase rounded-[3px] flex items-center justify-center gap-2"
-          >
-            Request Proposal →
-          </Link>
-        </div>
-      </div>
-
-      {mobileMenuOpen && (
-        <div
-          onClick={() => setMobileMenuOpen(false)}
-          className="fixed inset-0 bg-[#141516]/30 backdrop-blur-sm z-40"
-        />
-      )}
+              <PhoneCall className="w-4 h-4" />
+              <span>Request a Call</span>
+            </button>
+          </div>
+        )}
+      </header>
     </>
   );
 };
