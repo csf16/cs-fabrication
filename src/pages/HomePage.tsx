@@ -316,61 +316,73 @@ export const HomePage: React.FC<HomePageProps> = ({ onEnquireClick }) => {
               </div>
 
               {/* Vector Blueprint Visual */}
-              <svg className="w-full aspect-[16/10] stroke-white fill-none" viewBox="0 0 420 260" strokeWidth="1.5">
-                {/* Profile Cross-Section */}
-                <g transform="translate(40, 30)">
-                  {/* Outer profile */}
+              <svg className="w-full aspect-[16/10] fill-none" viewBox="0 0 420 250">
+                {/* Profile Cross-Section (Hollow Structural C-Channel) */}
+                <g transform="translate(35, 25)">
+                  {/* Steel Profile Wall (Hollow C-Channel with Inward Return Lips and Downward Curls) */}
                   <path
-                    d="M 30,30 H 70 V 55 H 55 V 45 H 45 V 175 H 175 V 45 H 165 V 55 H 150 V 30 H 190 V 190 H 30 Z"
+                    d="M 68,52 V 42 H 44 V 166 H 176 V 42 H 152 V 52"
                     stroke="#0049CA"
-                    strokeWidth="2.5"
-                    fill="rgba(0, 94, 255, 1)"
+                    strokeWidth="7"
+                    strokeLinecap="square"
+                    strokeLinejoin="miter"
+                    fill="none"
                   />
 
-                  {/* Web dimension line */}
-                  <line x1="30" y1="210" x2="190" y2="210" stroke="#647488" strokeDasharray="3,3" />
-                  <path d="M 30,206 L 30,214 M 190,206 L 190,214" stroke="#647488" />
-                  <text x="110" y="226" fill="#FFFFFF" fontSize="11" fontWeight="600" textAnchor="middle">
+                  {/* Dimension Line: Width (Bottom) */}
+                  <line x1="40" y1="188" x2="180" y2="188" stroke="#647488" strokeWidth="1" strokeDasharray="3 3" />
+                  <line x1="40" y1="182" x2="40" y2="194" stroke="#647488" strokeWidth="1" />
+                  <line x1="180" y1="182" x2="180" y2="194" stroke="#647488" strokeWidth="1" />
+                  <text x="110" y="206" fill="#E5E7EB" stroke="none" fontSize="11" fontWeight="400" textAnchor="middle">
                     W: 41.3 mm
                   </text>
 
-                  {/* Height dimension line */}
-                  <line x1="10" y1="30" x2="10" y2="190" stroke="#647488" strokeDasharray="3,3" />
-                  <path d="M 6,30 L 14,30 M 6,190 L 14,190" stroke="#647488" />
-                  <text x="2" y="115" fill="#FFFFFF" fontSize="11" fontWeight="600" transform="rotate(-90 2 115)" textAnchor="middle">
+                  {/* Dimension Line: Height (Left) */}
+                  <line x1="20" y1="38" x2="20" y2="170" stroke="#647488" strokeWidth="1" strokeDasharray="3 3" />
+                  <line x1="14" y1="38" x2="26" y2="38" stroke="#647488" strokeWidth="1" />
+                  <line x1="14" y1="170" x2="26" y2="170" stroke="#647488" strokeWidth="1" />
+                  <text x="10" y="104" fill="#E5E7EB" stroke="none" fontSize="11" fontWeight="400" transform="rotate(-90 10 104)" textAnchor="middle">
                     H: 41.3 mm
                   </text>
 
-                  {/* Return Lip indicator */}
-                  <circle cx="62" cy="50" r="3" fill="#0049CA" />
-                  <line x1="62" y1="50" x2="110" y2="20" stroke="#0049CA" strokeWidth="1" />
-                  <text x="115" y="22" fill="#FFFFFF" fontSize="10" fontWeight="600">
+                  {/* Dimension Line: Inward Return Lip (Top) */}
+                  <circle cx="68" cy="42" r="2.5" fill="#0049CA" stroke="none" />
+                  <line x1="68" y1="42" x2="105" y2="18" stroke="#0049CA" strokeWidth="1" />
+                  <text x="110" y="21" fill="#E5E7EB" stroke="none" fontSize="10" fontWeight="400">
                     LIP: 10 mm
                   </text>
 
-                  {/* Thickness callout */}
-                  <text x="110" y="115" fill="#0049CA" fontSize="12" fontWeight="700" textAnchor="middle">
+                  {/* Wall Thickness Callout (Inside Hollow Center) */}
+                  <circle cx="44" cy="104" r="2.5" fill="#0049CA" stroke="none" />
+                  <line x1="44" y1="104" x2="72" y2="104" stroke="#0049CA" strokeWidth="1" />
+                  <text x="78" y="108" fill="#0049CA" stroke="none" fontSize="11" fontWeight="500">
                     t: 2.5 mm (IS 2062)
                   </text>
                 </g>
 
                 {/* Slotted Punch Pattern Detail (Right side) */}
-                <g transform="translate(260, 40)">
-                  <rect x="0" y="10" width="120" height="170" rx="4" stroke="#647488" strokeDasharray="3,3" />
+                <g transform="translate(255, 30)">
+                  {/* Container Outline */}
+                  <rect x="0" y="8" width="125" height="175" rx="4" stroke="#647488" strokeWidth="1" strokeDasharray="3 3" fill="none" opacity="0.6" />
 
-                  {/* Three oval slots */}
-                  <rect x="44" y="25" width="32" height="18" rx="9" fill="#0049CA" opacity="0.8" />
-                  <rect x="44" y="70" width="32" height="18" rx="9" fill="#0049CA" opacity="0.8" />
-                  <rect x="44" y="115" width="32" height="18" rx="9" fill="#0049CA" opacity="0.8" />
+                  {/* Header */}
+                  <text x="62" y="2" fill="#647488" stroke="none" fontSize="9" fontWeight="500" textAnchor="middle" letterSpacing="0.08em">
+                    SLOT GEOMETRY
+                  </text>
 
-                  <text x="60" y="58" fill="#FFFFFF" fontSize="9" fontWeight="600" textAnchor="middle">
+                  {/* Three Oval Punch Slots */}
+                  <rect x="42" y="22" width="40" height="20" rx="10" fill="rgba(0, 73, 202, 0.15)" stroke="#0049CA" strokeWidth="1.5" />
+                  <text x="62" y="58" fill="#E5E7EB" stroke="none" fontSize="10" fontWeight="400" textAnchor="middle">
                     14 × 28 mm
                   </text>
-                  <text x="60" y="103" fill="#FFFFFF" fontSize="9" fontWeight="600" textAnchor="middle">
-                    P: 50 mm
+
+                  <rect x="42" y="70" width="40" height="20" rx="10" fill="rgba(0, 73, 202, 0.15)" stroke="#0049CA" strokeWidth="1.5" />
+                  <text x="62" y="106" fill="#E5E7EB" stroke="none" fontSize="10" fontWeight="400" textAnchor="middle">
+                    Pitch: 50 mm
                   </text>
 
-                  <text x="60" y="160" fill="#647488" fontSize="9" fontWeight="600" textAnchor="middle">
+                  <rect x="42" y="118" width="40" height="20" rx="10" fill="rgba(0, 73, 202, 0.15)" stroke="#0049CA" strokeWidth="1.5" />
+                  <text x="62" y="156" fill="#647488" stroke="none" fontSize="9" fontWeight="500" textAnchor="middle" letterSpacing="0.04em">
                     CNC IN-LINE PUNCH
                   </text>
                 </g>
