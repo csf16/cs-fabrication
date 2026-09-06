@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { NavLink, Link, useLocation } from 'react-router-dom';
 import { Menu, X, PhoneCall } from 'lucide-react';
+import { CSFLogo } from './CSFLogo';
 
 interface NavbarProps {
   onEnquireClick: (service?: string) => void;
@@ -40,25 +41,13 @@ export const Navbar: React.FC<NavbarProps> = ({ onEnquireClick }) => {
       >
         <div className="max-w-[1320px] mx-auto px-6 md:px-10 h-20 flex items-center justify-between">
           
-          {/* CSF Precision Logo */}
-          <Link to="/" className="flex items-center gap-3 group select-none">
-            <div className="w-9 h-9 flex items-center justify-center shrink-0 transition-transform duration-200 group-hover:scale-105">
-              <svg viewBox="20 15 315 460" fill="none" className="w-full h-full">
-                <path d="M163.34 339.98L83.93 306.45V104.85L322.15 206.31V148.52L31 25V341.39L163.34 397.42V339.97V339.98Z" fill="#0049CA"/>
-                <path d="M322.15 292.33L163.34 224.84V253.68L322.15 321.01V465L189.81 408.79V351.44L269.22 384.97V356.3L110.41 288.81V144.99L322.16 234.98V292.33H322.15Z" fill="#0F2130"/>
-              </svg>
-            </div>
-            <div className="flex flex-col leading-tight">
-              <div className="flex items-center gap-1.5">
-                <span className="text-base font-bold tracking-[0.04em] text-[#0F2130]">
-                  CSF
-                </span>
-                <span className="w-1.5 h-1.5 rounded-full bg-[#0049CA]" />
-              </div>
-              <span className="text-[10px] font-semibold tracking-[0.02em] text-[#647488] uppercase">
-                Central Structure Fabrication
-              </span>
-            </div>
+          {/* Official CSF Main Brand Logo */}
+          <Link to="/" className="flex items-center group select-none py-1">
+            <CSFLogo
+              className="h-9 sm:h-11 w-auto transition-transform duration-200 group-hover:scale-[1.02]"
+              variant="dark"
+              showText={true}
+            />
           </Link>
 
           {/* Desktop Navigation */}

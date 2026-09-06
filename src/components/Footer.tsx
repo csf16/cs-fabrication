@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Mail, MapPin, Phone } from 'lucide-react';
+import { CSFLogo } from './CSFLogo';
 
 interface FooterProps {
   onEnquireClick?: (service?: string) => void;
@@ -16,21 +17,12 @@ export const Footer: React.FC<FooterProps> = ({ onEnquireClick: _onEnquireClick 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12">
           {/* Brand Col (5 cols) */}
           <div className="lg:col-span-5 flex flex-col gap-6">
-            <Link to="/" className="flex items-center gap-3">
-              <div className="w-10 h-10 flex items-center justify-center shrink-0">
-                <svg viewBox="20 15 315 460" fill="none" className="w-full h-full">
-                  <path d="M163.34 339.98L83.93 306.45V104.85L322.15 206.31V148.52L31 25V341.39L163.34 397.42V339.97V339.98Z" fill="#0049CA"/>
-                  <path d="M322.15 292.33L163.34 224.84V253.68L322.15 321.01V465L189.81 408.79V351.44L269.22 384.97V356.3L110.41 288.81V144.99L322.16 234.98V292.33H322.15Z" fill="#FFFFFF"/>
-                </svg>
-              </div>
-              <div className="flex flex-col leading-tight">
-                <span className="text-base font-bold tracking-tight text-white uppercase">
-                  Central Structure Fabrication
-                </span>
-                <span className="text-xs text-white/50 tracking-wider font-medium">
-                  Solar Structures & C-Channels
-                </span>
-              </div>
+            <Link to="/" className="inline-block group select-none py-1">
+              <CSFLogo
+                className="h-10 sm:h-12 w-auto transition-transform duration-200 group-hover:scale-[1.02]"
+                variant="light"
+                showText={true}
+              />
             </Link>
 
             <p className="text-sm text-white/70 leading-relaxed max-w-sm">
