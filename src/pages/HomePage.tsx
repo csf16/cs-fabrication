@@ -5,16 +5,16 @@ import { SectionHeading } from '../components/SectionHeading';
 import { TechnicalSpecViewer } from '../components/TechnicalSpecViewer';
 import { submitLeadToGoogleSheet, validatePhoneNumber } from '../services/leadService';
 import { useSEO } from '../hooks/useSEO';
-import { 
-  ArrowRight, 
-  CheckCircle2, 
-  ShieldCheck, 
-  Sliders, 
-  Layers, 
-  Cpu, 
-  Factory, 
-  Check, 
-  Phone, 
+import {
+  ArrowRight,
+  CheckCircle2,
+  ShieldCheck,
+  Sliders,
+  Layers,
+  Cpu,
+  Factory,
+  Check,
+  Phone,
   Building2,
   MapPin
 } from 'lucide-react';
@@ -324,7 +324,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onEnquireClick }) => {
                     d="M 30,30 H 70 V 55 H 55 V 45 H 45 V 175 H 175 V 45 H 165 V 55 H 150 V 30 H 190 V 190 H 30 Z"
                     stroke="#0049CA"
                     strokeWidth="2.5"
-                    fill="rgba(0, 73, 202, 0.08)"
+                    fill="rgba(0, 94, 255, 1)"
                   />
 
                   {/* Web dimension line */}
@@ -357,7 +357,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onEnquireClick }) => {
                 {/* Slotted Punch Pattern Detail (Right side) */}
                 <g transform="translate(260, 40)">
                   <rect x="0" y="10" width="120" height="170" rx="4" stroke="#647488" strokeDasharray="3,3" />
-                  
+
                   {/* Three oval slots */}
                   <rect x="44" y="25" width="32" height="18" rx="9" fill="#0049CA" opacity="0.8" />
                   <rect x="44" y="70" width="32" height="18" rx="9" fill="#0049CA" opacity="0.8" />
@@ -853,9 +853,8 @@ export const HomePage: React.FC<HomePageProps> = ({ onEnquireClick }) => {
                         placeholder="98765 43210"
                         value={formData.phone}
                         onChange={handlePhoneChange}
-                        className={`w-full pl-14 pr-4 py-3 bg-[#F8FAFC] border rounded-xl text-sm text-[#0F2130] placeholder-[#647488]/60 focus:outline-none focus:bg-white transition-colors ${
-                          phoneError ? 'border-red-500 focus:border-red-500' : 'border-[#E5E7EB] focus:border-[#0049CA]'
-                        }`}
+                        className={`w-full pl-14 pr-4 py-3 bg-[#F8FAFC] border rounded-xl text-sm text-[#0F2130] placeholder-[#647488]/60 focus:outline-none focus:bg-white transition-colors ${phoneError ? 'border-red-500 focus:border-red-500' : 'border-[#E5E7EB] focus:border-[#0049CA]'
+                          }`}
                       />
                     </div>
                     {phoneError && (
