@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { NavLink, Link, useLocation } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { Menu, X, PhoneCall } from 'lucide-react';
 import { CSFLogo } from './CSFLogo';
 
@@ -23,12 +23,21 @@ export const Navbar: React.FC<NavbarProps> = ({ onEnquireClick }) => {
   }, [location.pathname]);
 
   const navLinks = [
-    { to: '/structures', label: 'Products' },
-    { to: '/engineering', label: 'Capabilities' },
-    { to: '/gallery', label: 'Projects' },
-    { to: '/about', label: 'About' },
-    { to: '/contact', label: 'Contact' },
+    { to: '/#products-services', label: 'Products', sectionId: 'products-services' },
+    { to: '/#capabilities', label: 'Capabilities', sectionId: 'capabilities' },
+    { to: '/#projects', label: 'Projects', sectionId: 'projects' },
+    { to: '/#about', label: 'About', sectionId: 'about' },
   ];
+
+  const handleNavClick = (e: React.MouseEvent, sectionId: string) => {
+    if (location.pathname === '/') {
+      e.preventDefault();
+      const el = document.getElementById(sectionId);
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+  };
 
   return (
     <>
@@ -53,26 +62,30 @@ export const Navbar: React.FC<NavbarProps> = ({ onEnquireClick }) => {
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center gap-8">
             {navLinks.map((link) => (
-              <NavLink
+              <a
                 key={link.to}
-                to={link.to}
-                className={({ isActive }) =>
-                  `text-[13px] font-medium tracking-[0.02em] font-sans transition-colors duration-200 ${
-                    isActive
-                      ? 'text-[#0049CA] font-semibold'
-                      : 'text-[#0F2130] hover:text-[#0049CA]'
-                  }`
-                }
+                href={link.to}
+                onClick={(e) => handleNavClick(e, link.sectionId)}
+                className="text-[13px] font-medium tracking-[0.02em] font-sans text-[#0F2130] hover:text-[#0049CA] transition-colors duration-200"
               >
                 {link.label}
-              </NavLink>
+              </a>
             ))}
           </nav>
 
           {/* Primary CTA Button */}
           <div className="hidden md:flex items-center gap-4">
             <button
-              onClick={() => onEnquireClick('General Requirement')}
+              onClick={() => {
+                if (location.pathname === '/') {
+                  const el = document.getElementById('contact');
+                  if (el) {
+                    el.scrollIntoView({ behavior: 'smooth' });
+                    return;
+                  }
+                }
+                onEnquireClick('General Requirement');
+              }}
               className="inline-flex items-center gap-2 px-5 py-2.5 bg-[#0049CA] hover:bg-[#003CAD] text-white text-[13px] font-semibold font-sans tracking-[0.02em] rounded-none shadow-xs hover:shadow-sm transition-all duration-200 cursor-pointer"
             >
               <PhoneCall className="w-3.5 h-3.5" />
@@ -94,22 +107,28 @@ export const Navbar: React.FC<NavbarProps> = ({ onEnquireClick }) => {
         {mobileMenuOpen && (
           <div className="md:hidden bg-white border-b border-[#E5E7EB] px-6 py-6 flex flex-col gap-4 shadow-lg animate-in fade-in slide-in-from-top-2 duration-200">
             {navLinks.map((link) => (
-              <NavLink
+              <a
                 key={link.to}
-                to={link.to}
-                onClick={() => setMobileMenuOpen(false)}
-                className={({ isActive }) =>
-                  `text-sm font-medium py-2 border-b border-[#E5E7EB]/60 font-sans ${
-                    isActive ? 'text-[#0049CA] font-bold' : 'text-[#0F2130]'
-                  }`
-                }
+                href={link.to}
+                onClick={(e) => {
+                  setMobileMenuOpen(false);
+                  handleNavClick(e, link.sectionId);
+                }}
+                className="text-sm font-medium py-2 border-b border-[#E5E7EB]/60 font-sans text-[#0F2130] hover:text-[#0049CA]"
               >
                 {link.label}
-              </NavLink>
+              </a>
             ))}
             <button
               onClick={() => {
                 setMobileMenuOpen(false);
+                if (location.pathname === '/') {
+                  const el = document.getElementById('contact');
+                  if (el) {
+                    el.scrollIntoView({ behavior: 'smooth' });
+                    return;
+                  }
+                }
                 onEnquireClick('General Requirement');
               }}
               className="w-full mt-2 py-3 bg-[#0049CA] hover:bg-[#003CAD] text-white text-sm font-semibold rounded-none flex items-center justify-center gap-2 shadow-sm font-sans cursor-pointer"

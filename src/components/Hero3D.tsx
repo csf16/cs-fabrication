@@ -639,7 +639,7 @@ export const Hero3D: React.FC<Hero3DProps> = ({ fixedViewport = false, minimal =
           >
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#0049CA]/10 border border-[#0049CA]/20 text-[#0049CA] text-xs font-semibold uppercase tracking-wider mb-1">
               <span className="w-2 h-2 rounded-full bg-[#0049CA] animate-pulse" />
-              <span>Solar Mounting Structures & C-Channels</span>
+              <span>Solar Electrical Products &amp; Structural Fabrication</span>
             </div>
 
             <h1 className="text-3xl sm:text-5xl md:text-6xl font-bold tracking-tight text-[#0F2130] uppercase leading-[1.08]">
@@ -656,8 +656,8 @@ export const Hero3D: React.FC<Hero3DProps> = ({ fixedViewport = false, minimal =
             >
               <div className="w-14 h-[3px] bg-[#0049CA] rounded-full" />
 
-              <p className="text-[#647488] text-sm sm:text-base font-normal max-w-md tracking-normal leading-relaxed">
-                Precision-fabricated structural components built to support demanding solar installations.
+              <p className="text-[#647488] text-sm sm:text-base font-normal max-w-lg tracking-normal leading-relaxed">
+                From solar electrical products to precision-fabricated structures and components, CSF delivers solutions designed for dependable solar infrastructure.
               </p>
 
               <button
