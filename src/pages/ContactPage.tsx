@@ -155,7 +155,7 @@ export const ContactPage: React.FC = () => {
               <h4 className="text-lg font-bold uppercase tracking-tight text-white">
                 Prime Steel &amp; 100% Quality Verification
               </h4>
-              <p className="text-xs text-white/75 leading-relaxed">
+              <p className="text-xs text-white/80 leading-relaxed">
                 All raw steel coils are accompanied by Mill Test Certificates (MTC). Profiles are 100% checked for coating thickness, slot dimensions, and flange parallelity prior to dispatch.
               </p>
             </div>
