@@ -55,17 +55,18 @@ html {
 ::-webkit-scrollbar-thumb:hover { background: #003799; }
 
 /* ─── Typography Hierarchy (Poppins Exclusively) ────────── */
-h1, h2, h3, h4, h5, h6 {
-  text-wrap: balance;
-  font-family: 'Poppins', sans-serif;
-  font-weight: 700;
-  color: var(--structure-navy);
-}
+@layer base {
+  h1, h2, h3, h4, h5, h6 {
+    text-wrap: balance;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+  }
 
-p, li, blockquote {
-  text-wrap: pretty;
-  font-family: 'Poppins', sans-serif;
-  font-weight: 400;
+  p, li, blockquote {
+    text-wrap: pretty;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 400;
+  }
 }
 
 /* ─── Selection ──────────────────────────────────────────── */
