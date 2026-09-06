@@ -167,3 +167,7 @@ html {
 .link-hover:hover::after {
   width: 100%;
 }
+
+/* Hide scrollbar but keep scroll behaviour */
+.scrollbar-hide::-webkit-scrollbar { display: none; }
+.scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }

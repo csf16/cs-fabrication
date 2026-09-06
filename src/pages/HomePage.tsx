@@ -102,13 +102,13 @@ export const HomePage: React.FC<HomePageProps> = () => {
 
 
       {/* ═══════════════════════════════════════════════════════
-          S3 — PRODUCT CATEGORIES (card grid)
+          S3 — PRODUCT CATEGORIES (carousel cards)
       ═══════════════════════════════════════════════════════ */}
-      <section className="bg-white py-20 md:py-28">
+      <section className="bg-[#E5E7EB] py-20 md:py-28 overflow-hidden">
         <div className="max-w-[1320px] mx-auto px-6 md:px-10">
 
           {/* Section header */}
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-14">
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
             <div>
               <span className="text-[10px] font-mono font-bold text-[#0049CA] uppercase tracking-[0.15em] block mb-3">What We Build</span>
               <h2 className="text-4xl sm:text-5xl font-extrabold tracking-tight text-[#0F2130] leading-[1.05]">
@@ -121,77 +121,151 @@ export const HomePage: React.FC<HomePageProps> = () => {
             </Link>
           </div>
 
-          {/* Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-5">
+          {/* Horizontal scrollable card row */}
+          <div className="flex gap-5 overflow-x-auto pb-6 snap-x snap-mandatory scrollbar-hide -mx-6 md:-mx-10 px-6 md:px-10">
 
-            {/* Large Dark Card — Solar Electrical */}
-            <div className="md:col-span-5 bg-[#0F2130] text-white relative overflow-hidden group">
-              <div className="absolute inset-0">
-                <img src="/electrical/solar_hybrid_inverter.jpg" alt="Solar Hybrid Inverter" className="w-full h-full object-cover opacity-30 group-hover:opacity-40 group-hover:scale-105 transition-all duration-500" />
-              </div>
-              <div className="relative z-10 p-8 flex flex-col justify-between min-h-[340px]">
+            {/* CARD 1 — Dark image card (active) */}
+            <Link
+              to="/products"
+              className="group relative shrink-0 w-[300px] sm:w-[340px] rounded-2xl overflow-hidden snap-start cursor-pointer"
+              style={{ minHeight: '440px' }}
+            >
+              {/* Background image */}
+              <img
+                src="/electrical/acdb_box.jpg"
+                alt="ACDB Solar Electrical"
+                className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+              />
+              {/* Dark overlay */}
+              <div className="absolute inset-0 bg-gradient-to-t from-[#0F2130]/95 via-[#0F2130]/60 to-[#0F2130]/25 group-hover:from-[#0F2130]/90 transition-all duration-500" />
+
+              {/* Content */}
+              <div className="relative z-10 h-full flex flex-col justify-between p-8" style={{ minHeight: '440px' }}>
+                {/* Top: CSF logo mark */}
+                <div className="w-9 h-9 bg-[#0049CA] flex items-center justify-center">
+                  <span className="text-white text-[10px] font-extrabold tracking-wider">CSF</span>
+                </div>
+
+                {/* Bottom: text */}
                 <div>
-                  <span className="text-[10px] font-mono text-[#0049CA] uppercase tracking-widest block mb-4">01</span>
-                  <h3 className="text-3xl font-extrabold text-white uppercase leading-tight mb-3">Solar<br />Electrical</h3>
-                  <ul className="space-y-1 text-xs text-white/60">
-                    <li>Solar Hybrid Inverter</li>
-                    <li>ACDB (AC Distribution Box)</li>
-                    <li>DCDB (DC Distribution Box)</li>
-                  </ul>
-                </div>
-                <Link to="/products" className="inline-flex items-center gap-2 text-xs font-bold text-white border-b border-white/30 hover:border-white pb-0.5 w-fit mt-8 transition-colors group">
-                  Explore <ArrowUpRight className="w-3.5 h-3.5" />
-                </Link>
-              </div>
-            </div>
-
-            {/* Right column: two stacked light cards */}
-            <div className="md:col-span-7 grid grid-rows-2 gap-5">
-
-              {/* Structural Fabrication */}
-              <div className="bg-[#F5F2EE] relative overflow-hidden group flex">
-                <div className="flex-1 p-7 flex flex-col justify-between">
-                  <div>
-                    <span className="text-[10px] font-mono text-[#0049CA] uppercase tracking-widest block mb-3">02</span>
-                    <h3 className="text-2xl font-extrabold text-[#0F2130] uppercase leading-tight mb-2">Structural<br />Fabrication</h3>
-                    <ul className="space-y-1 text-xs text-[#647488]">
-                      <li>Solar Structures &amp; Mounting Systems</li>
-                      <li>C-Channel 80×40×15 &amp; 60×40×15</li>
-                      <li>41×41 Strut Channel</li>
-                    </ul>
-                  </div>
-                  <Link to="/products" className="inline-flex items-center gap-2 text-xs font-bold text-[#0F2130] hover:text-[#0049CA] border-b border-[#0F2130]/30 hover:border-[#0049CA] pb-0.5 w-fit mt-4 transition-colors">
-                    Explore <ArrowUpRight className="w-3.5 h-3.5" />
-                  </Link>
-                </div>
-                <div className="w-44 shrink-0 overflow-hidden">
-                  <img src="/gallery/slotted_c_channels_raw.png" alt="C-Channel Steel" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                  <span className="text-[10px] font-mono text-[#0049CA] uppercase tracking-widest block mb-3">01</span>
+                  <h3 className="text-3xl font-extrabold text-white uppercase leading-tight mb-3">
+                    Solar<br />Electrical.
+                  </h3>
+                  <p className="text-xs text-white/60 leading-relaxed mb-5">
+                    Solar Hybrid Inverter · ACDB · DCDB
+                  </p>
+                  <span className="inline-flex items-center gap-2 text-xs font-bold text-white border-b border-white/40 pb-0.5 group-hover:border-white transition-colors">
+                    Explore <ArrowUpRight className="w-3 h-3" />
+                  </span>
                 </div>
               </div>
+            </Link>
 
-              {/* Components & Services */}
-              <div className="bg-[#F5F2EE] relative overflow-hidden group flex">
-                <div className="flex-1 p-7 flex flex-col justify-between">
-                  <div>
-                    <span className="text-[10px] font-mono text-[#0049CA] uppercase tracking-widest block mb-3">03</span>
-                    <h3 className="text-2xl font-extrabold text-[#0F2130] uppercase leading-tight mb-2">Components<br />&amp; Services</h3>
-                    <ul className="space-y-1 text-xs text-[#647488]">
-                      <li>Mid Clamp &amp; End Clamp</li>
-                      <li>U-Clamp &amp; Spring Nuts</li>
-                      <li>Installation &amp; Commissioning</li>
-                    </ul>
-                  </div>
-                  <Link to="/capabilities" className="inline-flex items-center gap-2 text-xs font-bold text-[#0F2130] hover:text-[#0049CA] border-b border-[#0F2130]/30 hover:border-[#0049CA] pb-0.5 w-fit mt-4 transition-colors">
-                    Explore <ArrowUpRight className="w-3.5 h-3.5" />
-                  </Link>
-                </div>
-                <div className="w-44 shrink-0 overflow-hidden">
-                  <img src="/hardware/middle-clamp-hdg.jpg" alt="Solar Clamping Hardware" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
-                </div>
+            {/* CARD 2 — Structural Fabrication (light) */}
+            <Link
+              to="/products"
+              className="group relative shrink-0 w-[300px] sm:w-[340px] bg-white rounded-2xl snap-start cursor-pointer flex flex-col justify-between p-8 shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300"
+              style={{ minHeight: '440px' }}
+            >
+              {/* Blue dot icon */}
+              <div className="w-11 h-11 rounded-full bg-[#0049CA] flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                <svg viewBox="0 0 24 24" fill="none" className="w-5 h-5 text-white" stroke="currentColor" strokeWidth="2.5">
+                  <path d="M4 6h16M4 10h16M4 14h8M4 18h8" strokeLinecap="round" />
+                </svg>
               </div>
 
-            </div>
+              {/* Body text */}
+              <div className="mt-auto">
+                <span className="text-[10px] font-mono text-[#0049CA] uppercase tracking-widest block mb-4">02</span>
+                <p className="text-2xl font-extrabold text-[#0F2130] leading-tight mb-4">
+                  <span className="text-[#0049CA]">Structural</span> fabrication for{' '}
+                  <span className="text-[#0049CA]">solar</span> mounting systems.
+                </p>
+                <ul className="text-xs text-[#647488] space-y-1 mb-6">
+                  <li>Solar Structures &amp; Mounting Systems</li>
+                  <li>C-Channel 80×40×15 &amp; 60×40×15</li>
+                  <li>41×41 Strut Channel</li>
+                </ul>
+                <span className="inline-flex items-center gap-2 text-xs font-bold text-[#0F2130] group-hover:text-[#0049CA] border-b border-[#0F2130]/30 group-hover:border-[#0049CA] pb-0.5 transition-colors">
+                  Explore <ArrowUpRight className="w-3 h-3" />
+                </span>
+              </div>
+            </Link>
+
+            {/* CARD 3 — Components & Services (light) */}
+            <Link
+              to="/capabilities"
+              className="group relative shrink-0 w-[300px] sm:w-[340px] bg-white rounded-2xl snap-start cursor-pointer flex flex-col justify-between p-8 shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300"
+              style={{ minHeight: '440px' }}
+            >
+              {/* Blue drop / bolt icon */}
+              <div className="w-11 h-11 rounded-full bg-[#0049CA] flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                <svg viewBox="0 0 24 24" fill="none" className="w-5 h-5 text-white" stroke="currentColor" strokeWidth="2.5">
+                  <path d="M12 2C12 2 7 9 7 13a5 5 0 0010 0c0-4-5-11-5-11z" strokeLinejoin="round" />
+                </svg>
+              </div>
+
+              {/* Body text */}
+              <div className="mt-auto">
+                <span className="text-[10px] font-mono text-[#0049CA] uppercase tracking-widest block mb-4">03</span>
+                <p className="text-2xl font-extrabold text-[#0F2130] leading-tight mb-4">
+                  Components that enable{' '}
+                  <span className="text-[#0049CA]">reliable</span> solar connections.
+                </p>
+                <ul className="text-xs text-[#647488] space-y-1 mb-6">
+                  <li>Mid Clamp &amp; End Clamp (HDG)</li>
+                  <li>U-Clamp &amp; Spring Nuts</li>
+                  <li>MS &amp; Aluminium Strut Rail</li>
+                </ul>
+                <span className="inline-flex items-center gap-2 text-xs font-bold text-[#0F2130] group-hover:text-[#0049CA] border-b border-[#0F2130]/30 group-hover:border-[#0049CA] pb-0.5 transition-colors">
+                  Explore <ArrowUpRight className="w-3 h-3" />
+                </span>
+              </div>
+            </Link>
+
+            {/* CARD 4 — Installation & Commissioning (light) */}
+            <Link
+              to="/capabilities"
+              className="group relative shrink-0 w-[300px] sm:w-[340px] bg-white rounded-2xl snap-start cursor-pointer flex flex-col justify-between p-8 shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300"
+              style={{ minHeight: '440px' }}
+            >
+              {/* Blue ring icon */}
+              <div className="w-11 h-11 rounded-full border-[3px] border-[#0049CA] flex items-center justify-center group-hover:bg-[#0049CA] transition-colors duration-300">
+                <svg viewBox="0 0 24 24" fill="none" className="w-5 h-5 text-[#0049CA] group-hover:text-white transition-colors duration-300" stroke="currentColor" strokeWidth="2.5">
+                  <path d="M9 12l2 2 4-4M12 2a10 10 0 100 20A10 10 0 0012 2z" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+              </div>
+
+              {/* Body text */}
+              <div className="mt-auto">
+                <span className="text-[10px] font-mono text-[#0049CA] uppercase tracking-widest block mb-4">04</span>
+                <p className="text-2xl font-extrabold text-[#0F2130] leading-tight mb-4">
+                  Enabling the{' '}
+                  <span className="text-[#0049CA]">transition</span>{' '}
+                  for every solar project.
+                </p>
+                <ul className="text-xs text-[#647488] space-y-1 mb-6">
+                  <li>On-Site Erection Supervision</li>
+                  <li>Bolt Torque &amp; String Testing</li>
+                  <li>Formal Commissioning Dossier</li>
+                </ul>
+                <span className="inline-flex items-center gap-2 text-xs font-bold text-[#0F2130] group-hover:text-[#0049CA] border-b border-[#0F2130]/30 group-hover:border-[#0049CA] pb-0.5 transition-colors">
+                  Explore <ArrowUpRight className="w-3 h-3" />
+                </span>
+              </div>
+            </Link>
+
           </div>
+
+          {/* Scroll hint dots */}
+          <div className="flex items-center justify-center gap-2 mt-6">
+            <div className="w-8 h-1 rounded-full bg-[#0F2130]" />
+            <div className="w-4 h-1 rounded-full bg-[#0F2130]/20" />
+            <div className="w-4 h-1 rounded-full bg-[#0F2130]/20" />
+            <div className="w-4 h-1 rounded-full bg-[#0F2130]/20" />
+          </div>
+
         </div>
       </section>
 
@@ -209,7 +283,7 @@ export const HomePage: React.FC<HomePageProps> = () => {
               <svg className="absolute inset-0 w-full h-full opacity-5" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
                 <defs>
                   <pattern id="diag" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
-                    <line x1="0" y1="0" x2="0" y2="20" stroke="#0049CA" strokeWidth="2"/>
+                    <line x1="0" y1="0" x2="0" y2="20" stroke="#0049CA" strokeWidth="2" />
                   </pattern>
                 </defs>
                 <rect width="200" height="200" fill="url(#diag)" />
@@ -368,7 +442,7 @@ export const HomePage: React.FC<HomePageProps> = () => {
           <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
             <defs>
               <pattern id="diagCTA" x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
-                <line x1="0" y1="0" x2="0" y2="40" stroke="#0049CA" strokeWidth="1.5"/>
+                <line x1="0" y1="0" x2="0" y2="40" stroke="#0049CA" strokeWidth="1.5" />
               </pattern>
             </defs>
             <rect width="100%" height="100%" fill="url(#diagCTA)" />
