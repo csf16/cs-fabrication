@@ -323,7 +323,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onEnquireClick }) => {
                   <path
                     d="M 68,52 V 42 H 44 V 166 H 176 V 42 H 152 V 52"
                     stroke="#0049CA"
-                    strokeWidth="7"
+                    strokeWidth="6"
                     strokeLinecap="square"
                     strokeLinejoin="miter"
                     fill="none"
@@ -333,7 +333,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onEnquireClick }) => {
                   <line x1="40" y1="188" x2="180" y2="188" stroke="#647488" strokeWidth="1" strokeDasharray="3 3" />
                   <line x1="40" y1="182" x2="40" y2="194" stroke="#647488" strokeWidth="1" />
                   <line x1="180" y1="182" x2="180" y2="194" stroke="#647488" strokeWidth="1" />
-                  <text x="110" y="206" fill="#E5E7EB" stroke="none" fontSize="11" fontWeight="400" textAnchor="middle">
+                  <text x="110" y="206" fill="#E5E7EB" stroke="none" style={{ stroke: 'none' }} fontSize="11" fontWeight="400" textAnchor="middle">
                     W: 41.3 mm
                   </text>
 
@@ -341,21 +341,21 @@ export const HomePage: React.FC<HomePageProps> = ({ onEnquireClick }) => {
                   <line x1="20" y1="38" x2="20" y2="170" stroke="#647488" strokeWidth="1" strokeDasharray="3 3" />
                   <line x1="14" y1="38" x2="26" y2="38" stroke="#647488" strokeWidth="1" />
                   <line x1="14" y1="170" x2="26" y2="170" stroke="#647488" strokeWidth="1" />
-                  <text x="10" y="104" fill="#E5E7EB" stroke="none" fontSize="11" fontWeight="400" transform="rotate(-90 10 104)" textAnchor="middle">
+                  <text x="10" y="104" fill="#E5E7EB" stroke="none" style={{ stroke: 'none' }} fontSize="11" fontWeight="400" transform="rotate(-90 10 104)" textAnchor="middle">
                     H: 41.3 mm
                   </text>
 
                   {/* Dimension Line: Inward Return Lip (Top) */}
                   <circle cx="68" cy="42" r="2.5" fill="#0049CA" stroke="none" />
                   <line x1="68" y1="42" x2="105" y2="18" stroke="#0049CA" strokeWidth="1" />
-                  <text x="110" y="21" fill="#E5E7EB" stroke="none" fontSize="10" fontWeight="400">
+                  <text x="110" y="21" fill="#E5E7EB" stroke="none" style={{ stroke: 'none' }} fontSize="10" fontWeight="400">
                     LIP: 10 mm
                   </text>
 
                   {/* Wall Thickness Callout (Inside Hollow Center) */}
                   <circle cx="44" cy="104" r="2.5" fill="#0049CA" stroke="none" />
                   <line x1="44" y1="104" x2="72" y2="104" stroke="#0049CA" strokeWidth="1" />
-                  <text x="78" y="108" fill="#0049CA" stroke="none" fontSize="11" fontWeight="500">
+                  <text x="78" y="108" fill="#0049CA" stroke="none" style={{ stroke: 'none' }} fontSize="11" fontWeight="500">
                     t: 2.5 mm (IS 2062)
                   </text>
                 </g>
@@ -366,23 +366,23 @@ export const HomePage: React.FC<HomePageProps> = ({ onEnquireClick }) => {
                   <rect x="0" y="8" width="125" height="175" rx="4" stroke="#647488" strokeWidth="1" strokeDasharray="3 3" fill="none" opacity="0.6" />
 
                   {/* Header */}
-                  <text x="62" y="2" fill="#647488" stroke="none" fontSize="9" fontWeight="500" textAnchor="middle" letterSpacing="0.08em">
+                  <text x="62" y="2" fill="#647488" stroke="none" style={{ stroke: 'none' }} fontSize="9" fontWeight="500" textAnchor="middle" letterSpacing="0.08em">
                     SLOT GEOMETRY
                   </text>
 
                   {/* Three Oval Punch Slots */}
                   <rect x="42" y="22" width="40" height="20" rx="10" fill="rgba(0, 73, 202, 0.15)" stroke="#0049CA" strokeWidth="1.5" />
-                  <text x="62" y="58" fill="#E5E7EB" stroke="none" fontSize="10" fontWeight="400" textAnchor="middle">
+                  <text x="62" y="58" fill="#E5E7EB" stroke="none" style={{ stroke: 'none' }} fontSize="10" fontWeight="400" textAnchor="middle">
                     14 × 28 mm
                   </text>
 
                   <rect x="42" y="70" width="40" height="20" rx="10" fill="rgba(0, 73, 202, 0.15)" stroke="#0049CA" strokeWidth="1.5" />
-                  <text x="62" y="106" fill="#E5E7EB" stroke="none" fontSize="10" fontWeight="400" textAnchor="middle">
+                  <text x="62" y="106" fill="#E5E7EB" stroke="none" style={{ stroke: 'none' }} fontSize="10" fontWeight="400" textAnchor="middle">
                     Pitch: 50 mm
                   </text>
 
                   <rect x="42" y="118" width="40" height="20" rx="10" fill="rgba(0, 73, 202, 0.15)" stroke="#0049CA" strokeWidth="1.5" />
-                  <text x="62" y="156" fill="#647488" stroke="none" fontSize="9" fontWeight="500" textAnchor="middle" letterSpacing="0.04em">
+                  <text x="62" y="156" fill="#647488" stroke="none" style={{ stroke: 'none' }} fontSize="9" fontWeight="500" textAnchor="middle" letterSpacing="0.04em">
                     CNC IN-LINE PUNCH
                   </text>
                 </g>
@@ -390,7 +390,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onEnquireClick }) => {
 
               <div className="flex items-center justify-between pt-4 mt-2 border-t border-white/10 text-[11px] text-white/70">
                 <span>ZINC THICKNESS: 85+ MICRONS</span>
-                <span className="text-[#0049CA] font-bold">100% FACTORY INSPECTED</span>
+                <span className="text-[#fffff] font-bold">100% FACTORY INSPECTED</span>
               </div>
             </div>
           </div>

@@ -12,6 +12,10 @@
   font-family: 'Poppins', sans-serif;
 }
 
+svg text {
+  stroke: none !important;
+}
+
 /* ─── CSF Brand Design Tokens ────────────────────────────── */
 :root {
   /* Primary Brand Colors */
