@@ -60,10 +60,13 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onEnquireClick: _onEnquire
   return (
     <div className="w-full pt-28 pb-24 bg-[#FFFFFF] text-[#0F2130]">
       {/* ── Page Hero ─────────────────────────────────────────────── */}
-      <section className="max-w-[1320px] mx-auto px-6 md:px-10 mb-20">
+      <section className="max-w-[1720px] mx-auto px-6 sm:px-10 md:px-16 lg:px-24 mb-20">
         <div className="flex flex-col gap-4 max-w-3xl">
-          <div className="inline-flex items-center gap-2 px-3 py-1 bg-[#0049CA]/10 text-[#0049CA] text-[12px] font-semibold tracking-[0.04em] uppercase w-fit">
-            <span>Corporate Profile</span>
+          <div className="inline-flex items-center gap-2">
+            <span className="w-1.5 h-1.5 bg-[#0049CA]" />
+            <span className="text-[11px] font-mono font-bold tracking-[0.14em] text-[#0049CA] uppercase">
+              Corporate Profile
+            </span>
           </div>
           <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-[#0F2130] leading-[1.1]">
             Structure Starts With Precision.
@@ -75,9 +78,9 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onEnquireClick: _onEnquire
 
         {/* Dual Competence Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-12">
-          <div className="border border-[#E5E7EB] bg-[#F8FAFC] p-8">
+          <div className="border border-[#E5E7EB] rounded-2xl bg-[#F8FAFC] p-8 shadow-xs">
             <div className="flex items-center gap-3 mb-4">
-              <div className="p-3 bg-[#0049CA]/10 border border-[#0049CA]/20 text-[#0049CA]">
+              <div className="p-3 rounded-xl bg-[#0049CA]/10 border border-[#0049CA]/20 text-[#0049CA]">
                 <Layers className="w-6 h-6" />
               </div>
               <h2 className="text-xl font-bold text-[#0F2130]">Precision Structural Fabrication</h2>
@@ -101,9 +104,9 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onEnquireClick: _onEnquire
             </div>
           </div>
 
-          <div className="border border-[#E5E7EB] bg-[#F8FAFC] p-8">
+          <div className="border border-[#E5E7EB] rounded-2xl bg-[#F8FAFC] p-8 shadow-xs">
             <div className="flex items-center gap-3 mb-4">
-              <div className="p-3 bg-[#0049CA]/10 border border-[#0049CA]/20 text-[#0049CA]">
+              <div className="p-3 rounded-xl bg-[#0049CA]/10 border border-[#0049CA]/20 text-[#0049CA]">
                 <Zap className="w-6 h-6" />
               </div>
               <h2 className="text-xl font-bold text-[#0F2130]">Solar Electrical Products</h2>
@@ -131,7 +134,7 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onEnquireClick: _onEnquire
 
       {/* ── The 4 Core Principles ─────────────────────────────────── */}
       <section className="bg-[#0F2130] text-white py-24 mb-24">
-        <div className="max-w-[1320px] mx-auto px-6 md:px-10">
+        <div className="max-w-[1720px] mx-auto px-6 sm:px-10 md:px-16 lg:px-24">
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6 border-b border-[#647488]/30 pb-6">
             <div>
               <span className="text-[12px] font-bold text-[#0049CA] tracking-[0.06em] uppercase">Brand Philosophy</span>
@@ -148,7 +151,7 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onEnquireClick: _onEnquire
             {principles.map((p, idx) => (
               <div
                 key={p.title}
-                className="border border-[#647488]/30 bg-white/5 p-6 flex flex-col justify-between"
+                className="border border-[#647488]/30 rounded-2xl bg-white/5 p-6 flex flex-col justify-between"
               >
                 <div>
                   <span className="text-3xl font-mono font-bold text-[#0049CA] block mb-4">
@@ -169,10 +172,10 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onEnquireClick: _onEnquire
       </section>
 
       {/* ── Facility & Compliance Details ─────────────────────────── */}
-      <section className="max-w-[1320px] mx-auto px-6 md:px-10 mb-20">
+      <section className="max-w-[1720px] mx-auto px-6 sm:px-10 md:px-16 lg:px-24 mb-20">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
           {/* Left Details */}
-          <div className="lg:col-span-7 border border-[#E5E7EB] bg-[#F8FAFC] p-8 flex flex-col justify-between">
+          <div className="lg:col-span-7 border border-[#E5E7EB] rounded-2xl bg-[#F8FAFC] p-8 flex flex-col justify-between shadow-xs">
             <div>
               <div className="flex items-center gap-3 mb-4">
                 <Factory className="w-6 h-6 text-[#0049CA]" />
@@ -210,7 +213,7 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onEnquireClick: _onEnquire
             {/* Compliance Matrix */}
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-4 border-t border-[#E5E7EB]">
               {complianceBadges.map((badge) => (
-                <div key={badge.label} className="p-3 bg-white border border-[#E5E7EB]">
+                <div key={badge.label} className="p-3 rounded-xl bg-white border border-[#E5E7EB]">
                   <span className="text-[10px] text-[#647488] uppercase tracking-wider block font-semibold">
                     {badge.label}
                   </span>
@@ -223,7 +226,7 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onEnquireClick: _onEnquire
           </div>
 
           {/* Right Summary Card */}
-          <div className="lg:col-span-5 border border-[#0049CA] bg-[#0049CA]/5 p-8 flex flex-col justify-between">
+          <div className="lg:col-span-5 border border-[#0049CA] rounded-2xl bg-[#0049CA]/5 p-8 flex flex-col justify-between shadow-xs">
             <div>
               <span className="text-xs font-bold text-[#0049CA] uppercase tracking-wider block mb-2">
                 Why Partner With CSF
@@ -236,15 +239,15 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onEnquireClick: _onEnquire
               </p>
 
               <div className="space-y-3">
-                <div className="p-3 bg-white border border-[#E5E7EB] flex items-center gap-3">
+                <div className="p-3 rounded-xl bg-white border border-[#E5E7EB] flex items-center gap-3">
                   <Award className="w-5 h-5 text-[#0049CA] shrink-0" />
                   <span className="text-xs font-bold text-[#0F2130]">Factory-Direct Pricing with Zero Broker Markup</span>
                 </div>
-                <div className="p-3 bg-white border border-[#E5E7EB] flex items-center gap-3">
+                <div className="p-3 rounded-xl bg-white border border-[#E5E7EB] flex items-center gap-3">
                   <ShieldCheck className="w-5 h-5 text-[#0049CA] shrink-0" />
                   <span className="text-xs font-bold text-[#0F2130]">Certified Material Test Certificates (MTC)</span>
                 </div>
-                <div className="p-3 bg-white border border-[#E5E7EB] flex items-center gap-3">
+                <div className="p-3 rounded-xl bg-white border border-[#E5E7EB] flex items-center gap-3">
                   <Wrench className="w-5 h-5 text-[#0049CA] shrink-0" />
                   <span className="text-xs font-bold text-[#0F2130]">Technical On-Site Erection Guidance</span>
                 </div>
@@ -254,7 +257,7 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onEnquireClick: _onEnquire
             <div className="pt-8">
               <Link
                 to="/contact"
-                className="w-full inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-[#0049CA] hover:bg-[#003CAD] text-white text-xs font-bold uppercase tracking-wider cursor-pointer transition-colors"
+                className="w-full inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full bg-[#0049CA] hover:bg-[#003CAD] text-white text-xs font-bold uppercase tracking-wider cursor-pointer transition-colors shadow-md"
               >
                 <span>Connect With Factory Team</span>
                 <ArrowRight className="w-4 h-4" />
@@ -265,8 +268,8 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onEnquireClick: _onEnquire
       </section>
 
       {/* ── Bottom Link Banner ────────────────────────────────────── */}
-      <section className="max-w-[1320px] mx-auto px-6 md:px-10">
-        <div className="border border-[#0F2130] bg-[#0F2130] text-white p-8 md:p-12 flex flex-col sm:flex-row items-center justify-between gap-6">
+      <section className="max-w-[1720px] mx-auto px-6 sm:px-10 md:px-16 lg:px-24 mb-20">
+        <div className="border border-[#0F2130] rounded-2xl bg-[#0F2130] text-white p-8 md:p-12 flex flex-col sm:flex-row items-center justify-between gap-6 shadow-xl">
           <div>
             <h3 className="text-2xl font-bold mb-1">Explore Products &amp; Capabilities</h3>
             <p className="text-xs text-[#E5E7EB]/80">
@@ -276,13 +279,13 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onEnquireClick: _onEnquire
           <div className="flex items-center gap-4 shrink-0">
             <Link
               to="/products"
-              className="px-5 py-3 border border-white/40 hover:border-white text-white text-xs font-bold uppercase tracking-wider transition-colors"
+              className="px-6 py-3 rounded-full border border-white/40 hover:border-white text-white text-xs font-bold uppercase tracking-wider transition-colors"
             >
               View Products
             </Link>
             <Link
               to="/capabilities"
-              className="px-5 py-3 bg-[#0049CA] hover:bg-[#003CAD] text-white text-xs font-bold uppercase tracking-wider transition-colors"
+              className="px-6 py-3 rounded-full bg-[#0057D9] hover:bg-[#0049CA] text-white text-xs font-bold uppercase tracking-wider transition-colors shadow-md"
             >
               View Capabilities
             </Link>

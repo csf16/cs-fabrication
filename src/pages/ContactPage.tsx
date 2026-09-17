@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import { useSEO } from '../hooks/useSEO';
-import { MapPin, Mail, Clock, CheckCircle2, ArrowRight } from 'lucide-react';
+import { MapPin, Mail, Clock, CheckCircle2, ArrowRight, Navigation } from 'lucide-react';
 import { submitLeadToGoogleSheet, validatePhoneNumber } from '../services/leadService';
 
 export const ContactPage: React.FC = () => {
@@ -16,6 +17,8 @@ export const ContactPage: React.FC = () => {
       'Direct factory quotes for solar mounting structures, cold-roll formed channels, and electrical distribution boxes. Mohanpur Shumali, Amroha, UP.',
   });
 
+  const location = useLocation();
+
   const [formData, setFormData] = useState({
     name: '',
     company: '',
@@ -24,6 +27,35 @@ export const ContactPage: React.FC = () => {
     productCategory: 'Solar Structures & Mounting Systems',
     notes: '',
   });
+
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const service = params.get('service') || params.get('requirement') || '';
+    if (service) {
+      // Map common categories if applicable
+      const lower = service.toLowerCase();
+      let matchedCategory = 'Solar Structures & Mounting Systems';
+      if (lower.includes('c-channel') || lower.includes('c channel') || lower.includes('80x40') || lower.includes('60x40')) {
+        matchedCategory = 'C-Channel 80x40x15 / 60x40x15';
+      } else if (lower.includes('strut') || lower.includes('41x41')) {
+        matchedCategory = '41x41 Strut Channel Systems';
+      } else if (lower.includes('inverter') || lower.includes('hybrid')) {
+        matchedCategory = 'Solar Hybrid Inverter Supply';
+      } else if (lower.includes('acdb') || lower.includes('dcdb') || lower.includes('panel')) {
+        matchedCategory = 'ACDB / DCDB Manufacturing';
+      } else if (lower.includes('hardware') || lower.includes('clamp') || lower.includes('fastener')) {
+        matchedCategory = 'Solar Clamping Hardware & Fasteners';
+      } else if (lower.includes('installation') || lower.includes('commissioning')) {
+        matchedCategory = 'On-Site Installation & Commissioning';
+      }
+
+      setFormData((prev) => ({
+        ...prev,
+        productCategory: matchedCategory,
+        notes: prev.notes ? prev.notes : `Requirement: ${service}`,
+      }));
+    }
+  }, [location.search]);
 
   const [phoneError, setPhoneError] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -49,11 +81,12 @@ export const ContactPage: React.FC = () => {
     }
     setIsSubmitting(true);
     try {
-      const requirementSummary = `[${formData.productCategory}] Email: ${formData.email || 'N/A'}, Notes: ${formData.notes || 'None'}`;
       await submitLeadToGoogleSheet(formData.phone, 'Contact Page - RFQ Form', {
         name: formData.name,
         company: formData.company,
-        requirement: requirementSummary,
+        email: formData.email,
+        requirement: formData.productCategory,
+        notes: formData.notes,
       });
       setIsSubmitted(true);
     } catch (err: any) {
@@ -70,59 +103,68 @@ export const ContactPage: React.FC = () => {
       <section className="w-full grid grid-cols-1 lg:grid-cols-2 min-h-screen">
 
         {/* LEFT — Industrial Photo Panel */}
-        <div className="relative h-72 lg:h-auto overflow-hidden">
+        <div className="relative min-h-[560px] lg:min-h-screen pt-28 sm:pt-32 pb-12 sm:pb-16 lg:py-32 px-6 sm:px-10 md:px-16 flex flex-col justify-between overflow-hidden">
           <img
-            src="/gallery/utility_solar_farm.jpg"
+            src="/images/csf-hero-factory.png"
             alt="CSF Solar Manufacturing Facility — Amroha, Uttar Pradesh"
             className="absolute inset-0 w-full h-full object-cover"
           />
           {/* Dark overlay for legibility */}
-          <div className="absolute inset-0 bg-[#0F2130]/60" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#07131F]/95 via-[#07131F]/85 to-[#07131F]/75" />
 
-          {/* Floating info block */}
-          <div className="absolute bottom-0 left-0 right-0 p-8 md:p-12">
-            <div className="border-l-2 border-[#0049CA] pl-5">
-              <p className="text-[11px] font-mono font-bold text-[#0049CA] uppercase tracking-[0.12em] mb-2">
+          {/* Info block (Full natural flow, 100% visible on phone and desktop) */}
+          <div className="relative z-10 flex flex-col justify-between h-full">
+            <div className="border-l-2 border-[#0049CA] pl-4 sm:pl-5">
+              <p className="text-[11px] font-mono font-bold text-[#60A5FA] uppercase tracking-[0.14em] mb-2">
                 Manufacturing Facility
               </p>
-              <h2 className="text-2xl sm:text-3xl font-bold text-white leading-tight mb-3">
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white leading-tight mb-3">
                 Central Structure<br />Fabrication (CSF)
               </h2>
-              <p className="text-xs text-white/70 leading-relaxed max-w-sm">
+              <p className="text-xs sm:text-sm text-white/80 leading-relaxed max-w-sm mb-5">
                 Mohanpur Shumali, Post Basera Taga,<br />
                 Tahseel Naugaon Sadat, District Amroha,<br />
                 Uttar Pradesh — 244221, India
               </p>
+              <a
+                href="https://www.google.com/maps/dir/?api=1&destination=Mohanpur+Shumali+Amroha+Uttar+Pradesh+244221+India"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#0049CA] hover:bg-white hover:text-[#0F2130] text-white text-xs font-bold uppercase tracking-wider transition-colors shadow-sm w-fit"
+              >
+                <Navigation className="w-3.5 h-3.5" />
+                <span>Take Me There</span>
+              </a>
             </div>
 
             {/* Contact strips */}
-            <div className="mt-8 space-y-3">
+            <div className="mt-10 sm:mt-12 pt-6 border-t border-white/15 space-y-3">
               <a
                 href="mailto:info.csf16@gmail.com"
                 className="flex items-center gap-3 group"
               >
-                <div className="w-8 h-8 bg-[#0049CA] flex items-center justify-center shrink-0">
+                <div className="w-8 h-8 rounded-lg bg-[#0049CA] flex items-center justify-center shrink-0">
                   <Mail className="w-3.5 h-3.5 text-white" />
                 </div>
-                <span className="text-sm text-white/80 group-hover:text-white transition-colors font-mono">
+                <span className="text-xs sm:text-sm text-white/90 group-hover:text-white transition-colors font-mono">
                   info.csf16@gmail.com
                 </span>
               </a>
 
               <div className="flex items-center gap-3">
-                <div className="w-8 h-8 bg-[#0049CA]/30 border border-[#0049CA]/40 flex items-center justify-center shrink-0">
-                  <Clock className="w-3.5 h-3.5 text-[#0049CA]" />
+                <div className="w-8 h-8 rounded-lg bg-[#0049CA]/30 border border-[#0049CA]/40 flex items-center justify-center shrink-0">
+                  <Clock className="w-3.5 h-3.5 text-[#60A5FA]" />
                 </div>
-                <span className="text-sm text-white/70 font-mono">
+                <span className="text-xs sm:text-sm text-white/80 font-mono">
                   Mon – Sat: 08:30 – 18:30 IST
                 </span>
               </div>
 
               <div className="flex items-center gap-3">
-                <div className="w-8 h-8 bg-[#0049CA]/30 border border-[#0049CA]/40 flex items-center justify-center shrink-0">
-                  <MapPin className="w-3.5 h-3.5 text-[#0049CA]" />
+                <div className="w-8 h-8 rounded-lg bg-[#0049CA]/30 border border-[#0049CA]/40 flex items-center justify-center shrink-0">
+                  <MapPin className="w-3.5 h-3.5 text-[#60A5FA]" />
                 </div>
-                <span className="text-sm text-white/70 font-mono">
+                <span className="text-xs sm:text-sm text-white/80 font-mono">
                   GSTIN: 09BDRPA4213J1ZJ
                 </span>
               </div>
@@ -131,7 +173,7 @@ export const ContactPage: React.FC = () => {
         </div>
 
         {/* RIGHT — Form Panel */}
-        <div className="bg-[#FFFFFF] flex flex-col justify-center px-8 md:px-16 py-20 lg:py-32">
+        <div className="bg-[#FFFFFF] flex flex-col justify-center px-6 sm:px-10 md:px-16 py-12 sm:py-16 lg:py-32">
 
           {/* Header */}
           <div className="mb-10">
@@ -277,7 +319,7 @@ export const ContactPage: React.FC = () => {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="group w-full bg-[#0049CA] hover:bg-[#003CAD] text-white px-8 py-5 text-sm font-bold uppercase tracking-[0.1em] flex items-center justify-between cursor-pointer transition-colors duration-200 disabled:opacity-50"
+                className="group w-full bg-[#0049CA] hover:bg-[#003CAD] text-white px-8 py-4.5 rounded-full text-sm font-bold uppercase tracking-[0.1em] flex items-center justify-between cursor-pointer transition-all duration-200 disabled:opacity-50 shadow-md hover:shadow-lg"
               >
                 <span>{isSubmitting ? 'Transmitting...' : 'Send Request'}</span>
                 <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-200" />
@@ -289,7 +331,7 @@ export const ContactPage: React.FC = () => {
 
       {/* ── DARK INFO BAR ──────────────────────────────────────── */}
       <section className="bg-[#0F2130] border-t border-white/5">
-        <div className="max-w-[1320px] mx-auto px-6 md:px-10">
+        <div className="max-w-[1720px] mx-auto px-6 sm:px-10 md:px-16 lg:px-24">
           <div className="grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-white/10">
 
             <div className="py-10 md:pr-10">
@@ -330,9 +372,20 @@ export const ContactPage: React.FC = () => {
           referrerPolicy="no-referrer-when-downgrade"
         />
         {/* Map overlay badge */}
-        <div className="absolute top-6 left-6 bg-[#0F2130] text-white px-5 py-3 shadow-xl">
-          <p className="text-[10px] font-mono font-bold text-[#0049CA] uppercase tracking-wider mb-0.5">Factory Pin</p>
-          <p className="text-sm font-bold">Amroha, Uttar Pradesh</p>
+        <div className="absolute top-6 left-6 bg-[#0F2130] text-white px-5 py-3.5 rounded-2xl shadow-xl flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4 border-l-4 border-[#0049CA]">
+          <div>
+            <p className="text-[10px] font-mono font-bold text-[#0049CA] uppercase tracking-wider mb-0.5">Factory Pin</p>
+            <p className="text-sm font-bold">Amroha, Uttar Pradesh</p>
+          </div>
+          <a
+            href="https://www.google.com/maps/dir/?api=1&destination=Mohanpur+Shumali+Amroha+Uttar+Pradesh+244221+India"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="px-4 py-2 rounded-full bg-[#0049CA] hover:bg-white hover:text-[#0F2130] text-white text-xs font-bold uppercase tracking-wider transition-colors inline-flex items-center gap-1.5 shadow-sm"
+          >
+            <Navigation className="w-3.5 h-3.5" />
+            <span>Take Me There</span>
+          </a>
         </div>
       </section>
 

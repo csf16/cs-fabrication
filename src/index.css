@@ -92,8 +92,13 @@ html {
 
 /* ─── Selection ──────────────────────────────────────────── */
 ::selection {
-  background: rgba(0, 73, 202, 0.15);
-  color: var(--structure-navy);
+  background-color: #0057D9;
+  color: #FFFFFF;
+}
+
+::-moz-selection {
+  background-color: #0057D9;
+  color: #FFFFFF;
 }
 
 /* ─── Technical Specification Grid Lines ─────────────────── */

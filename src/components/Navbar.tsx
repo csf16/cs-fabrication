@@ -37,14 +37,13 @@ export const Navbar: React.FC<NavbarProps> = ({ onEnquireClick: _onEnquireClick 
 
   return (
     <header
-      className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
-        scrolled
+      className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${scrolled
           ? 'bg-[#FFFFFF]/95 backdrop-blur-md border-b border-[#E5E7EB] shadow-xs'
           : 'bg-[#FFFFFF]/90 backdrop-blur-xs border-b border-[#E5E7EB]/60'
-      }`}
+        }`}
     >
-      <div className="max-w-[1320px] mx-auto px-6 md:px-10 h-20 flex items-center justify-between">
-        
+      <div className="w-full max-w-[1720px] mx-auto px-6 sm:px-10 md:px-16 lg:px-24 h-20 flex items-center justify-between">
+
         {/* Official CSF Main Brand Logo */}
         <Link to="/" className="flex items-center group py-1">
           <CSFLogo
@@ -62,11 +61,10 @@ export const Navbar: React.FC<NavbarProps> = ({ onEnquireClick: _onEnquireClick 
               <Link
                 key={link.to}
                 to={link.to}
-                className={`text-[13px] tracking-[0.02em] font-sans transition-colors duration-200 py-1 border-b-2 ${
-                  active
+                className={`text-[13px] tracking-[0.02em] font-sans transition-colors duration-200 py-1 border-b-2 ${active
                     ? 'font-bold text-[#0049CA] border-[#0049CA]'
                     : 'font-medium text-[#0F2130] hover:text-[#0049CA] border-transparent'
-                }`}
+                  }`}
               >
                 {link.label}
               </Link>
@@ -105,11 +103,10 @@ export const Navbar: React.FC<NavbarProps> = ({ onEnquireClick: _onEnquireClick 
                 key={link.to}
                 to={link.to}
                 onClick={() => setMobileMenuOpen(false)}
-                className={`text-sm py-2.5 border-b border-[#E5E7EB]/60 font-sans flex items-center justify-between ${
-                  active
+                className={`text-sm py-2.5 border-b border-[#E5E7EB]/60 font-sans flex items-center justify-between ${active
                     ? 'font-bold text-[#0049CA]'
                     : 'font-medium text-[#0F2130] hover:text-[#0049CA]'
-                }`}
+                  }`}
               >
                 <span>{link.label}</span>
                 {active && <span className="w-1.5 h-1.5 bg-[#0049CA]" />}

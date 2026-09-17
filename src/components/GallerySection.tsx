@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
+import { Link } from 'react-router-dom';
 import { ChevronLeft, ChevronRight, X, ZoomIn, ArrowRight, CheckCircle2 } from 'lucide-react';
 
 export interface GalleryItem {
@@ -17,11 +18,63 @@ export interface GalleryItem {
 
 const DEFAULT_GALLERY_ITEMS: GalleryItem[] = [
   {
+    id: 'rooftop-elevated-solar-canopy',
+    title: 'High-Elevation Rooftop Solar Canopy Array',
+    category: 'structures',
+    categoryLabel: 'Solar Structures',
+    image: '/projects/csf_project_01.jpg',
+    badge: 'Galvanized C-Channels',
+    specs: 'Heavy-Duty C-Channels // 160 km/h Wind Resistance',
+    dimensions: 'Superstructure elevated rooftop canopy',
+    location: 'Commercial Terrace, Uttar Pradesh',
+    desc: 'Elevated rooftop solar superstructure erected on building terrace utilizing cold-formed galvanized C-channels and high-tensile cross-brace struts.',
+    featured: true,
+  },
+  {
+    id: 'commercial-building-rooftop-solar',
+    title: 'Multi-Storey Building Solar Pergola Structure',
+    category: 'structures',
+    categoryLabel: 'Solar Structures',
+    image: '/projects/csf_project_02.jpg',
+    badge: 'Full Headspace Clearance',
+    specs: 'Engineered Uprights // Usable Terrace Clearance',
+    dimensions: 'High-clearance rooftop solar canopy',
+    location: 'Commercial Building, NCR Corridor',
+    desc: 'Architectural rooftop solar canopy engineered with full headspace clearance to maintain complete terrace usability while securely anchoring PV strings.',
+    featured: true,
+  },
+  {
+    id: 'rooftop-mounting-purlin-structure',
+    title: 'Rooftop Slotted Purlin & Rail System',
+    category: 'channels',
+    categoryLabel: 'C-Channels & Rails',
+    image: '/projects/csf_project_03.jpg',
+    badge: 'CNC Slotted Channels',
+    specs: 'Pre-Punched C-Channels // Bolt-Together Assembly',
+    dimensions: 'Continuous elevated stanchion rails',
+    location: 'Rooftop Commercial Array, Western UP',
+    desc: 'Modular rooftop solar mounting framework featuring continuous slotted C-channel purlins, adjustable stanchions, and stainless steel module clamps.',
+    featured: true,
+  },
+  {
+    id: 'long-span-rooftop-solar-array',
+    title: 'Continuous Long-Span Rooftop Solar PV String',
+    category: 'structures',
+    categoryLabel: 'Solar Structures',
+    image: '/projects/csf_project_04.jpg',
+    badge: 'Long-Run Solar String',
+    specs: '80μm Hot-Dip Galvanizing // Mid & End Clamp Suite',
+    dimensions: 'Multi-row continuous panel array',
+    location: 'Industrial Rooftop Array, Amroha',
+    desc: 'Long-span rooftop solar string array mounted onto precision roll-formed C-channel purlins with aluminum mid and end clamps for maximum energy yield.',
+    featured: true,
+  },
+  {
     id: 'solar-mounting-framework',
     title: 'Engineered Ground-Mount Solar Framework',
     category: 'structures',
     categoryLabel: 'Solar Structures',
-    image: '/gallery/solar_mounting_framework.png',
+    image: '/gallery/solar_structure_framework.png',
     badge: 'HDG Structural Steel',
     specs: 'IS 2062 Grade E250 // 85+ Microns Zinc Coating',
     dimensions: 'Dual-post fixed tilt structure with rafter cantilevers',
@@ -34,7 +87,7 @@ const DEFAULT_GALLERY_ITEMS: GalleryItem[] = [
     title: 'Slotted Strut Channels (41×41 & 41×21mm)',
     category: 'channels',
     categoryLabel: 'C-Channels & Rails',
-    image: '/gallery/slotted_strut_channel.png',
+    image: '/gallery/strut_channel_41x41.png',
     badge: 'CNC Punched Steel',
     specs: '28×14mm Oval Slots // Continuous 160mm Pitch',
     dimensions: '41mm × 41mm × 2.5mm Lip Profile',
@@ -59,7 +112,7 @@ const DEFAULT_GALLERY_ITEMS: GalleryItem[] = [
     title: 'Solar Mounting Hardware & Clamp System',
     category: 'hardware',
     categoryLabel: 'Mounting Hardware',
-    image: '/gallery/solar_hardware_overview.jpg',
+    image: '/hardware/u_clamp.png',
     badge: 'Aluminium & HDG',
     specs: 'Anodized 6063-T6 & Hot-Dip Galvanized Press Formed',
     dimensions: 'Mid Clamps, End Clamps, Spring Nuts, Base Rails',
@@ -95,7 +148,7 @@ const DEFAULT_GALLERY_ITEMS: GalleryItem[] = [
     title: 'Heavy Duty 41×61mm Aluminium Base Rail',
     category: 'channels',
     categoryLabel: 'C-Channels & Rails',
-    image: '/hardware/aluminium-41x61-base-rail.jpg',
+    image: '/gallery/c_channel_80x40x15.png',
     badge: 'AL 6005A-T6',
     specs: 'Dual Wing Mounting Flanges // Clear Anodized 15μm',
     dimensions: '41mm × 61mm Box Section',
@@ -107,7 +160,7 @@ const DEFAULT_GALLERY_ITEMS: GalleryItem[] = [
     title: 'Hot-Dip Galvanized Heavy Duty Middle Clamp',
     category: 'hardware',
     categoryLabel: 'Mounting Hardware',
-    image: '/hardware/middle-clamp-hdg.jpg',
+    image: '/hardware/z_clamp.png',
     badge: 'IS 2062 HDG',
     specs: '4.0mm Press-Formed Steel // 85+ Microns Zinc Coating',
     dimensions: '50mm × 50mm U-Profile',
@@ -172,8 +225,8 @@ export const GallerySection: React.FC = () => {
         
         {/* Header */}
         <div className="flex flex-col gap-4 max-w-3xl mb-12">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#0049CA]/10 border border-[#0049CA]/20 text-[#0049CA] text-xs font-semibold uppercase tracking-wider w-fit">
-            <span className="w-2 h-2 rounded-full bg-[#0049CA]" />
+          <div className="inline-flex items-center gap-2 text-xs font-mono font-bold tracking-[0.14em] text-[#0049CA] uppercase w-fit">
+            <span className="w-1.5 h-1.5 bg-[#0049CA]" />
             <span>Media Archive &amp; Documentation</span>
           </div>
 
@@ -219,7 +272,7 @@ export const GallerySection: React.FC = () => {
               <div
                 key={item.id}
                 onClick={() => openLightbox(idx)}
-                className={`group cursor-pointer bg-white border border-[#E5E7EB] hover:border-[#0049CA] rounded-2xl overflow-hidden flex flex-col justify-between transition-all duration-300 hover:-translate-y-1 hover:shadow-xl relative ${
+                className={`group cursor-pointer bg-white border border-[#E5E7EB] hover:border-[#0049CA] rounded-[28px] overflow-hidden flex flex-col justify-between transition-all duration-300 hover:-translate-y-1 hover:shadow-xl relative ${
                   isFirst ? 'sm:col-span-2 lg:col-span-2' : ''
                 }`}
               >
@@ -233,7 +286,7 @@ export const GallerySection: React.FC = () => {
                   />
 
                   {/* Badge */}
-                  <div className="absolute top-3.5 right-3.5 px-3 py-1 bg-[#0F2130]/90 backdrop-blur-sm border border-white/20 rounded-lg">
+                  <div className="absolute top-3.5 right-3.5 px-3 py-1 bg-[#0F2130]/90 backdrop-blur-sm border border-white/20 rounded-xl">
                     <span className="text-[10px] tracking-wider text-white font-semibold uppercase">
                       {item.badge}
                     </span>
@@ -287,7 +340,7 @@ export const GallerySection: React.FC = () => {
         </div>
 
         {/* Gallery Summary Stats Banner */}
-        <div className="mt-16 bg-[#F8FAFC] border border-[#E5E7EB] rounded-2xl p-8 md:p-10 flex flex-col md:flex-row items-center justify-between gap-6 shadow-sm">
+        <div className="mt-16 bg-[#F8FAFC] border border-[#E5E7EB] rounded-[28px] p-8 md:p-10 flex flex-col md:flex-row items-center justify-between gap-6 shadow-sm">
           <div className="flex flex-col gap-2 text-center md:text-left">
             <div className="inline-flex items-center gap-2 text-xs font-semibold text-[#0049CA] uppercase tracking-wider justify-center md:justify-start">
               <CheckCircle2 className="w-4 h-4 text-[#0049CA]" />
@@ -300,20 +353,13 @@ export const GallerySection: React.FC = () => {
               High-tensile hot-dip galvanized steel framing, custom punch slots, FEA certified wind deflection tolerances, and full structural compliance.
             </p>
           </div>
-          <button
-            onClick={() => {
-              const formEl = document.getElementById('request-a-call');
-              if (formEl) {
-                formEl.scrollIntoView({ behavior: 'smooth' });
-              } else {
-                window.dispatchEvent(new CustomEvent('open-enquiry', { detail: 'Project Gallery Samples' }));
-              }
-            }}
+          <Link
+            to="/contact?service=Project Gallery Samples"
             className="px-6 py-3.5 bg-[#0049CA] hover:bg-[#003bb0] text-white text-xs font-semibold tracking-wider uppercase rounded-none transition-all duration-200 whitespace-nowrap shadow-md hover:shadow-lg flex items-center gap-2 cursor-pointer"
           >
             <span>Request Samples &amp; Catalog</span>
             <ArrowRight className="w-4 h-4" />
-          </button>
+          </Link>
         </div>
       </div>
 
@@ -358,7 +404,7 @@ export const GallerySection: React.FC = () => {
 
           {/* Modal Container */}
           <div
-            className="relative max-w-5xl w-full max-h-[90vh] bg-[#0F2130] border border-white/15 rounded-2xl overflow-hidden flex flex-col md:flex-row shadow-2xl"
+            className="relative max-w-5xl w-full max-h-[90vh] bg-[#0F2130] border border-white/15 rounded-[28px] overflow-hidden flex flex-col md:flex-row shadow-2xl"
             onClick={(e) => e.stopPropagation()}
           >
             {/* Full-res Image */}
@@ -374,7 +420,7 @@ export const GallerySection: React.FC = () => {
             <div className="w-full md:w-[35%] p-6 md:p-8 flex flex-col justify-between bg-[#152738] border-t md:border-t-0 md:border-l border-white/10 text-white">
               <div className="flex flex-col gap-4">
                 <div className="flex justify-between items-center">
-                  <span className="text-xs font-semibold text-[#0049CA] bg-[#0049CA]/15 px-3 py-1 rounded-full uppercase tracking-wider">
+                  <span className="text-xs font-mono font-bold text-[#60A5FA] uppercase tracking-[0.14em]">
                     {currentItem.categoryLabel}
                   </span>
                   <span className="text-xs text-[#647488] font-medium">
@@ -413,15 +459,13 @@ export const GallerySection: React.FC = () => {
               </div>
 
               <div className="mt-8 pt-4 border-t border-white/10 flex gap-2">
-                <button
-                  onClick={() => {
-                    closeLightbox();
-                    window.dispatchEvent(new CustomEvent('open-enquiry', { detail: currentItem.title }));
-                  }}
-                  className="w-full py-3.5 bg-[#0049CA] hover:bg-[#003bb0] text-white text-xs font-semibold tracking-wider text-center uppercase rounded-none transition-all shadow-md cursor-pointer"
+                <Link
+                  to={`/contact?service=${encodeURIComponent(currentItem.title)}`}
+                  onClick={closeLightbox}
+                  className="w-full py-3.5 bg-[#0049CA] hover:bg-[#003bb0] text-white text-xs font-semibold tracking-wider text-center uppercase rounded-none transition-all shadow-md cursor-pointer inline-block"
                 >
                   Enquire About This Spec →
-                </button>
+                </Link>
               </div>
             </div>
           </div>

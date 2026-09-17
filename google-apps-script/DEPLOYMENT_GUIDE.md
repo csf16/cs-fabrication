@@ -9,7 +9,7 @@ This guide walks you through deploying the Google Apps Script Web App to connect
 - **Spreadsheet ID:** `UwD6HpvSCmhUbwtb-oY1RM9Ll7V`
 - **Sheet/Tab Name:** `Leads` (created automatically if missing)
 - **Notification Email:** `info.csf16@gmail.com`
-- **Columns:** `Timestamp | Mobile Number | Source | Status`
+- **Columns:** `Timestamp | Name | Mobile Number | Email | Company | Requirement | Notes | Source | Status`
 
 ---
 
@@ -17,26 +17,30 @@ This guide walks you through deploying the Google Apps Script Web App to connect
 
 ### Step 1: Open Google Apps Script
 1. Go to [https://script.google.com/home](https://script.google.com/home)
-2. Click **+ New Project** (top left)
-3. Rename the project at the top to: **CS Fabrication - Leads API**
+2. Open your existing project: **CS Fabrication - Leads API** (or click **+ New Project**)
 
 ---
 
 ### Step 2: Paste the Code
-1. Erase any code inside `Code.gs`.
-2. Copy the entire contents of [`google-apps-script/Code.gs`](file:///Users/admin/Documents/Nee/Development/CS/google-apps-script/Code.gs).
-3. Paste into `Code.gs` in the editor.
-4. Click the **Save** icon (floppy disk) or press `Ctrl+S` / `Cmd+S`.
+1. Replace the code inside `Code.gs` with the latest contents of [`google-apps-script/Code.gs`](file:///Users/admin/Documents/Nee/Development/CS/google-apps-script/Code.gs).
+2. Click the **Save** icon (floppy disk) or press `Ctrl+S` / `Cmd+S`.
 
 ---
 
-### Step 3: Deploy as Web App
-1. In the top right corner, click the blue **Deploy** button > **New deployment**.
-2. Click the gear icon (**Select type**) next to "Select type" and choose **Web app**.
-3. Fill in the deployment details:
-   - **Description:** `Lead Capture v1`
+### Step 3: Deploy as Web App (or Update Existing Deployment)
+If updating an existing deployment:
+1. Click **Deploy** (top right) > **Manage deployments**.
+2. Click the pencil icon (**Edit**) next to your active deployment.
+3. In the **Version** dropdown, select **New version**.
+4. Click **Deploy**.
+
+If creating a new deployment:
+1. In the top right corner, click **Deploy** > **New deployment**.
+2. Click the gear icon (**Select type**) > **Web app**.
+3. Fill in:
+   - **Description:** `Lead Capture v2 (Full Contact & RFQ Form Support)`
    - **Execute as:** `Me (your Google account)`
-   - **Who has access:** `Anyone` *(Crucial: allows the landing page form to submit without authentication)*
+   - **Who has access:** `Anyone` *(Crucial: allows forms to submit without authentication)*
 4. Click **Deploy**.
 5. When prompted with **Authorization required**:
    - Click **Authorize access**.

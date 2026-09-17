@@ -161,7 +161,7 @@ export const TechnicalSpecViewer: React.FC<TechnicalSpecViewerProps> = ({ onSele
   const profile = PROFILES.find(p => p.id === selectedProfileId) || PROFILES[0];
 
   return (
-    <div className="w-full bg-white border border-[#E5E7EB] rounded-2xl p-6 sm:p-10 shadow-lg">
+    <div className="w-full bg-white border border-[#E5E7EB] rounded-[28px] p-6 sm:p-10 shadow-lg">
       {/* Profile Selector Tabs */}
       <div className="flex flex-wrap gap-2 pb-6 border-b border-[#E5E7EB]">
         {PROFILES.map((p) => {

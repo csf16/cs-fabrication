@@ -1,12 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useSEO } from '../hooks/useSEO';
 import {
-  Layers,
-  Zap,
-  Building,
-  Wrench,
-  Sun,
   X,
   ArrowRight,
   PhoneCall,
@@ -30,98 +25,268 @@ interface GalleryItem {
 
 const GALLERY_ITEMS: GalleryItem[] = [
   {
-    id: 'proj-1',
-    title: 'Ground Mounted Solar Structure Array',
+    id: 'proj-csf-01',
+    title: 'High-Elevation Rooftop Solar Pergola Structure',
     domain: 'solar-installations',
     domainLabel: 'Solar Installations',
-    image: '/gallery/solar_mounting_framework.png',
-    location: 'Western Uttar Pradesh',
-    specs: 'IS 2062 Grade Steel // 160 km/h Wind Resistance',
-    description: 'Utility-scale ground mounted solar frame utilizing heavy-duty C-channel purlins and bolted post uprights.',
+    image: '/projects/csf_project_01.jpg',
+    location: 'Commercial Terrace Rooftop, Western UP',
+    specs: 'IS 2062 C-Channels • 160 km/h Wind Tolerance',
+    description: 'Heavy-duty elevated rooftop solar canopy structure constructed with galvanized roll-formed C-channels and high-tensile diagonal cross-braces.',
   },
   {
-    id: 'proj-2',
-    title: 'Slotted Continuous C-Channels',
+    id: 'proj-csf-02',
+    title: 'Elevated Terrace Solar Frame with Cross-Bracing',
     domain: 'structural-applications',
     domainLabel: 'Structural Applications',
-    image: '/gallery/slotted_c_channels_raw.png',
-    location: 'Amroha Facility',
-    specs: '80×40×15 & 60×40×15 mm // Hot Dip Galvanized',
-    description: 'Precision roll-formed C-channels with pre-punched elongation slots for seamless bolt alignment in industrial framing.',
+    image: '/projects/csf_project_02.jpg',
+    location: 'Multi-Floor Building, Amroha Corridor',
+    specs: 'Galvanized Rafter Columns • Diagonal Bracing',
+    description: 'Engineered rooftop solar array framework showing heavy-duty vertical stanchions and cross bracing for maximum structural wind stability.',
   },
   {
-    id: 'proj-3',
-    title: 'Modular 41×41 Strut Channel Systems',
+    id: 'proj-csf-03',
+    title: 'Rooftop Solar Array Rear Structural View',
+    domain: 'structural-applications',
+    domainLabel: 'Structural Applications',
+    image: '/projects/csf_project_03.jpg',
+    location: 'Commercial Facility Terrace, UP',
+    specs: 'Continuous Purlin Rails • Bolted Splice Plates',
+    description: 'Rear elevation structural perspective showing bolted C-channel rafters, purlins, and truss connections supporting framed PV panels.',
+  },
+  {
+    id: 'proj-csf-04',
+    title: 'Urban Multi-Storey Building Solar Canopy',
+    domain: 'solar-installations',
+    domainLabel: 'Solar Installations',
+    image: '/projects/csf_project_04.jpg',
+    location: 'NCR Urban Residential & Commercial Project',
+    specs: 'Headspace Clearance • High-Rise Terrace Structure',
+    description: 'Full exterior elevation of a modern multi-storey building crowned by an engineered elevated rooftop solar framework allowing usable terrace living space.',
+  },
+  {
+    id: 'proj-csf-05',
+    title: 'Terrace Solar PV Array Top Elevation',
+    domain: 'solar-installations',
+    domainLabel: 'Solar Installations',
+    image: '/projects/csf_project_05.jpg',
+    location: 'Rooftop Commercial Project, UP',
+    specs: 'High-Yield Module Strings • Slotted Base Rails',
+    description: 'Top view of a residential and commercial rooftop solar installation utilizing galvanized steel base rails and stainless hardware.',
+  },
+  {
+    id: 'proj-csf-06',
+    title: 'High-Clearance Solar Terrace Superstructure',
+    domain: 'structural-applications',
+    domainLabel: 'Structural Applications',
+    image: '/projects/csf_project_06.jpg',
+    location: 'Residential Rooftop, Western UP',
+    specs: 'Heavy Column Stanchions • Zinc Plated Fasteners',
+    description: 'Elevated superstructure racking designed to withstand seasonal high wind storms while maintaining usable roof access below.',
+  },
+  {
+    id: 'proj-csf-07',
+    title: 'Engineered Solar Support Frame & Rail Layout',
     domain: 'mounting-systems',
     domainLabel: 'Solar Mounting Systems',
-    image: '/gallery/slotted_strut_channel.png',
-    location: 'Industrial Rooftop Deployments',
-    specs: '41×41 mm // Inward Gripping Lip Profile',
-    description: 'Versatile slotted channel framework providing modular mounting points for solar modules, cable trays, and raceways.',
+    image: '/projects/csf_project_07.jpg',
+    location: 'Commercial Rooftop Deployment',
+    specs: 'Continuous 80x40 C-Channel Rails • Mid Clamps',
+    description: 'Precision-aligned roll-formed C-channel purlins and clamp retainers securing PV module strings along the perimeter parapet.',
   },
   {
-    id: 'proj-4',
-    title: 'High-Torque Stainless Hardware & Brackets',
+    id: 'proj-csf-08',
+    title: 'Rooftop Slotted Channel Solar Array String',
+    domain: 'mounting-systems',
+    domainLabel: 'Solar Mounting Systems',
+    image: '/projects/csf_project_08.jpg',
+    location: 'Industrial Facility Terrace, Amroha',
+    specs: 'Hot-Dip Galvanized Channels • Oval CNC Slots',
+    description: 'Continuous multi-row solar array installed onto CNC pre-punched slotted C-channels allowing micro-adjustment and rapid bolt tightening.',
+  },
+  {
+    id: 'proj-csf-09',
+    title: 'Continuous Long-Span Rooftop Solar String',
+    domain: 'solar-installations',
+    domainLabel: 'Solar Installations',
+    image: '/projects/csf_project_09.jpg',
+    location: 'Commercial Industrial Rooftop, UP',
+    specs: 'Continuous Roll-Formed Purlins • Module Rails',
+    description: 'Overview of long-run PV module rows mounted with precision roll-formed C-channels for maximum structural rigidity and clean cable routing.',
+  },
+  {
+    id: 'proj-csf-10',
+    title: 'Solar Module String Mounting Detail',
+    domain: 'mounting-systems',
+    domainLabel: 'Solar Mounting Systems',
+    image: '/projects/csf_project_10.jpg',
+    location: 'Commercial Shed Rooftop Project',
+    specs: 'Precision Retaining Clamps • Anti-Corrosion HDG',
+    description: 'Detailed perspective showing panel retention clamps, continuous channel base rails, and vibration-resistant hardware fixing.',
+  },
+  {
+    id: 'proj-csf-11',
+    title: 'Elevated Solar Stanchion Column Installation',
+    domain: 'structural-applications',
+    domainLabel: 'Structural Applications',
+    image: '/projects/csf_project_11.jpg',
+    location: 'Urban Building Rooftop, UP',
+    specs: 'Heavy-Duty Post Supports • Base Anchor Plates',
+    description: 'Engineered column post stanchion securely anchored into rooftop columns, elevating solar modules safely above roof obstructions.',
+  },
+  {
+    id: 'proj-csf-12',
+    title: 'Long-Run Solar Panel Rows with Galvanized Purlins',
+    domain: 'solar-installations',
+    domainLabel: 'Solar Installations',
+    image: '/projects/csf_project_12.jpg',
+    location: 'Industrial Shed Installation, NCR',
+    specs: 'High-Capacity Cold-Rolled Channels • IS 2062',
+    description: 'Extensive rooftop solar array installation featuring continuous cold-rolled galvanized steel purlins engineered for 25+ year outdoor life.',
+  },
+  {
+    id: 'proj-csf-13',
+    title: 'Terrace Pergola Solar Column Assembly',
+    domain: 'structural-applications',
+    domainLabel: 'Structural Applications',
+    image: '/projects/csf_project_13.jpg',
+    location: 'Commercial High-Rise Rooftop',
+    specs: 'Hot-Dip Galvanized Posts • High Load Bearing',
+    description: 'Vertical structural steel column assembly and rafter joints engineered to deliver high bending moment resistance under heavy wind loads.',
+  },
+  {
+    id: 'proj-csf-14',
+    title: 'Multi-Level Rooftop Solar Canopy Structure',
+    domain: 'structural-applications',
+    domainLabel: 'Structural Applications',
+    image: '/projects/csf_project_14.jpg',
+    location: 'Commercial Rooftop Facility, Western UP',
+    specs: 'Modular C-Channel Rafters • High-Tensile Fasteners',
+    description: 'Structural terrace pergola framework offering full clearance for rooftop walking space while generating sustainable solar energy.',
+  },
+  {
+    id: 'proj-csf-15',
+    title: 'Elevated Solar Canopy Rafter Joint Assembly',
     domain: 'custom-fabrication',
     domainLabel: 'Custom Fabrication',
-    image: '/gallery/stainless_fasteners_detail.png',
-    location: 'Field Erection Support',
-    specs: 'SS304 A2-70 Fasteners & Structural Splices',
-    description: 'Corrosion-resistant bolted joinery ensuring long-term structural integrity without loosening under cyclic thermal expansion.',
+    image: '/projects/csf_project_15.jpg',
+    location: 'Rooftop Fabrication Site, UP',
+    specs: 'Custom Splice Plates • CNC Punched Flanges',
+    description: 'Custom-fabricated structural steel splice connection joining channel rafters with vertical posts for maximum torsional strength.',
   },
   {
-    id: 'proj-5',
-    title: 'Solar Hybrid Inverter Trading & Supply',
-    domain: 'electrical-systems',
-    domainLabel: 'Electrical Solar Systems',
-    image: '/electrical/solar_hybrid_inverter.jpg',
-    location: 'Commercial & Institutional Sites',
-    specs: 'Multi-Source Power Routing // Solar + Grid + Storage',
-    description: 'Supply of high-efficiency solar hybrid inverters enabling seamless power transfer between solar panels, grid, and storage batteries.',
+    id: 'proj-csf-16',
+    title: 'Rooftop Solar Array String Overlooking Town',
+    domain: 'solar-installations',
+    domainLabel: 'Solar Installations',
+    image: '/projects/csf_project_16.jpg',
+    location: 'Regional Solar Deployment, Amroha District',
+    specs: 'High-Yield Strings • Continuous Channel Purlins',
+    description: 'Elevated perspective of a finished solar array capturing sunlight efficiently across continuous galvanized roll-formed purlins.',
   },
   {
-    id: 'proj-6',
-    title: 'Precision AC Distribution Box (ACDB)',
-    domain: 'electrical-systems',
-    domainLabel: 'Electrical Solar Systems',
-    image: '/electrical/acdb_box.jpg',
-    location: 'Solar Inverter Interconnection',
-    specs: 'IP65 Polycarbonate Enclosure // Type II SPD',
-    description: 'Custom-manufactured ACDB panel with calibrated MCB/MCCB breakers and AC surge protection devices.',
-  },
-  {
-    id: 'proj-7',
-    title: 'Industrial DC Distribution Box (DCDB)',
-    domain: 'electrical-systems',
-    domainLabel: 'Electrical Solar Systems',
-    image: '/electrical/dcdb_box.jpg',
-    location: 'PV String Combiner Point',
-    specs: '1000V DC Isolator // High-Voltage DC Fuses',
-    description: 'Manufactured DCDB for PV array string isolation, featuring high-voltage DC disconnect switch and surge protection.',
-  },
-  {
-    id: 'proj-8',
-    title: 'Anodized Aluminum Mid & End Clamping',
-    domain: 'mounting-systems',
-    domainLabel: 'Solar Mounting Systems',
-    image: '/hardware/u_clamp.jpg',
-    location: 'Solar Array Module Fixing',
-    specs: '6063-T6 Extruded Alloy // SS304 Bolts',
-    description: 'Universal extruded clamps with serrated grip channels engineered for secure solar panel retention across 30mm–40mm modules.',
-  },
-  {
-    id: 'proj-9',
-    title: 'Heavy Structural Purlin Framework',
+    id: 'proj-csf-17',
+    title: 'Rooftop Solar Canopy Column Foundation & Anchors',
     domain: 'structural-applications',
     domainLabel: 'Structural Applications',
-    image: '/gallery/heavy_duty_purlins_stacked.png',
-    location: 'Commercial Solar Canopy',
-    specs: 'Cold Roll Formed // Class 1 Hot Dip Galvanizing',
-    description: 'High-strength steel purlin sections stacked ready for dispatch to commercial shed solar installation sites.',
+    image: '/projects/csf_project_17.jpg',
+    location: 'Commercial Terrace Installation',
+    specs: 'Heavy Chemical Anchor Bolts • Thick Base Plates',
+    description: 'Rigid structural base anchor plates fixed with high-strength anchors into concrete roof columns, ensuring safe load transfer.',
+  },
+  {
+    id: 'proj-csf-18',
+    title: 'Panoramic Rooftop Solar Array Installation',
+    domain: 'solar-installations',
+    domainLabel: 'Solar Installations',
+    image: '/projects/csf_project_18.jpg',
+    location: 'Industrial Plant Rooftop, Western UP',
+    specs: 'Multi-Row String Layout • Heavy-Gauge Purlins',
+    description: 'Wide panoramic view of commercial rooftop solar deployment fabricated with cold-rolled C-channels and modular bracketry.',
+  },
+  {
+    id: 'proj-csf-19',
+    title: 'Rooftop Solar Stanchion Uprights & Bracing',
+    domain: 'mounting-systems',
+    domainLabel: 'Solar Mounting Systems',
+    image: '/projects/csf_project_19.jpg',
+    location: 'Institutional Rooftop Project',
+    specs: 'Adjustable Tilt Stanchions • Hot-Dip Galvanized',
+    description: 'Modular elevated stanchion posts providing optimal seasonal tilt angles for solar photovoltaic modules in North India.',
+  },
+  {
+    id: 'proj-csf-20',
+    title: 'Rooftop Solar Module Array with Mid-Clamps',
+    domain: 'mounting-systems',
+    domainLabel: 'Solar Mounting Systems',
+    image: '/projects/csf_project_20.jpg',
+    location: 'Commercial Rooftop Facility',
+    specs: 'Anodized Aluminum Mid-Clamps • EPDM Gaskets',
+    description: 'Close-up perspective of solar modules secured onto continuous roll-formed purlin channels with heavy-duty intermediate clamps.',
+  },
+  {
+    id: 'proj-csf-21',
+    title: 'Rooftop Solar Purlin Continuous Alignment',
+    domain: 'mounting-systems',
+    domainLabel: 'Solar Mounting Systems',
+    image: '/projects/csf_project_21.jpg',
+    location: 'Commercial Shed Deployment',
+    specs: 'Slotted C-Channels (80x40x15) • CNC Oval Slots',
+    description: 'Precision alignment of continuous slotted C-channels allowing fast on-site bolt connection and straight panel rows.',
+  },
+  {
+    id: 'proj-csf-22',
+    title: 'Commercial Rooftop Solar String Array Top View',
+    domain: 'solar-installations',
+    domainLabel: 'Solar Installations',
+    image: '/projects/csf_project_22.jpg',
+    location: 'Industrial Rooftop Deployment, Western UP',
+    specs: 'Full Roof Utilization • 80μm HDG Protection',
+    description: 'High-density solar string array designed to maximize rooftop square footage and deliver maximum daily kilowatt-hour yield.',
+  },
+  {
+    id: 'proj-csf-23',
+    title: 'High-Rise Rooftop Solar Structure Column Framing',
+    domain: 'structural-applications',
+    domainLabel: 'Structural Applications',
+    image: '/projects/csf_project_23.jpg',
+    location: 'Urban Commercial Building, NCR Corridor',
+    specs: 'Structural C-Channel Columns • Welded Base Plates',
+    description: 'High-rise structural framework designed to resist severe wind shear forces at high elevations using cold-rolled steel purlins.',
+  },
+  {
+    id: 'proj-csf-24',
+    title: 'Elevated Terrace Solar Overhead Pergola Framework',
+    domain: 'solar-installations',
+    domainLabel: 'Solar Installations',
+    image: '/projects/csf_project_24.jpg',
+    location: 'Modern Multi-Floor Building, UP',
+    specs: 'Architectural Terrace Pergola • Zero Lost Space',
+    description: 'Modern architectural solar pergola installed overhead on a residential/commercial building terrace combining utility with energy generation.',
+  },
+  {
+    id: 'proj-csf-25',
+    title: 'Industrial Shed Rooftop Solar PV Installation',
+    domain: 'solar-installations',
+    domainLabel: 'Solar Installations',
+    image: '/projects/csf_project_25.jpg',
+    location: 'Industrial Facility, Amroha Hub',
+    specs: 'Trapezoidal & Purlin Mounting • High-Tensile Steel',
+    description: 'Large-scale commercial roof deployment utilizing CSF roll-formed mounting channels and robust stainless steel clamping hardware.',
+  },
+  {
+    id: 'proj-csf-26',
+    title: 'Full Building Elevation with Rooftop Solar Racking',
+    domain: 'solar-installations',
+    domainLabel: 'Solar Installations',
+    image: '/projects/csf_project_26.jpg',
+    location: 'Commercial Building Deployment, Western UP',
+    specs: 'Turnkey Solar Installation • Complete Racking Suite',
+    description: 'Full perspective of the client building showing the engineered rooftop solar racking seamlessly integrated onto the terrace roof.',
   },
 ];
 
-export const ProjectsPage: React.FC<ProjectsPageProps> = ({ onEnquireClick }) => {
+export const ProjectsPage: React.FC<ProjectsPageProps> = ({ onEnquireClick: _onEnquireClick }) => {
   useSEO({
     title: 'Projects & Application Domains | Central Structure Fabrication (CSF)',
     description:
@@ -137,37 +302,31 @@ export const ProjectsPage: React.FC<ProjectsPageProps> = ({ onEnquireClick }) =>
   const [activeFilter, setActiveFilter] = useState<string>('all');
   const [selectedImage, setSelectedImage] = useState<GalleryItem | null>(null);
 
+  // Prevent background page from scrolling when modal is open
+  useEffect(() => {
+    if (selectedImage) {
+      const originalOverflow = document.body.style.overflow;
+      document.body.style.overflow = 'hidden';
+
+      const handleKeyDown = (e: KeyboardEvent) => {
+        if (e.key === 'Escape') {
+          setSelectedImage(null);
+        }
+      };
+      window.addEventListener('keydown', handleKeyDown);
+
+      return () => {
+        document.body.style.overflow = originalOverflow;
+        window.removeEventListener('keydown', handleKeyDown);
+      };
+    }
+  }, [selectedImage]);
+
   const applicationDomains = [
-    {
-      id: 'solar-installations',
-      title: 'Solar Installations',
-      desc: 'Ground-mounted utility arrays, commercial rooftop frameworks, and rural solar microgrids engineered for 25+ year outdoor lifespans.',
-      icon: <Sun className="w-5 h-5 text-[#0049CA]" />,
-    },
-    {
-      id: 'structural-applications',
-      title: 'Structural Applications',
-      desc: 'High-capacity cold-formed purlins, rafters, and framing members for industrial sheds, warehouses, and solar canopies.',
-      icon: <Building className="w-5 h-5 text-[#0049CA]" />,
-    },
-    {
-      id: 'mounting-systems',
-      title: 'Solar Mounting Systems',
-      desc: 'Modular fixed-tilt systems, ballasted non-penetrating rooftop racks, and strut-based adaptable solar arrays.',
-      icon: <Layers className="w-5 h-5 text-[#0049CA]" />,
-    },
-    {
-      id: 'custom-fabrication',
-      title: 'Custom Fabrication',
-      desc: 'Tailored base plates, structural gussets, splice joiners, angle brackets, and heavy-gauge stamped steel mounting components.',
-      icon: <Wrench className="w-5 h-5 text-[#0049CA]" />,
-    },
-    {
-      id: 'electrical-systems',
-      title: 'Electrical Solar Systems',
-      desc: 'Solar hybrid inverters, ACDB and DCDB electrical enclosures delivering complete protection and efficient grid interconnection.',
-      icon: <Zap className="w-5 h-5 text-[#0049CA]" />,
-    },
+    { id: 'solar-installations', title: 'Solar Installations' },
+    { id: 'structural-applications', title: 'Structural Applications' },
+    { id: 'mounting-systems', title: 'Solar Mounting Systems' },
+    { id: 'custom-fabrication', title: 'Custom Fabrication' },
   ];
 
   const filteredItems = activeFilter === 'all'
@@ -177,49 +336,25 @@ export const ProjectsPage: React.FC<ProjectsPageProps> = ({ onEnquireClick }) =>
   return (
     <div className="w-full pt-28 pb-24 bg-[#FFFFFF] text-[#0F2130]">
       {/* ── Page Header ─────────────────────────────────────────── */}
-      <section className="max-w-[1320px] mx-auto px-6 md:px-10 mb-20">
+      <section className="max-w-[1720px] mx-auto px-6 sm:px-10 md:px-16 lg:px-24 mb-14">
         <div className="flex flex-col gap-4 max-w-3xl">
-          <div className="inline-flex items-center gap-2 px-3 py-1 bg-[#0049CA]/10 text-[#0049CA] text-[12px] font-semibold tracking-[0.04em] uppercase w-fit">
-            <span>Portfolio &amp; Deployments</span>
+          <div className="inline-flex items-center gap-2">
+            <span className="w-1.5 h-1.5 bg-[#0049CA]" />
+            <span className="text-[11px] font-mono font-bold tracking-[0.14em] text-[#0049CA] uppercase">
+              Portfolio &amp; Deployments
+            </span>
           </div>
           <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-[#0F2130] leading-[1.1]">
             Projects &amp; Application Domains
           </h1>
           <p className="text-base sm:text-lg text-[#647488] leading-relaxed">
-            Central Structure Fabrication supports solar developers, EPC contractors, and industrial infrastructure projects across India. Explore our core application domains and verified manufacturing deployments.
+            Central Structure Fabrication supports solar developers, EPC contractors, and industrial infrastructure projects across India. Explore our verified manufacturing deployments and field installations.
           </p>
-        </div>
-
-        {/* ── 5 Application Domains Overview ────────────────────────── */}
-        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4 mt-12">
-          {applicationDomains.map((domain) => (
-            <div
-              key={domain.id}
-              onClick={() => setActiveFilter(domain.id)}
-              className={`p-5 border cursor-pointer transition-all duration-200 flex flex-col justify-between ${
-                activeFilter === domain.id
-                  ? 'border-[#0049CA] bg-[#0049CA]/5 shadow-xs'
-                  : 'border-[#E5E7EB] bg-[#F8FAFC] hover:border-[#0049CA]/50'
-              }`}
-            >
-              <div>
-                <div className="mb-3 p-2 bg-white border border-[#E5E7EB] w-fit">
-                  {domain.icon}
-                </div>
-                <h3 className="text-sm font-bold text-[#0F2130] mb-2">{domain.title}</h3>
-                <p className="text-xs text-[#647488] leading-relaxed">{domain.desc}</p>
-              </div>
-              <span className="text-[11px] font-semibold text-[#0049CA] mt-4 flex items-center gap-1">
-                <span>View items</span>
-                <ArrowRight className="w-3 h-3" />
-              </span>
-            </div>
-          ))}
         </div>
       </section>
 
       {/* ── Visual Gallery with Filters ───────────────────────────── */}
-      <section className="max-w-[1320px] mx-auto px-6 md:px-10 mb-24">
+      <section className="max-w-[1720px] mx-auto px-6 sm:px-10 md:px-16 lg:px-24 mb-24">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-8 border-b border-[#E5E7EB] pb-6">
           <div>
             <span className="text-xs font-bold text-[#0049CA] uppercase tracking-wider">Deployment Showcase</span>
@@ -228,15 +363,14 @@ export const ProjectsPage: React.FC<ProjectsPageProps> = ({ onEnquireClick }) =>
             </h2>
           </div>
 
-          {/* Filter Pills */}
+          {/* Filter Pills (Uniform rounded-full) */}
           <div className="flex flex-wrap items-center gap-2">
             <button
               onClick={() => setActiveFilter('all')}
-              className={`px-4 py-2 text-xs font-semibold cursor-pointer transition-colors ${
-                activeFilter === 'all'
-                  ? 'bg-[#0049CA] text-white'
+              className={`px-4 py-2 rounded-full text-xs font-semibold cursor-pointer transition-all duration-200 ${activeFilter === 'all'
+                  ? 'bg-[#0049CA] text-white shadow-xs'
                   : 'bg-[#F8FAFC] text-[#647488] hover:text-[#0F2130] border border-[#E5E7EB]'
-              }`}
+                }`}
             >
               All Projects ({GALLERY_ITEMS.length})
             </button>
@@ -244,11 +378,10 @@ export const ProjectsPage: React.FC<ProjectsPageProps> = ({ onEnquireClick }) =>
               <button
                 key={d.id}
                 onClick={() => setActiveFilter(d.id)}
-                className={`px-3 py-2 text-xs font-semibold cursor-pointer transition-colors ${
-                  activeFilter === d.id
-                    ? 'bg-[#0049CA] text-white'
+                className={`px-4 py-2 rounded-full text-xs font-semibold cursor-pointer transition-all duration-200 ${activeFilter === d.id
+                    ? 'bg-[#0049CA] text-white shadow-xs'
                     : 'bg-[#F8FAFC] text-[#647488] hover:text-[#0F2130] border border-[#E5E7EB]'
-                }`}
+                  }`}
               >
                 {d.title}
               </button>
@@ -256,27 +389,28 @@ export const ProjectsPage: React.FC<ProjectsPageProps> = ({ onEnquireClick }) =>
           </div>
         </div>
 
-        {/* Gallery Grid */}
+        {/* Gallery Grid (Uniform rounded-2xl cards) */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredItems.map((item) => (
             <div
               key={item.id}
-              className="border border-[#E5E7EB] bg-white group hover:border-[#0049CA] transition-all duration-200 flex flex-col justify-between"
+              className="border border-[#E5E7EB] rounded-2xl bg-white group hover:border-[#0049CA] transition-all duration-300 shadow-xs hover:shadow-xl flex flex-col justify-between overflow-hidden cursor-pointer"
+              onClick={() => setSelectedImage(item)}
             >
-              <div className="relative aspect-16/10 overflow-hidden bg-[#0F2130]/5 cursor-pointer" onClick={() => setSelectedImage(item)}>
+              <div className="relative aspect-16/10 overflow-hidden bg-[#0F2130]/5">
                 <img
                   src={item.image}
                   alt={item.title}
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                 />
                 <div className="absolute inset-0 bg-[#0F2130]/40 opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex items-center justify-center">
-                  <span className="p-3 bg-white text-[#0F2130] rounded-none shadow-sm flex items-center gap-2 text-xs font-bold uppercase tracking-wider">
+                  <span className="px-4 py-2 bg-white text-[#0F2130] rounded-full shadow-md flex items-center gap-2 text-xs font-bold uppercase tracking-wider">
                     <Maximize2 className="w-4 h-4 text-[#0049CA]" />
                     <span>Enlarge</span>
                   </span>
                 </div>
                 <div className="absolute top-3 left-3">
-                  <span className="px-2.5 py-1 bg-[#0F2130]/90 text-white text-[10px] font-semibold uppercase tracking-wider">
+                  <span className="px-2.5 py-1 bg-[#0F2130]/90 backdrop-blur-xs text-white rounded-md text-[10px] font-semibold uppercase tracking-wider">
                     {item.domainLabel}
                   </span>
                 </div>
@@ -295,13 +429,14 @@ export const ProjectsPage: React.FC<ProjectsPageProps> = ({ onEnquireClick }) =>
 
                 <div className="pt-4 border-t border-[#E5E7EB] flex items-center justify-between">
                   <span className="text-[11px] text-[#0F2130] font-medium">📍 {item.location}</span>
-                  <button
-                    onClick={() => onEnquireClick?.(`Project RFQ: ${item.title}`)}
+                  <Link
+                    to={`/contact?service=${encodeURIComponent(`Project RFQ: ${item.title}`)}`}
+                    onClick={(e) => e.stopPropagation()}
                     className="text-xs font-bold text-[#0049CA] hover:text-[#003CAD] inline-flex items-center gap-1 cursor-pointer"
                   >
                     <span>Enquire</span>
                     <ArrowRight className="w-3 h-3" />
-                  </button>
+                  </Link>
                 </div>
               </div>
             </div>
@@ -309,25 +444,25 @@ export const ProjectsPage: React.FC<ProjectsPageProps> = ({ onEnquireClick }) =>
         </div>
       </section>
 
-      {/* ── Image Lightbox Modal ──────────────────────────────────── */}
+      {/* ── Image Lightbox Modal (Uniform rounded-3xl dialog) ─────── */}
       {selectedImage && (
         <div
-          className="fixed inset-0 z-50 bg-[#0F2130]/90 backdrop-blur-xs flex items-center justify-center p-4 sm:p-8"
+          className="fixed inset-0 z-50 bg-[#0F2130]/90 backdrop-blur-sm flex items-center justify-center p-4 sm:p-8"
           onClick={() => setSelectedImage(null)}
         >
           <div
-            className="bg-white max-w-4xl w-full border border-white/20 p-6 relative overflow-hidden"
+            className="bg-white rounded-3xl max-w-4xl w-full border border-white/20 p-6 sm:p-8 relative overflow-hidden shadow-2xl animate-in fade-in zoom-in-95 duration-200"
             onClick={(e) => e.stopPropagation()}
           >
             <button
               onClick={() => setSelectedImage(null)}
-              className="absolute top-4 right-4 p-2 bg-[#F8FAFC] hover:bg-[#E5E7EB] text-[#0F2130] cursor-pointer"
+              className="absolute top-4 right-4 p-2.5 bg-[#F8FAFC] hover:bg-[#E5E7EB] text-[#0F2130] rounded-full cursor-pointer transition-colors z-10"
               aria-label="Close"
             >
               <X className="w-5 h-5" />
             </button>
 
-            <div className="aspect-16/10 max-h-[60vh] overflow-hidden mb-6 bg-black">
+            <div className="aspect-16/10 max-h-[60vh] overflow-hidden mb-6 bg-black rounded-2xl">
               <img
                 src={selectedImage.image}
                 alt={selectedImage.title}
@@ -344,25 +479,22 @@ export const ProjectsPage: React.FC<ProjectsPageProps> = ({ onEnquireClick }) =>
                 <p className="text-xs text-[#647488] mt-1">{selectedImage.description}</p>
               </div>
 
-              <button
-                onClick={() => {
-                  const title = selectedImage.title;
-                  setSelectedImage(null);
-                  onEnquireClick?.(`Inquiry for: ${title}`);
-                }}
-                className="inline-flex items-center justify-center gap-2 px-5 py-3 bg-[#0049CA] hover:bg-[#003CAD] text-white text-xs font-bold uppercase tracking-wider shrink-0 cursor-pointer"
+              <Link
+                to={`/contact?service=${encodeURIComponent(`Inquiry for: ${selectedImage.title}`)}`}
+                onClick={() => setSelectedImage(null)}
+                className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full bg-[#0049CA] hover:bg-[#003CAD] text-white text-xs font-bold uppercase tracking-wider shrink-0 cursor-pointer shadow-md transition-colors"
               >
                 <PhoneCall className="w-3.5 h-3.5" />
                 <span>Request Similar Spec</span>
-              </button>
+              </Link>
             </div>
           </div>
         </div>
       )}
 
-      {/* ── Section CTA ───────────────────────────────────────────── */}
-      <section className="max-w-[1320px] mx-auto px-6 md:px-10">
-        <div className="border border-[#0F2130] bg-[#0F2130] text-white p-8 md:p-12 flex flex-col md:flex-row items-center justify-between gap-6">
+      {/* ── Section CTA (Uniform rounded-2xl banner) ─────────────────── */}
+      <section className="max-w-[1720px] mx-auto px-6 sm:px-10 md:px-16 lg:px-24 mb-20">
+        <div className="border border-[#0F2130] rounded-2xl bg-[#0F2130] text-white p-8 md:p-12 flex flex-col md:flex-row items-center justify-between gap-6 shadow-xl">
           <div>
             <h3 className="text-2xl font-bold mb-2">Have a Project with Specific Structural or Electrical Specs?</h3>
             <p className="text-sm text-[#E5E7EB]/80 max-w-xl">
@@ -372,7 +504,7 @@ export const ProjectsPage: React.FC<ProjectsPageProps> = ({ onEnquireClick }) =>
           <div className="flex items-center gap-4 shrink-0">
             <Link
               to="/contact"
-              className="inline-flex items-center gap-2 px-6 py-3 bg-[#0049CA] hover:bg-[#003CAD] text-white text-xs font-bold uppercase tracking-wider cursor-pointer transition-colors"
+              className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full bg-[#0049CA] hover:bg-[#003CAD] text-white text-xs font-bold uppercase tracking-wider cursor-pointer transition-colors shadow-md"
             >
               <span>Submit Project Inquiry</span>
               <ArrowRight className="w-4 h-4" />

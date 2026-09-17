@@ -4,14 +4,16 @@
 
 // Deployment Web App URL placeholder as requested
 export const GOOGLE_SHEET_WEBHOOK_URL: string =
-  "https://script.google.com/macros/s/AKfycbzlgb3BrbACNfb9nSGkwNLZP0wFHAp1KkpVtLTiPKgW-hQ1z3EiRfn6Kyaria84-95XDg/exec";
+  "https://script.google.com/macros/s/AKfycbw9Q90DiU72SKsq5Fl0U_QqF4nDESyIrO5eoOQaL6A2Ct89DJT8OUcL5ZOyPcWtVu1JuA/exec";
 
 export interface LeadPayload {
   phone: string;
   source: string;
   name?: string;
   company?: string;
+  email?: string;
   requirement?: string;
+  notes?: string;
 }
 
 export interface ValidationResult {
@@ -100,7 +102,13 @@ export function validatePhoneNumber(input: string): ValidationResult {
 export async function submitLeadToGoogleSheet(
   phone: string,
   source: string = 'Landing Page',
-  additionalData?: { name?: string; company?: string; requirement?: string }
+  additionalData?: {
+    name?: string;
+    company?: string;
+    email?: string;
+    requirement?: string;
+    notes?: string;
+  }
 ): Promise<{ success: boolean; message: string }> {
   // Validate first
   const validation = validatePhoneNumber(phone);
@@ -113,7 +121,9 @@ export async function submitLeadToGoogleSheet(
     source,
     name: additionalData?.name?.trim(),
     company: additionalData?.company?.trim(),
+    email: additionalData?.email?.trim(),
     requirement: additionalData?.requirement?.trim(),
+    notes: additionalData?.notes?.trim(),
   };
 
   if (

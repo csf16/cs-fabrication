@@ -101,7 +101,7 @@ export const EnquiryForm: React.FC<EnquiryFormProps> = ({ isOpen, onClose, preSe
           </div>
           <button
             onClick={onClose}
-            className="w-9 h-9 rounded-lg bg-[#F8FAFC] border border-[#E5E7EB] hover:bg-[#E5E7EB] text-[#0F2130] flex items-center justify-center transition-colors"
+            className="w-9 h-9 rounded-xl bg-[#F8FAFC] border border-[#E5E7EB] hover:bg-[#E5E7EB] text-[#0F2130] flex items-center justify-center transition-colors"
             aria-label="Close Drawer"
           >
             <X className="w-5 h-5" />

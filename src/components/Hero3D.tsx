@@ -420,8 +420,8 @@ export const Hero3D: React.FC<Hero3DProps> = ({ fixedViewport = false, minimal =
       return { pMesh, trigger: 0.12 + i * 0.05 };
     });
 
-    const camStartPos = v3(1.7, 1.35, 6.0);
-    const camStartLook = v3(0, 0.32, 0);
+    const camStartPos = v3(1.7, 1.85, 6.2);
+    const camStartLook = v3(0, 0.95, 0);
 
     const camEndPos = v3(6.8, 4.4, 14.8);
     const camEndLook = v3(0, 1.45, 0);
@@ -434,7 +434,8 @@ export const Hero3D: React.FC<Hero3DProps> = ({ fixedViewport = false, minimal =
       camera.aspect = aspect;
 
       const mobileScale = aspect < 1 ? Math.max(1, 0.90 / Math.max(0.38, aspect)) : 1;
-      camStartPos.set(1.7 * (aspect < 1 ? 0.35 : 1), 1.35 * (aspect < 1 ? 1.1 : 1), 6.0 * mobileScale);
+      camStartPos.set(1.7 * (aspect < 1 ? 0.35 : 1), 1.85 * (aspect < 1 ? 1.1 : 1), 6.2 * mobileScale);
+      camStartLook.set(0, aspect < 1 ? 0.65 : 0.95, 0);
       camEndPos.set(6.8 * (aspect < 1 ? 0.65 : 1), 4.4 * (aspect < 1 ? 1.15 : 1), 14.8 * mobileScale);
 
       camera.updateProjectionMatrix();
@@ -515,7 +516,7 @@ export const Hero3D: React.FC<Hero3DProps> = ({ fixedViewport = false, minimal =
       targetScrollRef.current = clamp(-rect.top / totalScrollable, 0, 1);
     };
 
-    let cleanupFixedEvents = () => {};
+    let cleanupFixedEvents = () => { };
 
     if (fixedViewport) {
       const onWheel = (e: WheelEvent) => {
@@ -598,10 +599,8 @@ export const Hero3D: React.FC<Hero3DProps> = ({ fixedViewport = false, minimal =
   const activeIdx = Math.max(0, STAGES.findIndex(st => scrollProgress >= st.s && scrollProgress < st.e));
   const currentStage = STAGES[activeIdx] || STAGES[0];
 
-  // Move headline up on scroll and keep pinned at the top of the viewport
-  const headerShift = clamp(scrollProgress / 0.18);
-  const headerEase = easeOutCubic(headerShift);
-  const heroSubOpacity = clamp(1 - scrollProgress / 0.08);
+  // Hero intro fades out cleanly as scroll begins, leaving the 3D assembly clear with zero navbar clipping
+  const heroHeaderOpacity = clamp(1 - scrollProgress * 7);
 
   const midStageOpacity = clamp(scrollProgress * 8 - 1.0) * clamp((0.92 - scrollProgress) * 12);
   const finalOpacity = clamp((scrollProgress - 0.88) * 10);
@@ -624,159 +623,144 @@ export const Hero3D: React.FC<Hero3DProps> = ({ fixedViewport = false, minimal =
           children
         ) : (
           <>
-            {/* ── Pinned Top Header on Scroll ── */}
-        <div
-          className="absolute inset-x-0 top-0 h-full flex flex-col items-center justify-center pointer-events-none px-6 transition-transform duration-75 ease-out"
-          style={{
-            transform: `translate3d(0, -${headerEase * 36}vh, 0)`,
-          }}
-        >
-          <div
-            className="flex flex-col items-center gap-3 sm:gap-4 text-center pointer-events-auto max-w-2xl origin-top transition-transform duration-75"
-            style={{
-              transform: `scale(${1 - headerEase * 0.38})`,
-            }}
-          >
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#0049CA]/10 border border-[#0049CA]/20 text-[#0049CA] text-xs font-semibold uppercase tracking-wider mb-1">
-              <span className="w-2 h-2 rounded-full bg-[#0049CA] animate-pulse" />
-              <span>Solar Electrical Products &amp; Structural Fabrication</span>
-            </div>
-
-            <h1 className="text-3xl sm:text-5xl md:text-6xl font-bold tracking-tight text-[#0F2130] uppercase leading-[1.08]">
-              PRECISION IN EVERY STRUCTURE
-            </h1>
-
-            {/* Sub-elements fade away as user scrolls, keeping only the pinned title on top */}
+            {/* ── Hero Landing Header (Fades smoothly on scroll, 100% navbar clearance, zero clipping) ── */}
             <div
-              className="flex flex-col items-center gap-4 transition-opacity duration-200"
+              className="absolute inset-x-0 top-0 w-full flex flex-col items-center pointer-events-none px-6 sm:px-10 md:px-16 pt-28 sm:pt-32 transition-all duration-100 ease-out"
               style={{
-                opacity: heroSubOpacity,
-                display: heroSubOpacity <= 0.01 ? 'none' : 'flex',
+                opacity: heroHeaderOpacity,
+                transform: `translate3d(0, -${Math.min(scrollProgress * 40, 20)}px, 0)`,
+                display: heroHeaderOpacity <= 0.005 ? 'none' : 'flex',
               }}
             >
-              <div className="w-14 h-[3px] bg-[#0049CA] rounded-full" />
+              <div className="flex flex-col items-center gap-2.5 sm:gap-3.5 text-center pointer-events-auto w-full max-w-5xl mx-auto">
 
-              <p className="text-[#647488] text-sm sm:text-base font-normal max-w-lg tracking-normal leading-relaxed">
-                From solar electrical products to precision-fabricated structures and components, CSF delivers solutions designed for dependable solar infrastructure.
-              </p>
+                <h1 className="text-2xl sm:text-4xl md:text-6xl lg:text-7xl font-extrabold tracking-tight text-[#0049CA] uppercase leading-[1.08] max-w-4xl">
+                  PRECISION IN EVERY STRUCTURE
+                </h1>
 
-              <button
-                onClick={() => handleScrub(0.95)}
-                className="mt-1 pointer-events-auto px-6 py-3 bg-[#0049CA] hover:bg-[#003bb0] text-white text-xs font-semibold tracking-wider uppercase rounded-none transition-all duration-200 shadow-md hover:shadow-lg flex items-center gap-2 group cursor-pointer"
-              >
-                <span>EXPLORE ASSEMBLY</span>
-                <span className="transform transition-transform duration-200 group-hover:translate-y-0.5">↓</span>
-              </button>
+                <p className="text-[#647488] text-sm sm:text-base font-normal leading-relaxed text-center max-w-2xl">
+                  From solar electrical products to precision-fabricated structures and components, CSF delivers solutions designed for dependable solar infrastructure.
+                </p>
+              </div>
             </div>
-          </div>
-        </div>
 
-        <div
-          className="absolute bottom-10 left-6 md:left-14 pointer-events-none transition-opacity duration-300"
-          style={{ opacity: midStageOpacity }}
-        >
-          <div className="flex flex-col gap-2.5 bg-white/90 backdrop-blur-md p-4 rounded-xl border border-[#E5E7EB] shadow-lg pointer-events-auto">
-            <div className="flex items-center justify-between gap-6">
-              <span className="text-[10px] text-[#647488] uppercase tracking-wider font-semibold">
-                STAGE {activeIdx + 1} OF {STAGES.length}
-              </span>
-              <span className="text-xs text-[#0049CA] font-bold">
+            <div
+              className="absolute bottom-10 left-6 md:left-14 pointer-events-none transition-opacity duration-300"
+              style={{ opacity: midStageOpacity }}
+            >
+              <div className="flex flex-col gap-2.5 bg-white/90 backdrop-blur-md p-4 rounded-xl border border-[#E5E7EB] shadow-lg pointer-events-auto">
+                <div className="flex items-center justify-between gap-6">
+                  <span className="text-[10px] text-[#647488] uppercase tracking-wider font-semibold">
+                    STAGE {activeIdx + 1} OF {STAGES.length}
+                  </span>
+                  <span className="text-xs text-[#0049CA] font-bold">
+                    {Math.round(scrollProgress * 100)}%
+                  </span>
+                </div>
+
+                <div className="flex gap-1.5">
+                  {STAGES.map((_, i) => (
+                    <div
+                      key={i}
+                      className="h-[3px] w-8 md:w-12 rounded-full transition-colors duration-300"
+                      style={{
+                        backgroundColor: i <= activeIdx ? '#0049CA' : '#E5E7EB',
+                      }}
+                    />
+                  ))}
+                </div>
+
+                <span className="text-xs text-[#0F2130] uppercase tracking-wider font-bold">
+                  {currentStage.label}
+                </span>
+              </div>
+            </div>
+
+            <div
+              className="absolute top-1/2 right-6 md:right-14 -translate-y-1/2 pointer-events-none transition-opacity duration-300 hidden sm:block"
+              style={{ opacity: midStageOpacity * clamp((scrollProgress - 0.3) * 4) }}
+            >
+              <div className="flex flex-col gap-3.5 text-right bg-white/90 backdrop-blur-md p-5 rounded-xl border border-[#E5E7EB] shadow-lg pointer-events-auto">
+                {[
+                  { k: 'PROFILE', v: 'SLOTTED C-CHANNEL 41×41' },
+                  { k: 'MATERIAL', v: 'IS 2062 HDG STEEL' },
+                  { k: 'WIND RATING', v: '200 KM/H SURGE' },
+                  { k: 'ZINC COAT', v: '85+ MICRONS' },
+                  { k: 'CNC SLOTS', v: '28×14MM OVAL PUNCH' },
+                ].map(({ k, v }) => (
+                  <div key={k} className="flex flex-col gap-0.5">
+                    <span className="text-[9px] text-[#647488] uppercase tracking-wider font-medium">{k}</span>
+                    <span className="text-xs text-[#0049CA] font-bold tracking-wide">{v}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Seamless ambient fade for effortless readability without any card/box container */}
+            <div
+              className="absolute inset-x-0 bottom-0 h-52 bg-gradient-to-t from-[#F5F4EF] via-[#F5F4EF]/80 to-transparent pointer-events-none transition-opacity duration-500"
+              style={{ opacity: finalOpacity }}
+            />
+
+            <div
+              className="absolute bottom-10 sm:bottom-14 inset-x-0 flex flex-col items-center pointer-events-none px-6 z-10 transition-all duration-500 ease-out"
+              style={{
+                opacity: finalOpacity,
+                transform: `translate3d(0, ${(1 - finalOpacity) * 16}px, 0)`,
+              }}
+            >
+              <div className="flex flex-col items-center gap-2.5 sm:gap-3 text-center max-w-2xl pointer-events-auto">
+                <div className="inline-flex items-center gap-2 text-[#0049CA] text-[10px] sm:text-xs font-mono font-bold tracking-[0.14em] uppercase">
+                  <span className="w-1.5 h-1.5 bg-[#0049CA] animate-pulse" />
+                  <span>COMPLETED STRUCTURE · CSF</span>
+                </div>
+
+                <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight text-[#0F2130] uppercase leading-[1.12]">
+                  ENGINEERED FOR <span className="text-[#0049CA]">DEPENDABLE SUPPORT</span>
+                </h2>
+
+                <p className="text-xs sm:text-sm md:text-base text-[#647488] font-medium max-w-md sm:max-w-lg leading-relaxed">
+                  High-tensile galvanized framework built for complete system stability.
+                </p>
+              </div>
+            </div>
+
+            <div
+              className="absolute right-4 md:right-6 top-1/2 -translate-y-1/2 flex flex-col items-center gap-2 pointer-events-auto"
+              style={{ opacity: clamp(scrollProgress * 6 - 0.2) }}
+            >
+              <div
+                onClick={(e) => {
+                  const rect = e.currentTarget.getBoundingClientRect();
+                  const clickPos = clamp((e.clientY - rect.top) / rect.height, 0, 1);
+                  handleScrub(clickPos);
+                }}
+                className="w-2.5 md:w-3.5 h-36 bg-[#E5E7EB] hover:bg-[#D1D5DB] rounded-full relative cursor-pointer transition-colors p-0.5 flex flex-col items-center shadow-inner"
+                title="Click or drag to scrub assembly"
+              >
+                <div
+                  className="w-full bg-[#0049CA] rounded-full transition-none shadow-sm"
+                  style={{ height: `${Math.max(8, scrollProgress * 100)}%` }}
+                />
+              </div>
+              <span
+                className="text-[9px] text-[#647488] tracking-wider font-semibold"
+                style={{ writingMode: 'vertical-rl' }}
+              >
                 {Math.round(scrollProgress * 100)}%
               </span>
             </div>
 
-            <div className="flex gap-1.5">
-              {STAGES.map((_, i) => (
-                <div
-                  key={i}
-                  className="h-[3px] w-8 md:w-12 rounded-full transition-colors duration-300"
-                  style={{
-                    backgroundColor: i <= activeIdx ? '#0049CA' : '#E5E7EB',
-                  }}
-                />
-              ))}
-            </div>
-
-            <span className="text-xs text-[#0F2130] uppercase tracking-wider font-bold">
-              {currentStage.label}
-            </span>
-          </div>
-        </div>
-
-        <div
-          className="absolute top-1/2 right-6 md:right-14 -translate-y-1/2 pointer-events-none transition-opacity duration-300 hidden sm:block"
-          style={{ opacity: midStageOpacity * clamp((scrollProgress - 0.3) * 4) }}
-        >
-          <div className="flex flex-col gap-3.5 text-right bg-white/90 backdrop-blur-md p-5 rounded-xl border border-[#E5E7EB] shadow-lg pointer-events-auto">
-            {[
-              { k: 'PROFILE', v: 'SLOTTED C-CHANNEL 41×41' },
-              { k: 'MATERIAL', v: 'IS 2062 HDG STEEL' },
-              { k: 'WIND RATING', v: '200 KM/H SURGE' },
-              { k: 'ZINC COAT', v: '85+ MICRONS' },
-              { k: 'CNC SLOTS', v: '28×14MM OVAL PUNCH' },
-            ].map(({ k, v }) => (
-              <div key={k} className="flex flex-col gap-0.5">
-                <span className="text-[9px] text-[#647488] uppercase tracking-wider font-medium">{k}</span>
-                <span className="text-xs text-[#0049CA] font-bold tracking-wide">{v}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        <div
-          className="absolute bottom-12 inset-x-0 flex flex-col items-center pointer-events-none px-6"
-          style={{ opacity: finalOpacity }}
-        >
-          <div className="flex flex-col items-center gap-2.5 text-center bg-white/95 backdrop-blur-md px-8 py-5 rounded-xl border border-[#E5E7EB] shadow-xl max-w-lg pointer-events-auto">
-            <span className="text-[10px] tracking-wider text-[#0049CA] uppercase font-bold">
-              COMPLETED STRUCTURE · CSF
-            </span>
-            <h2 className="text-xl sm:text-2xl font-bold tracking-tight text-[#0F2130] uppercase">
-              ENGINEERED FOR DEPENDABLE SUPPORT
-            </h2>
-            <div className="w-10 h-[2px] bg-[#0049CA] my-0.5 rounded-full" />
-            <p className="text-xs text-[#647488] font-medium tracking-normal">
-              High-tensile galvanized framework built for complete system stability.
-            </p>
-          </div>
-        </div>
-
-        <div
-          className="absolute right-4 md:right-6 top-1/2 -translate-y-1/2 flex flex-col items-center gap-2 pointer-events-auto"
-          style={{ opacity: clamp(scrollProgress * 6 - 0.2) }}
-        >
-          <div
-            onClick={(e) => {
-              const rect = e.currentTarget.getBoundingClientRect();
-              const clickPos = clamp((e.clientY - rect.top) / rect.height, 0, 1);
-              handleScrub(clickPos);
-            }}
-            className="w-2.5 md:w-3.5 h-36 bg-[#E5E7EB] hover:bg-[#D1D5DB] rounded-full relative cursor-pointer transition-colors p-0.5 flex flex-col items-center shadow-inner"
-            title="Click or drag to scrub assembly"
-          >
             <div
-              className="w-full bg-[#0049CA] rounded-full transition-none shadow-sm"
-              style={{ height: `${Math.max(8, scrollProgress * 100)}%` }}
-            />
-          </div>
-          <span
-            className="text-[9px] text-[#647488] tracking-wider font-semibold"
-            style={{ writingMode: 'vertical-rl' }}
-          >
-            {Math.round(scrollProgress * 100)}%
-          </span>
-        </div>
-
-        <div
-          className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 pointer-events-none"
-          style={{ opacity: hintOpacity }}
-        >
-          <span className="text-[10px] text-[#647488] uppercase tracking-widest font-semibold">
-            SCROLL TO ASSEMBLE
-          </span>
-          <div className="w-[2px] h-7 bg-gradient-to-b from-[#0049CA] to-transparent animate-pulse rounded-full" />
-          <div className="w-1.5 h-1.5 rounded-full bg-[#0049CA] animate-bounce" />
-        </div>
+              className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 pointer-events-none"
+              style={{ opacity: hintOpacity }}
+            >
+              <span className="text-[10px] text-[#647488] uppercase tracking-widest font-semibold">
+                SCROLL TO ASSEMBLE
+              </span>
+              <div className="w-[2px] h-7 bg-gradient-to-b from-[#0049CA] to-transparent animate-pulse rounded-full" />
+              <div className="w-1.5 h-1.5 rounded-full bg-[#0049CA] animate-bounce" />
+            </div>
           </>
         )}
 
