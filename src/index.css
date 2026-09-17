@@ -174,5 +174,7 @@ html {
 }
 
 /* Hide scrollbar but keep scroll behaviour */
-.scrollbar-hide::-webkit-scrollbar { display: none; }
-.scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+.scrollbar-hide::-webkit-scrollbar,
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.scrollbar-hide,
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }

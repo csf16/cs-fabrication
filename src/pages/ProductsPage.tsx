@@ -327,26 +327,28 @@ export const ProductsPage: React.FC<ProductsPageProps> = ({
             </p>
           </div>
 
-          {/* Filter Pills in Rounded Cluster */}
-          <div className="flex flex-wrap items-center gap-2 p-1.5 rounded-full bg-[#EFECE6] border border-[#E2DDD5] self-start lg:self-end shrink-0">
-            {[
-              { key: 'all' as ProductTabType, label: 'All Products' },
-              { key: 'structural' as ProductTabType, label: 'Structures' },
-              { key: 'electrical' as ProductTabType, label: 'Electrical' },
-              { key: 'components' as ProductTabType, label: 'Components' },
-            ].map((tab) => (
-              <button
-                key={tab.key}
-                onClick={() => handleTabChange(tab.key)}
-                className={`px-4 py-2 rounded-full text-xs font-bold uppercase tracking-wider transition-all duration-200 cursor-pointer ${
-                  activeTab === tab.key
-                    ? 'bg-[#0F2130] text-white shadow-sm'
-                    : 'text-[#647488] hover:text-[#0F2130]'
-                }`}
-              >
-                {tab.label}
-              </button>
-            ))}
+          {/* Category Filter Pills (Sleek Horizontal Segmented Control that never wraps or deforms) */}
+          <div className="w-full lg:w-auto overflow-x-auto no-scrollbar py-1 self-start lg:self-end shrink-0">
+            <div className="inline-flex items-center gap-1 p-1 sm:p-1.5 rounded-full bg-[#EFECE6] border border-[#E2DDD5] shadow-xs shrink-0">
+              {[
+                { key: 'all' as ProductTabType, label: 'All Products' },
+                { key: 'structural' as ProductTabType, label: 'Structures' },
+                { key: 'electrical' as ProductTabType, label: 'Electrical' },
+                { key: 'components' as ProductTabType, label: 'Components' },
+              ].map((tab) => (
+                <button
+                  key={tab.key}
+                  onClick={() => handleTabChange(tab.key)}
+                  className={`px-3.5 sm:px-5 py-2 sm:py-2.5 rounded-full text-xs font-bold uppercase tracking-wider transition-all duration-200 cursor-pointer shrink-0 whitespace-nowrap ${
+                    activeTab === tab.key
+                      ? 'bg-[#0049CA] text-white shadow-sm shadow-[#0049CA]/30'
+                      : 'text-[#647488] hover:text-[#0F2130] hover:bg-white/50'
+                  }`}
+                >
+                  {tab.label}
+                </button>
+              ))}
+            </div>
           </div>
         </div>
 
@@ -374,7 +376,7 @@ export const ProductsPage: React.FC<ProductsPageProps> = ({
                     loading="lazy"
                   />
                   <div className="absolute top-4 left-4">
-                    <span className="inline-block px-2.5 py-1 bg-white/95 border border-[#EAE6DF] text-[#0049CA] text-[10px] font-mono font-bold uppercase tracking-wider shadow-xs">
+                    <span className="inline-block px-3 py-1 rounded-full bg-white/95 border border-[#EAE6DF] text-[#0049CA] text-[10px] font-mono font-bold uppercase tracking-wider shadow-xs backdrop-blur-xs">
                       {product.badge}
                     </span>
                   </div>
