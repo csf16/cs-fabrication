@@ -24,35 +24,16 @@ export const ContactPage: React.FC = () => {
     company: '',
     phone: '',
     email: '',
-    productCategory: 'Solar Structures & Mounting Systems',
-    notes: '',
+    productCategory: '',
   });
 
   useEffect(() => {
     const params = new URLSearchParams(location.search);
     const service = params.get('service') || params.get('requirement') || '';
     if (service) {
-      // Map common categories if applicable
-      const lower = service.toLowerCase();
-      let matchedCategory = 'Solar Structures & Mounting Systems';
-      if (lower.includes('c-channel') || lower.includes('c channel') || lower.includes('80x40') || lower.includes('60x40')) {
-        matchedCategory = 'C-Channel 80x40x15 / 60x40x15';
-      } else if (lower.includes('strut') || lower.includes('41x41')) {
-        matchedCategory = '41x41 Strut Channel Systems';
-      } else if (lower.includes('inverter') || lower.includes('hybrid')) {
-        matchedCategory = 'Solar Hybrid Inverter Supply';
-      } else if (lower.includes('acdb') || lower.includes('dcdb') || lower.includes('panel')) {
-        matchedCategory = 'ACDB / DCDB Manufacturing';
-      } else if (lower.includes('hardware') || lower.includes('clamp') || lower.includes('fastener')) {
-        matchedCategory = 'Solar Clamping Hardware & Fasteners';
-      } else if (lower.includes('installation') || lower.includes('commissioning')) {
-        matchedCategory = 'On-Site Installation & Commissioning';
-      }
-
       setFormData((prev) => ({
         ...prev,
-        productCategory: matchedCategory,
-        notes: prev.notes ? prev.notes : `Requirement: ${service}`,
+        productCategory: service,
       }));
     }
   }, [location.search]);
@@ -86,7 +67,6 @@ export const ContactPage: React.FC = () => {
         company: formData.company,
         email: formData.email,
         requirement: formData.productCategory,
-        notes: formData.notes,
       });
       setIsSubmitted(true);
     } catch (err: any) {
@@ -197,7 +177,7 @@ export const ContactPage: React.FC = () => {
               <button
                 onClick={() => {
                   setIsSubmitted(false);
-                  setFormData({ name: '', company: '', phone: '', email: '', productCategory: 'Solar Structures & Mounting Systems', notes: '' });
+                  setFormData({ name: '', company: '', phone: '', email: '', productCategory: '' });
                 }}
                 className="text-xs font-bold text-[#0049CA] uppercase tracking-wider hover:underline cursor-pointer"
               >
@@ -281,37 +261,16 @@ export const ContactPage: React.FC = () => {
               </div>
 
               {/* Requirement */}
-              <div className="border-b border-[#E5E7EB] pb-5 mb-5">
+              <div className="border-b border-[#E5E7EB] pb-5 mb-8">
                 <label className="block text-[10px] font-bold text-[#647488] uppercase tracking-[0.1em] mb-2">
                   Product / Requirement
                 </label>
-                <select
+                <input
+                  type="text"
                   value={formData.productCategory}
                   onChange={(e) => setFormData({ ...formData, productCategory: e.target.value })}
-                  className="w-full bg-transparent text-base font-semibold text-[#0F2130] focus:outline-none appearance-none cursor-pointer"
-                >
-                  <option value="Solar Structures & Mounting Systems">Solar Structures &amp; Mounting Systems</option>
-                  <option value="C-Channel 80x40x15 / 60x40x15">C-Channel 80×40×15 / 60×40×15</option>
-                  <option value="41x41 Strut Channel Systems">41×41 Strut Channel Framing</option>
-                  <option value="Solar Hybrid Inverter Supply">Solar Hybrid Inverter Supply</option>
-                  <option value="ACDB / DCDB Manufacturing">ACDB / DCDB Panel Manufacturing</option>
-                  <option value="Solar Clamping Hardware & Fasteners">Solar Clamping Hardware &amp; Fasteners</option>
-                  <option value="On-Site Installation & Commissioning">Installation &amp; Commissioning</option>
-                  <option value="Custom Metal Fabrication">Custom Fabrication &amp; Base Plates</option>
-                </select>
-              </div>
-
-              {/* Message */}
-              <div className="border-b border-[#E5E7EB] pb-5 mb-8">
-                <label className="block text-[10px] font-bold text-[#647488] uppercase tracking-[0.1em] mb-2">
-                  Message / Project Notes
-                </label>
-                <textarea
-                  rows={3}
-                  value={formData.notes}
-                  onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
-                  placeholder="e.g. 50 kW rooftop, 20T purlins, wind zone IV, delivery to Noida..."
-                  className="w-full bg-transparent text-base font-semibold text-[#0F2130] placeholder-[#C0C8D2] focus:outline-none resize-none"
+                  placeholder="e.g. Solar Structures, C-Channel, Inverters..."
+                  className="w-full bg-transparent text-base font-semibold text-[#0F2130] placeholder-[#C0C8D2] focus:outline-none"
                 />
               </div>
 
