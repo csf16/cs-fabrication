@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useSEO } from '../hooks/useSEO';
 import { MapPin, Mail, Clock, CheckCircle2, ArrowRight, Navigation } from 'lucide-react';
@@ -18,6 +18,7 @@ export const ContactPage: React.FC = () => {
   });
 
   const location = useLocation();
+  const formPanelRef = useRef<HTMLDivElement>(null);
 
   const [formData, setFormData] = useState({
     name: '',
@@ -42,6 +43,25 @@ export const ContactPage: React.FC = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [serverError, setServerError] = useState<string | null>(null);
+
+  // Auto-scroll to the top of the form panel when request is successfully sent
+  useEffect(() => {
+    if (isSubmitted && formPanelRef.current) {
+      const timer = setTimeout(() => {
+        const el = formPanelRef.current;
+        if (!el) return;
+        const navOffset = 90; // Fixed navbar height (80px) + breathing buffer
+        const elementPosition = el.getBoundingClientRect().top;
+        const offsetPosition = elementPosition + window.pageYOffset - navOffset;
+
+        window.scrollTo({
+          top: Math.max(0, offsetPosition),
+          behavior: 'smooth',
+        });
+      }, 50);
+      return () => clearTimeout(timer);
+    }
+  }, [isSubmitted]);
 
   const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const val = e.target.value;
@@ -153,7 +173,7 @@ export const ContactPage: React.FC = () => {
         </div>
 
         {/* RIGHT — Form Panel */}
-        <div className="bg-[#FFFFFF] flex flex-col justify-center px-6 sm:px-10 md:px-16 py-12 sm:py-16 lg:py-32">
+        <div ref={formPanelRef} className="bg-[#FFFFFF] flex flex-col justify-center px-6 sm:px-10 md:px-16 py-12 sm:py-16 lg:py-32 scroll-mt-24">
 
           {/* Header */}
           <div className="mb-10">
@@ -168,20 +188,26 @@ export const ContactPage: React.FC = () => {
 
           {isSubmitted ? (
             /* Success state */
-            <div className="border-l-2 border-[#0049CA] pl-6 py-4">
-              <CheckCircle2 className="w-10 h-10 text-[#0049CA] mb-4" />
-              <h3 className="text-2xl font-bold text-[#0F2130] mb-2">Request Received</h3>
-              <p className="text-sm text-[#647488] leading-relaxed mb-6">
-                Thank you, <strong>{formData.name || 'Valued Partner'}</strong>. Our team will contact you at <strong className="font-mono">+91 {formData.phone}</strong> within 4 business hours.
+            <div className="bg-[#F0FDF4] border border-[#BBF7D0] rounded-2xl p-6 sm:p-8 shadow-xs">
+              <div className="w-12 h-12 rounded-full bg-[#16A34A]/10 text-[#16A34A] flex items-center justify-center mb-4">
+                <CheckCircle2 className="w-7 h-7 text-[#16A34A]" />
+              </div>
+              <span className="inline-block text-[10px] font-mono font-bold text-[#16A34A] uppercase tracking-[0.14em] mb-1">
+                Transmitted Successfully
+              </span>
+              <h3 className="text-2xl sm:text-3xl font-extrabold text-[#0F2130] mb-2 tracking-tight">Request Received</h3>
+              <p className="text-sm text-[#475569] leading-relaxed mb-6">
+                Thank you, <strong>{formData.name || 'Valued Partner'}</strong>. Your inquiry has been sent to our engineering desk. Our team will contact you at <strong className="font-mono text-[#0F2130]">+91 {formData.phone}</strong> within 4 business hours.
               </p>
               <button
                 onClick={() => {
                   setIsSubmitted(false);
                   setFormData({ name: '', company: '', phone: '', email: '', productCategory: '' });
                 }}
-                className="text-xs font-bold text-[#0049CA] uppercase tracking-wider hover:underline cursor-pointer"
+                className="inline-flex items-center gap-2 text-xs font-bold text-[#0049CA] uppercase tracking-wider hover:underline cursor-pointer"
               >
-                Submit Another Request →
+                <span>Submit Another Request</span>
+                <ArrowRight className="w-3.5 h-3.5" />
               </button>
             </div>
           ) : (
