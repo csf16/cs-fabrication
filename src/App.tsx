@@ -38,16 +38,7 @@ const AppContent: React.FC = () => {
     return () => window.removeEventListener('open-enquiry', handleOpenEnquiry);
   }, [navigate]);
 
-  // Check if running on localhost vs live production
-  const isLocal =
-    window.location.hostname === 'localhost' ||
-    window.location.hostname === '127.0.0.1';
-
-  // Secret preview flag so you or client can preview full site on live with ?preview=true
-  const hasPreviewParam =
-    new URLSearchParams(location.search).get('preview') === 'true';
-
-  // If user is previewing clone page on production or local
+  // If user is specifically visiting the coming-soon or clone routes
   const isCloneRoute =
     location.pathname === '/coming-soon-clone' ||
     location.pathname === '/clone';
@@ -56,12 +47,11 @@ const AppContent: React.FC = () => {
     return <ComingSoonClonePage onEnquireClick={handleEnquire} />;
   }
 
-  // If live on production (and no preview flag), strictly show the Launch / Coming Soon page
-  if (!isLocal && !hasPreviewParam) {
+  if (location.pathname === '/coming-soon') {
     return <ComingSoonPage onEnquireClick={handleEnquire} />;
   }
 
-  // On Localhost (or with ?preview=true), serve the complete full multi-page website
+  // Serve the complete full multi-page website live on production and local
   return (
     <div className="bg-[#FFFFFF] text-[#0F2130] min-h-screen font-sans selection:bg-[#0057D9] selection:text-white flex flex-col justify-between">
       {/* Navigation Sticky Dock */}
