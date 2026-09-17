@@ -485,6 +485,13 @@ export const HomePage: React.FC<HomePageProps> = ({ onEnquireClick: _onEnquireCl
 
             <div className="flex flex-wrap items-center justify-center gap-4">
               <Link
+                to="/projects"
+                className="inline-flex items-center gap-2.5 px-7 py-3.5 rounded-full bg-[#0049CA] text-white hover:bg-[#003CAD] text-sm font-semibold tracking-wide transition-all duration-300 shadow-md hover:shadow-lg"
+              >
+                <span>View all projects</span>
+                <ArrowRight className="w-4 h-4" />
+              </Link>
+              <Link
                 to="/about"
                 className="inline-flex items-center gap-2.5 px-7 py-3.5 rounded-full bg-[#0F2130] text-white hover:bg-[#0049CA] text-sm font-semibold tracking-wide transition-all duration-300 shadow-md hover:shadow-lg"
               >
@@ -1103,14 +1110,25 @@ export const HomePage: React.FC<HomePageProps> = ({ onEnquireClick: _onEnquireCl
                 )}
               </div>
 
-              <Link
-                to={`/contact?service=${encodeURIComponent(`Inquiry for: ${selectedProject.title}`)}`}
-                onClick={() => setSelectedProject(null)}
-                className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full bg-[#0049CA] hover:bg-[#003CAD] text-white text-xs font-bold uppercase tracking-wider shrink-0 cursor-pointer shadow-md transition-colors"
-              >
-                <PhoneCall className="w-3.5 h-3.5" />
-                <span>Request Similar Spec</span>
-              </Link>
+              <div className="flex flex-wrap items-center gap-3 shrink-0">
+                <Link
+                  to="/projects"
+                  onClick={() => setSelectedProject(null)}
+                  className="inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-full bg-[#F1F5F9] hover:bg-[#E2E8F0] text-[#0F2130] text-xs font-bold uppercase tracking-wider shrink-0 cursor-pointer transition-colors"
+                >
+                  <span>View All Projects</span>
+                  <ArrowRight className="w-3.5 h-3.5 text-[#0049CA]" />
+                </Link>
+
+                <Link
+                  to={`/contact?service=${encodeURIComponent(`Inquiry for: ${selectedProject.title}`)}`}
+                  onClick={() => setSelectedProject(null)}
+                  className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full bg-[#0049CA] hover:bg-[#003CAD] text-white text-xs font-bold uppercase tracking-wider shrink-0 cursor-pointer shadow-md transition-colors"
+                >
+                  <PhoneCall className="w-3.5 h-3.5" />
+                  <span>Request Similar Spec</span>
+                </Link>
+              </div>
             </div>
           </div>
         </div>
