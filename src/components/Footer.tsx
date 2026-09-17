@@ -5,7 +5,6 @@ import {
   MapPin,
   Phone,
   ShieldCheck,
-  Clock,
   ExternalLink
 } from 'lucide-react';
 import { CSFLogo } from './CSFLogo';
@@ -110,12 +109,12 @@ export const Footer: React.FC<FooterProps> = ({ onEnquireClick: _onEnquireClick 
                 <MapPin className="w-4 h-4 text-[#0049CA] flex-shrink-0 mt-0.5" />
                 <div>
                   <span className="text-white/90 font-medium block">Mohanpur Shumali, Amroha</span>
-                  <span>Uttar Pradesh — 244221, India</span>
+                  <span className="block">Uttar Pradesh — 244221, India</span>
                   <a
                     href="https://www.google.com/maps/dir/?api=1&destination=Mohanpur+Shumali+Amroha+Uttar+Pradesh+244221+India"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="mt-1 inline-flex items-center gap-1 text-[11px] text-[#4D8BFF] hover:underline"
+                    className="mt-1.5 inline-flex items-center gap-1 text-[11px] text-[#4D8BFF] hover:underline"
                   >
                     <span>Get Driving Directions</span>
                     <ExternalLink className="w-3 h-3" />
@@ -124,11 +123,6 @@ export const Footer: React.FC<FooterProps> = ({ onEnquireClick: _onEnquireClick 
               </div>
 
               <div className="flex items-center gap-2.5 pt-2 border-t border-white/10">
-                <Clock className="w-4 h-4 text-[#0049CA] flex-shrink-0" />
-                <span>Mon – Sat: 9:00 AM – 7:00 PM IST</span>
-              </div>
-
-              <div className="flex items-center gap-2.5">
                 <Phone className="w-4 h-4 text-[#0049CA] flex-shrink-0" />
                 <a href="tel:+919997178687" className="hover:text-white transition-colors font-mono">
                   +91 99971 78687
