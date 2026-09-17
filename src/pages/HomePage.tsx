@@ -491,19 +491,6 @@ export const HomePage: React.FC<HomePageProps> = ({ onEnquireClick: _onEnquireCl
                 <span>View all projects</span>
                 <ArrowRight className="w-4 h-4" />
               </Link>
-              <Link
-                to="/about"
-                className="inline-flex items-center gap-2.5 px-7 py-3.5 rounded-full bg-[#0F2130] text-white hover:bg-[#0049CA] text-sm font-semibold tracking-wide transition-all duration-300 shadow-md hover:shadow-lg"
-              >
-                <span>Discover our journey</span>
-                <ArrowRight className="w-4 h-4" />
-              </Link>
-              <Link
-                to="/contact"
-                className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-white text-[#0F2130] hover:bg-[#EFECE6] border border-[#E0DCD3] text-sm font-semibold tracking-wide transition-all duration-200"
-              >
-                <span>Speak with an engineer</span>
-              </Link>
             </div>
           </div>
 
