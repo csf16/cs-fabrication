@@ -27,8 +27,8 @@ export const Footer: React.FC<FooterProps> = ({ onEnquireClick: _onEnquireClick 
       <div className="max-w-[1720px] mx-auto px-6 sm:px-10 md:px-16 lg:px-24 pt-16 sm:pt-20 pb-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 lg:gap-10">
           
-          {/* Col 1: Brand & Compliance Credentials (4 cols) */}
-          <div className="lg:col-span-4 flex flex-col gap-6">
+          {/* Col 1: Brand & Compliance Credentials (5 cols) */}
+          <div className="lg:col-span-5 flex flex-col gap-6">
             <Link to="/" className="inline-block group py-1">
               <CSFLogo
                 className="h-16 sm:h-20 w-auto transition-transform duration-200 group-hover:scale-[1.02]"
@@ -72,59 +72,8 @@ export const Footer: React.FC<FooterProps> = ({ onEnquireClick: _onEnquireClick 
             </div>
           </div>
 
-          {/* Col 2: Product Lines (3 cols) */}
+          {/* Col 2: Navigation (3 cols) */}
           <div className="lg:col-span-3 flex flex-col gap-4">
-            <span className="text-xs font-bold text-[#0049CA] uppercase tracking-wider">
-              Engineered Product Lines
-            </span>
-            <ul className="flex flex-col gap-2.5 text-xs text-white/70">
-              <li>
-                <Link to="/products" className="hover:text-white hover:translate-x-1 transition-all inline-flex items-center gap-1.5">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#0049CA]" />
-                  <span>Ground &amp; Rooftop Solar Structures</span>
-                </Link>
-              </li>
-              <li>
-                <Link to="/products#structural-cad" className="hover:text-white hover:translate-x-1 transition-all inline-flex items-center gap-1.5">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#0049CA]" />
-                  <span>C-Channel (80 × 40 × 15 mm)</span>
-                </Link>
-              </li>
-              <li>
-                <Link to="/products#structural-cad" className="hover:text-white hover:translate-x-1 transition-all inline-flex items-center gap-1.5">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#0049CA]" />
-                  <span>C-Channel (60 × 40 × 15 mm)</span>
-                </Link>
-              </li>
-              <li>
-                <Link to="/products#structural-cad" className="hover:text-white hover:translate-x-1 transition-all inline-flex items-center gap-1.5">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#0049CA]" />
-                  <span>41 × 41 mm Slotted Strut Channel</span>
-                </Link>
-              </li>
-              <li>
-                <Link to="/products#electrical" className="hover:text-white hover:translate-x-1 transition-all inline-flex items-center gap-1.5">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#0049CA]" />
-                  <span>Dual-MPPT Solar Hybrid Inverters</span>
-                </Link>
-              </li>
-              <li>
-                <Link to="/products#electrical" className="hover:text-white hover:translate-x-1 transition-all inline-flex items-center gap-1.5">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#0049CA]" />
-                  <span>Weatherproof ACDB &amp; DCDB Combiners</span>
-                </Link>
-              </li>
-              <li>
-                <Link to="/products#hardware" className="hover:text-white hover:translate-x-1 transition-all inline-flex items-center gap-1.5">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#0049CA]" />
-                  <span>Mid Clamps (U-Clamps) &amp; Z-Clamps</span>
-                </Link>
-              </li>
-            </ul>
-          </div>
-
-          {/* Col 3: Company & Information (2 cols) */}
-          <div className="lg:col-span-2 flex flex-col gap-4">
             <span className="text-xs font-bold text-[#0049CA] uppercase tracking-wider">
               Navigation
             </span>
@@ -150,8 +99,8 @@ export const Footer: React.FC<FooterProps> = ({ onEnquireClick: _onEnquireClick 
             </ul>
           </div>
 
-          {/* Col 4: Direct Factory Desk & Plant Location (3 cols) */}
-          <div className="lg:col-span-3 flex flex-col gap-4">
+          {/* Col 3: Direct Factory Desk & Plant Location (4 cols) */}
+          <div className="lg:col-span-4 flex flex-col gap-4">
             <span className="text-xs font-bold text-[#0049CA] uppercase tracking-wider">
               Amroha Manufacturing Plant
             </span>
