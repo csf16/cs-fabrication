@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useSEO } from '../hooks/useSEO';
-import { MapPin, Mail, Clock, CheckCircle2, ArrowRight, Navigation } from 'lucide-react';
+import { MapPin, Mail, CheckCircle2, ArrowRight, Navigation } from 'lucide-react';
 import { submitLeadToGoogleSheet, validatePhoneNumber } from '../services/leadService';
 
 export const ContactPage: React.FC = () => {
@@ -151,14 +151,6 @@ export const ContactPage: React.FC = () => {
                 </span>
               </a>
 
-              <div className="flex items-center gap-3">
-                <div className="w-8 h-8 rounded-lg bg-[#0049CA]/30 border border-[#0049CA]/40 flex items-center justify-center shrink-0">
-                  <Clock className="w-3.5 h-3.5 text-[#60A5FA]" />
-                </div>
-                <span className="text-xs sm:text-sm text-white/80 font-mono">
-                  Mon – Sat: 08:30 – 18:30 IST
-                </span>
-              </div>
 
               <div className="flex items-center gap-3">
                 <div className="w-8 h-8 rounded-lg bg-[#0049CA]/30 border border-[#0049CA]/40 flex items-center justify-center shrink-0">
